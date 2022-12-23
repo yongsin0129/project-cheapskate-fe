@@ -1,4 +1,4 @@
-import './App.css'
+import '././style/dist/app.css'
 
 function App() {
   return (
