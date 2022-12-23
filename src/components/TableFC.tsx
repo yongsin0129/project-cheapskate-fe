@@ -90,7 +90,7 @@ const rows: object[] = []
 for (let index = 0; index < 50; index++) {
   rows.push({
     title: `title${index}`,
-    release: '未知',
-    status: 'leaveFirstRound'
+    release: `未知${index}`,
+    status: `leaveFirstRound${index}`
   })
 }
