@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { App } from './App'
 import './style/dist/main.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {}
@@ -46,6 +47,7 @@ const AppManager = () => {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+    <CssBaseline />
     <AppManager />
   </React.StrictMode>
 )

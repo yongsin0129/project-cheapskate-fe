@@ -28,7 +28,7 @@ const classes = {
 const StyledTable = styled(Table.Table)(({ theme }) => ({
   [`&.${classes.tableStriped}`]: {
     '& tbody tr:nth-of-type(odd)': {
-      backgroundColor: alpha(theme.palette.primary.light, 0.5)
+      // backgroundColor: alpha(theme.palette.primary.light, 0.5)
     }
   }
 }))
@@ -56,6 +56,8 @@ export const TableFC = () => {
           defaultSorting={[{ columnName: 'title', direction: 'asc' }]}
         />
         <IntegratedSorting />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
         <PagingState
           currentPage={currentPage}
           onCurrentPageChange={setCurrentPage}
@@ -63,8 +65,6 @@ export const TableFC = () => {
           onPageSizeChange={setPageSize}
         />
         <IntegratedPaging />
-        <FilteringState defaultFilters={[]} />
-        <IntegratedFiltering />
         <Table
           tableComponent={TableComponent}
           columnExtensions={tableColumnExtensions}
