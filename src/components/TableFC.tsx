@@ -18,24 +18,6 @@ import {
   IntegratedFiltering,
   SearchState
 } from '@devexpress/dx-react-grid'
-import { alpha, styled } from '@mui/material/styles'
-import { width } from '@mui/system'
-
-const PREFIX = 'Demo'
-const classes = {
-  tableStriped: `${PREFIX}-tableStriped`
-}
-const StyledTable = styled(Table.Table)(({ theme }) => ({
-  [`&.${classes.tableStriped}`]: {
-    '& tbody tr:nth-of-type(odd)': {
-      // backgroundColor: alpha(theme.palette.primary.light, 0.5)
-    }
-  }
-}))
-
-const TableComponent: React.FC = props => (
-  <StyledTable {...props} className={classes.tableStriped} />
-)
 
 export const TableFC: React.FC<TableFCProps> = props => {
   const { tableData } = props
@@ -67,7 +49,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
         />
         <IntegratedPaging />
         <Table
-          tableComponent={TableComponent}
+          // tableComponent={TableComponent}
           columnExtensions={tableColumnExtensions}
         />
         <TableHeaderRow showSortingControls />
