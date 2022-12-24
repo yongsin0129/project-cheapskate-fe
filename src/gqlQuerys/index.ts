@@ -5,3 +5,13 @@ export const hello_apollo_server = gql`
     hello
   }
 `
+export const get_all_movies = gql`
+  query Movies {
+    Movies {
+      id
+      title
+      releaseDate
+      status
+    }
+  }
+`

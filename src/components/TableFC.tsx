@@ -37,7 +37,8 @@ const TableComponent: React.FC = props => (
   <StyledTable {...props} className={classes.tableStriped} />
 )
 
-export const TableFC = () => {
+export const TableFC: React.FC<TableFCProps> = props => {
+  const { tableData } = props
   const [tableColumnExtensions] = useState([
     { columnName: 'title', align: 'center' },
     { columnName: 'release', align: 'center' },
@@ -50,13 +51,13 @@ export const TableFC = () => {
 
   return (
     <Paper>
-      <Grid rows={rows} columns={columns}>
+      <Grid rows={tableData} columns={columns}>
         <SearchState defaultValue='' />
         <SortingState
           defaultSorting={[{ columnName: 'title', direction: 'asc' }]}
         />
         <IntegratedSorting />
-        <FilteringState defaultFilters={[]} />
+        {/* <FilteringState defaultFilters={[]} /> */}
         <IntegratedFiltering />
         <PagingState
           currentPage={currentPage}
@@ -70,7 +71,7 @@ export const TableFC = () => {
           columnExtensions={tableColumnExtensions}
         />
         <TableHeaderRow showSortingControls />
-        <TableFilterRow />
+        {/* <TableFilterRow /> */}
         <Toolbar />
         <SearchPanel />
         <PagingPanel pageSizes={pageSizes} />
