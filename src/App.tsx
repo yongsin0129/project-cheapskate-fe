@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
+import { ResponsiveAppBar } from './components/AppBar'
 
 const ToggleModeButton = () => {
   const theme = useTheme()
@@ -34,12 +35,10 @@ export function App () {
   return (
     <Box
       sx={{
-        bgcolor: 'background.default',
+        bgcolor: 'background.default'
       }}
     >
-      <Typography variant='h2' gutterBottom sx={{ color: 'primary.light' }}>
-        project cheapskate
-      </Typography>
+      <ResponsiveAppBar />
       <ToggleModeButton />
       <TableFC />
     </Box>
