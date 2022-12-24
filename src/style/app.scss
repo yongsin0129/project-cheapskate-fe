@@ -4,3 +4,19 @@
   padding: 2rem;
   text-align: center;
 }
+
+.TableFilterCell-flexContainer {
+  text-align: center;
+}
+
+.ToggleModeButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  padding: 1rem;
+}
+
+thead .MuiTableRow-head:first-child {
+  background-color: rgba(66, 165, 245, 0.5);
+}
