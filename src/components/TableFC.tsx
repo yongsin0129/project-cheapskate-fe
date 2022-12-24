@@ -28,7 +28,7 @@ const classes = {
 const StyledTable = styled(Table.Table)(({ theme }) => ({
   [`&.${classes.tableStriped}`]: {
     '& tbody tr:nth-of-type(odd)': {
-      backgroundColor: alpha(theme.palette.primary.main, 0.15)
+      backgroundColor: alpha(theme.palette.primary.light, 0.5)
     }
   }
 }))

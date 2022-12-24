@@ -13,7 +13,7 @@ const ToggleModeButton = () => {
   const colorMode = React.useContext(ColorModeContext)
 
   return (
-    <Box className='ToggleModeButton'>
+    <Box className='ToggleModeButton' sx={{ color: 'secondary.light' }}>
       {theme.palette.mode} mode
       <IconButton
         sx={{ ml: 1 }}
@@ -35,10 +35,9 @@ export function App () {
     <Box
       sx={{
         bgcolor: 'background.default',
-        color: 'text.primary'
       }}
     >
-      <Typography variant='h2' gutterBottom>
+      <Typography variant='h2' gutterBottom sx={{ color: 'primary.light' }}>
         project cheapskate
       </Typography>
       <ToggleModeButton />
