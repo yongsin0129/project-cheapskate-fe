@@ -2,7 +2,7 @@ import '././style/dist/app.css'
 import { TableFC } from './components/TableFC'
 import React from 'react'
 import { ColorModeContext } from './main'
-import Box from '@mui/material/Box'
+import { Box, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
@@ -13,7 +13,7 @@ const ToggleModeButton = () => {
   const colorMode = React.useContext(ColorModeContext)
 
   return (
-    <Box>
+    <Box className='ToggleModeButton'>
       {theme.palette.mode} mode
       <IconButton
         sx={{ ml: 1 }}
@@ -38,7 +38,9 @@ export function App () {
         color: 'text.primary'
       }}
     >
-      <h1>project cheapskate</h1>
+      <Typography variant='h2' gutterBottom>
+        project cheapskate
+      </Typography>
       <ToggleModeButton />
       <TableFC />
     </Box>

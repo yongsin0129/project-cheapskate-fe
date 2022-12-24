@@ -45,7 +45,7 @@ export const TableFC = () => {
   ] as tableColumnExtensionsType[])
 
   const [currentPage, setCurrentPage] = useState(0)
-  const [pageSize, setPageSize] = useState(25)
+  const [pageSize, setPageSize] = useState(10)
   const [pageSizes] = useState([10, 25, 50])
 
   return (
