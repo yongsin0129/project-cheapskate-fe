@@ -9,6 +9,16 @@ export const ColorModeContext = React.createContext({
   toggleColorMode: () => {}
 })
 
+const MovieData: MovieData = {
+  firstRound: null,
+  leaveFirstRound: null,
+  secondRound: null,
+  leaveSecondRound: null,
+  notReleased: null,
+  streaming: null
+}
+export const MovieDataContext = React.createContext(MovieData)
+
 const AppManager = () => {
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
 
@@ -32,11 +42,13 @@ const AppManager = () => {
   )
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <MovieDataContext.Provider value={MovieData}>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </MovieDataContext.Provider>
   )
 }
 

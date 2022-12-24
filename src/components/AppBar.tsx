@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import Link from '@mui/material/Link'
+import { NavLink } from 'react-router-dom'
 
 export function ResponsiveAppBar () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -45,7 +46,6 @@ export function ResponsiveAppBar () {
             variant='h6'
             noWrap
             component='a'
-            href='/'
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -56,7 +56,7 @@ export function ResponsiveAppBar () {
               textDecoration: 'none'
             }}
           >
-            Cheapskate
+            <NavLink to='/'>Cheapskate</NavLink>
           </Typography>
 
           {/* ---------------------------------- 小螢幕使用的 Box ---------------------------------- */}
@@ -91,14 +91,10 @@ export function ResponsiveAppBar () {
               }}
             >
               {pages.map(page => (
-                <MenuItem
-                  key={page.id}
-                  onClick={handleCloseNavMenu}
-                  component={Link}
-                  href={page.herf}
-                  // target='_blank'
-                >
-                  <Typography textAlign='center'>{page.title}</Typography>
+                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                  <NavLink to={page.herf}>
+                    <Typography textAlign='center'>{page.title}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
@@ -107,8 +103,6 @@ export function ResponsiveAppBar () {
           <Typography
             variant='h5'
             noWrap
-            component='a'
-            href=''
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -130,9 +124,10 @@ export function ResponsiveAppBar () {
                 key={page.id}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                href={page.herf}
               >
-                {page.title}
+                <NavLink to={page.herf}>
+                  <Typography textAlign='center'>{page.title}</Typography>
+                </NavLink>
               </Button>
             ))}
           </Box>
@@ -161,13 +156,10 @@ export function ResponsiveAppBar () {
               onClose={handleCloseUserMenu}
             >
               {settings.map(setting => (
-                <MenuItem
-                  key={setting}
-                  onClick={handleCloseUserMenu}
-                  component={Link}
-                  href={`./${setting}`}
-                >
-                  <Typography textAlign='center'>{setting}</Typography>
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <NavLink to={setting}>
+                    <Typography textAlign='center'>{setting}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>

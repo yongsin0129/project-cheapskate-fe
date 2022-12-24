@@ -10,7 +10,16 @@ type tableColumnExtensionsTypeArray = {
   align: 'left' | 'right' | 'center'
 }[]
 
-interface sortingType{
+interface sortingType {
   columnName: string
   direction: 'asc' | 'desc'
+}
+
+interface MovieData {
+  firstRound: any
+  leaveFirstRound: any
+  secondRound: any
+  leaveSecondRound: any
+  notReleased: any
+  streaming: any
 }
