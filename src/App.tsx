@@ -1,13 +1,21 @@
 import '././style/dist/app.css'
-import { TableFC } from './components/TableFC'
 import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ColorModeContext } from './main'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { ResponsiveAppBar } from './components/AppBar'
+import {
+  HomePage,
+  News,
+  FirstRoundMovie,
+  SecondRoundMovie,
+  AllMovies,
+  FollowedMovies
+} from './pages'
 
 const ToggleModeButton = () => {
   const theme = useTheme()
@@ -33,14 +41,23 @@ const ToggleModeButton = () => {
 
 export function App () {
   return (
-    <Box
-      sx={{
-        bgcolor: 'background.default'
-      }}
-    >
-      <ResponsiveAppBar />
-      <ToggleModeButton />
-      <TableFC />
-    </Box>
+    <Router>
+      <Box
+        sx={{
+          bgcolor: 'background.default'
+        }}
+      >
+        <ResponsiveAppBar />
+        <ToggleModeButton />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/News' element={<News />} />
+          <Route path='/FirstRoundMovie' element={<FirstRoundMovie />} />
+          <Route path='/SecondRoundMovie' element={<SecondRoundMovie />} />
+          <Route path='/AllMovies' element={<AllMovies />} />
+          <Route path='/FollowedMovies' element={<FollowedMovies />} />
+        </Routes>
+      </Box>
+    </Router>
   )
 }

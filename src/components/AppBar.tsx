@@ -15,9 +15,6 @@ import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import Link from '@mui/material/Link'
 
-const pages = ['本周新片', '本期首輪', '本期二輪', '全部電影', '收藏清單']
-const settings = ['Profile', 'Logout']
-
 export function ResponsiveAppBar () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -95,13 +92,13 @@ export function ResponsiveAppBar () {
             >
               {pages.map(page => (
                 <MenuItem
-                  key={page}
+                  key={page.id}
                   onClick={handleCloseNavMenu}
                   component={Link}
-                  href={`./${page}`}
+                  href={page.herf}
                   // target='_blank'
                 >
-                  <Typography textAlign='center'>{page}</Typography>
+                  <Typography textAlign='center'>{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -130,12 +127,12 @@ export function ResponsiveAppBar () {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (
               <Button
-                key={page}
+                key={page.id}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                href={`./${page}`}
+                href={page.herf}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>
@@ -180,3 +177,12 @@ export function ResponsiveAppBar () {
     </AppBar>
   )
 }
+
+const pages = [
+  { id: '1', title: '本周新片', herf: './news' },
+  { id: '2', title: '本期首輪', herf: './FirstRoundMovie' },
+  { id: '3', title: '本期二輪', herf: './SecondRoundMovie' },
+  { id: '4', title: '全部電影', herf: './AllMovies' },
+  { id: '5', title: '收藏清單', herf: './FollowedMovies' }
+]
+const settings = ['Profile', 'Logout']
