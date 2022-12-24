@@ -4,6 +4,15 @@ import { App } from './App'
 import './style/dist/main.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+
+const client = new ApolloClient({
+  uri: import.meta.env.VITE_graphql_endPoint,
+  cache: new InMemoryCache(),
+  headers: {
+    'cheapskate-token': import.meta.env.VITE_cheapskate_token
+  }
+})
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {}
@@ -43,13 +52,15 @@ const AppManager = () => {
   )
 
   return (
-    <MovieDataContext.Provider value={MovieData}>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </ColorModeContext.Provider>
-    </MovieDataContext.Provider>
+    <ApolloProvider client={client}>
+      <MovieDataContext.Provider value={MovieData}>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </ColorModeContext.Provider>
+      </MovieDataContext.Provider>
+    </ApolloProvider>
   )
 }
 
