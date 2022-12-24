@@ -1,9 +1,9 @@
 import React from 'react'
+import { MovieDataContext } from '../main'
 
 const FollowedMovies = () => {
-  return (
-    <div>FollowedMovies</div>
-  )
+  const MovieData = React.useContext(MovieDataContext)
+  return <div>FollowedMovies</div>
 }
 
 export default FollowedMovies

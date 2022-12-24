@@ -22,4 +22,5 @@ interface MovieData {
   leaveSecondRound: any
   notReleased: any
   streaming: any
+  MyFollowedMovie:any
 }

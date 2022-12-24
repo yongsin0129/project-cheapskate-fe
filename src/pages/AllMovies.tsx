@@ -1,9 +1,9 @@
 import React from 'react'
+import { MovieDataContext } from '../main'
 
 const AllMovies = () => {
-  return (
-    <div>AllMovies</div>
-  )
+  const MovieData = React.useContext(MovieDataContext)
+  return <div>AllMovies</div>
 }
 
 export default AllMovies

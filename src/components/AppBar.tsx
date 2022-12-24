@@ -114,7 +114,7 @@ export function ResponsiveAppBar () {
               textDecoration: 'none'
             }}
           >
-            Cheapskate 手機版
+            Cheapskate
           </Typography>
 
           {/* ---------------------------------- 正常螢幕使用的 Box ---------------------------------- */}

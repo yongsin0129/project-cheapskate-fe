@@ -15,7 +15,8 @@ const MovieData: MovieData = {
   secondRound: null,
   leaveSecondRound: null,
   notReleased: null,
-  streaming: null
+  streaming: null,
+  MyFollowedMovie: null
 }
 export const MovieDataContext = React.createContext(MovieData)
 
