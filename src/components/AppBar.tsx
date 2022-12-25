@@ -136,7 +136,7 @@ export function ResponsiveAppBar () {
             <Tooltip title='請點擊連入登入頁面'>
               <NavLink to={'signIn'}>
                 <Button color='info' variant='contained'>
-                  Log In
+                  Sign In
                 </Button>
               </NavLink>
             </Tooltip>

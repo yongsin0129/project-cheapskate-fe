@@ -5,6 +5,7 @@ import AllMovies from './AllMovies'
 import FollowedMovies from './FollowedMovies'
 import HomePage from './HomePage'
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 export {
   News,
@@ -13,5 +14,6 @@ export {
   AllMovies,
   FollowedMovies,
   HomePage,
-  SignIn
+  SignIn,
+  SignUp
 }

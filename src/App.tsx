@@ -16,7 +16,8 @@ import {
   SecondRoundMovie,
   AllMovies,
   FollowedMovies,
-  SignIn
+  SignIn,
+  SignUp
 } from './pages'
 
 const ToggleModeButton = () => {
@@ -61,6 +62,7 @@ export function App () {
           <Route path='/AllMovies' element={<AllMovies />} />
           <Route path='/FollowedMovies' element={<FollowedMovies />} />
           <Route path='/SignIn' element={<SignIn />} />
+          <Route path='/SignUp' element={<SignUp />} />
         </Routes>
         <Footer />
       </Box>
