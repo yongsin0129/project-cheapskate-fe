@@ -1,0 +1,30 @@
+@charset "UTF-8";
+tbody tr.MuiTableRow-root td:nth-child(4)::after {
+  font-family: "Font Awesome 5 Free";
+  z-index: 100;
+  font-weight: 100;
+  content: "";
+  color: red;
+}
+tbody tr.MuiTableRow-root td:nth-child(4).followed::after {
+  font-family: "Font Awesome 5 Free";
+  z-index: 900;
+  font-weight: 900;
+  content: "";
+  color: red;
+}
+tbody tr.MuiTableRow-root td:nth-child(4):hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.scssClass {
+  border-right: 50px solid blue;
+}
+.scssClass::after {
+  font-family: "Font Awesome 5 Free";
+  z-index: 100;
+  font-weight: 100;
+  content: "";
+  color: red;
+}
