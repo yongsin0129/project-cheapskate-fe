@@ -127,14 +127,12 @@ const columns = [
           children function component
 *
 *********************************************************************************/
-const FavoriteCell = ({ value, style, ...restProps }) => (
+const FavoriteCell = ({ value, style, active, ...restProps }) => (
   <Table.Cell
     {...restProps}
-    // style={{ }}
-    // className='scssClass'
   >
     <Typography>
-      <i className='fa-solid fa-heart favoriteIcon'></i>
+      <i className={`fa-solid fa-heart favoriteIcon ${active && 'favoriteActive'} `}></i>
     </Typography>
   </Table.Cell>
 )
@@ -145,7 +143,10 @@ const Cell = (props: any) => {
     // 這邊的 props 可以到 movies 從後端來的全部資料
     console.log(row.id)
     console.log(props)
-    return <FavoriteCell {...props} />
+    
+    // 可以條件判斷，未來用來比對已經存在的 favorite movie
+    if (Math.random() < 0.5) return <FavoriteCell active={true} {...props} />
+    else return <FavoriteCell {...props} />
   }
   return <Table.Cell {...props} />
 }
