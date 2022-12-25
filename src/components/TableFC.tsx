@@ -69,7 +69,14 @@ const Cell = props => {
 }
 
 export const TableFC: React.FC<TableFCProps> = props => {
+  {
+    /* ------------------------ 父層引入的 tableDate  */
+  }
   const { tableData } = props
+
+  {
+    /* ------------------------ grid column state definition */
+  }
   const [tableColumnExtensions] = useState([
     { columnName: 'title', align: 'center', width: '40%' },
     { columnName: 'release', align: 'center', width: '32%' },
@@ -77,6 +84,9 @@ export const TableFC: React.FC<TableFCProps> = props => {
     { columnName: 'favorite', align: 'center', width: '8%' }
   ] as tableColumnExtensionsType[])
 
+  {
+    /* ------------------------ 分頁器的 state definition */
+  }
   const [currentPage, setCurrentPage] = useState(0)
   const [pageSize, setPageSize] = useState(10)
   const [pageSizes] = useState([10, 25, 50])
@@ -91,14 +101,22 @@ export const TableFC: React.FC<TableFCProps> = props => {
 
   return (
     <Paper onClick={clickHandler}>
+      {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
+        {/* ------------------------ grid 搜尋器的 state manager */}
         <SearchState defaultValue='' />
+
+        {/* ------------------------ column排序器的 state manager */}
         <SortingState
           defaultSorting={[{ columnName: 'title', direction: 'asc' }]}
         />
         <IntegratedSorting />
+
+        {/* ------------------------ column過濾器的 state manager */}
         {/* <FilteringState defaultFilters={[]} /> */}
-        <IntegratedFiltering />
+        {/* <IntegratedFiltering /> */}
+
+        {/* ------------------------分頁器的 state manager */}
         <PagingState
           currentPage={currentPage}
           onCurrentPageChange={setCurrentPage}
@@ -106,15 +124,24 @@ export const TableFC: React.FC<TableFCProps> = props => {
           onPageSizeChange={setPageSize}
         />
         <IntegratedPaging />
+
+        {/* ------------------------主體 Table 的 UI */}
         <Table
           cellComponent={Cell}
           // tableComponent={TableComponent}
           columnExtensions={tableColumnExtensions}
         />
+        {/* ------------------------Table Header 的 UI */}
         <TableHeaderRow showSortingControls />
+
+        {/* ------------------------每個 column 的 filter UI */}
         {/* <TableFilterRow /> */}
+
+        {/* ------------------------需要 Toolbar 才能顯示 searchPanel 的 icon UI */}
         <Toolbar />
         <SearchPanel />
+
+        {/* ------------------------分頁器的 UI */}
         <PagingPanel pageSizes={pageSizes} />
       </Grid>
     </Paper>
