@@ -8,8 +8,8 @@ const AllMovies = () => {
   const MovieData = React.useContext(MovieDataContext)
 
   const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error </p>
+  if (loading) return <p className='pageContent'>Loading...</p>
+  if (error) return <p className='pageContent'>Error </p>
 
   const tableData = data?.Movies?.map(v => {
     return {
@@ -23,12 +23,12 @@ const AllMovies = () => {
 
   if (tableData)
     return (
-      <div>
+      <div className='pageContent'>
         AllMovies
         <TableFC tableData={tableData} />
       </div>
     )
-    else return <p>無資料</p>
+  else return <p>無資料</p>
 }
 
 export default AllMovies

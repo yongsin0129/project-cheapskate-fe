@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { ResponsiveAppBar } from './components/AppBar'
+import { Footer } from './components/Footer'
 import {
   HomePage,
   News,
@@ -44,6 +45,7 @@ export function App () {
   return (
     <Router>
       <Box
+        id='app'
         sx={{
           height: '100vh',
           bgcolor: 'background.default'
@@ -60,6 +62,7 @@ export function App () {
           <Route path='/FollowedMovies' element={<FollowedMovies />} />
           <Route path='/SignIn' element={<SignIn />} />
         </Routes>
+        <Footer />
       </Box>
     </Router>
   )
