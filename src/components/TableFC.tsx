@@ -52,6 +52,7 @@ const HighlightedCell: React.FC = ({ value, style, ...restProps }) => (
       }}
     >
       {value}
+      <i className="fa-solid fa-gamepad"></i>
     </span>
   </Table.Cell>
 )
