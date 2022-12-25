@@ -45,6 +45,7 @@ const HighlightedCell: React.FC = ({ value, style, ...restProps }) => (
       backgroundColor: value == 'leaveFirstRound' ? 'red' : 'blue',
       ...style
     }}
+    className='scssClass'
   >
     <span
       style={{
@@ -52,7 +53,7 @@ const HighlightedCell: React.FC = ({ value, style, ...restProps }) => (
       }}
     >
       {value}
-      <i className="fa-solid fa-gamepad"></i>
+      <i className='fa-solid fa-gamepad'></i>
     </span>
   </Table.Cell>
 )
