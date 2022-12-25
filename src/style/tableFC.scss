@@ -24,5 +24,17 @@ tbody tr.MuiTableRow-root {
   }
 }
 
+.scssClass {
+  border-right: 50px solid blue;
+
+  &::after {
+    font-family: "Font Awesome 5 Free";
+    z-index: 100;
+    font-weight: 100;
+    content: "\f004";
+    color: red;
+  }
+}
+
 // document.querySelector('tbody tr.MuiTableRow-root td:nth-child(4)').classList.add('followed')
 // document.querySelector('tbody tr.MuiTableRow-root td:nth-child(4)').classList.remove('followed')

@@ -12,6 +12,7 @@ export const get_all_movies = gql`
       title
       releaseDate
       status
+      url
     }
   }
 `
