@@ -1,0 +1,12 @@
+tbody tr.MuiTableRow-root .favoriteIcon {
+  scale: 1.5;
+  font-weight: 100;
+}
+tbody tr.MuiTableRow-root .favoriteIcon:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+tbody tr.MuiTableRow-root .favoriteActive {
+  color: red;
+  font-weight: 900;
+}

@@ -1,9 +1,10 @@
 import React from 'react'
+import { MovieDataContext } from '../main'
 
 const SecondRoundMovie = () => {
-  return (
-    <div>SecondRoundMovie</div>
-  )
+  const MovieData = React.useContext(MovieDataContext)
+
+  return <div>SecondRoundMovie</div>
 }
 
 export default SecondRoundMovie

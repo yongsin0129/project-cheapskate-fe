@@ -44,6 +44,7 @@ export function App () {
     <Router>
       <Box
         sx={{
+          height: '100vh',
           bgcolor: 'background.default'
         }}
       >

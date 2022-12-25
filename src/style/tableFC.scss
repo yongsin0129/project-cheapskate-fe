@@ -1,0 +1,46 @@
+tbody tr.MuiTableRow-root {
+
+  .favoriteIcon {
+    scale: 1.5;
+    font-weight: 100;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+    }
+  }
+
+  .favoriteActive {
+    color: red;
+    font-weight: 900;
+  }
+}
+
+// tbody tr.MuiTableRow-root {
+//   td:nth-child(4) {
+//     &::after {
+//       font-family: "Font Awesome 5 Free";
+//       z-index: 100;
+//       font-weight: 100;
+//       content: "\f004";
+//       color: red;
+//     }
+
+//     &.followed::after {
+//       font-family: "Font Awesome 5 Free";
+//       z-index: 900;
+//       font-weight: 900;
+//       content: "\f004";
+//       color: red;
+//     }
+
+//     &:hover {
+//       cursor: pointer;
+//       transform: scale(1.05);
+//     }
+
+//   }
+// }
+
+// document.querySelector('tbody tr.MuiTableRow-root td:nth-child(4)').classList.add('followed')
+// document.querySelector('tbody tr.MuiTableRow-root td:nth-child(4)').classList.remove('followed')

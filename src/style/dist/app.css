@@ -15,11 +15,3 @@
   align-items: center;
   padding: 1rem;
 }
-
-thead .MuiTableRow-head:first-child {
-  // background-color: rgba(66, 165, 245, 0.5);
-}
-
-button.MuiButton-text:nth-child(n+3) {
-  // color: #42a5f5
-}
