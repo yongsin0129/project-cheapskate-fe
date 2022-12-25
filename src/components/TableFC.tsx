@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../style/dist/tableFC.css'
 import Paper from '@mui/material/Paper'
-import { alpha, styled } from '@mui/material/styles'
 import {
   Grid,
   Table,
@@ -20,54 +19,14 @@ import {
   IntegratedFiltering,
   SearchState
 } from '@devexpress/dx-react-grid'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { Typography } from '@mui/material'
 
-const StyledTable = styled(Table.Table)(({ theme }) => ({
-  [`&.TestClass`]: {
-    '& tbody tr:nth-of-type(odd)': {
-      // backgroundColor: alpha(theme.palette.primary.main, 0.5)
-    },
-    '& tbody tr td:nth-child(4)': {
-      // backgroundColor: theme.palette.success.main
-    }
-  }
-}))
-
-// const TableComponent: React.FC = props => (
-//   // <StyledTable {...props} className={'TestClass scssClass'} />
-// )
-
-const HighlightedCell: React.FC = ({ value, style, ...restProps }) => (
-  // console.log(value)
-  // console.log(style)
-  <Table.Cell
-    {...restProps}
-    style={{
-      backgroundColor: value == 'leaveFirstRound' ? 'red' : 'blue',
-      ...style
-    }}
-    className='scssClass'
-  >
-    <span
-      style={{
-        color: value < 5000 ? 'white' : undefined
-      }}
-    >
-      {value}
-      <i className='fa-solid fa-gamepad'></i>
-    </span>
-  </Table.Cell>
-)
-
-const Cell = props => {
-  const { column } = props
-  if (column.name === 'status') {
-    // 這邊的 props 可以到 movies 從後端來的全部資料
-    console.log(props)
-    return <HighlightedCell {...props} />
-  }
-  return <Table.Cell {...props} />
-}
-
+/********************************************************************************
+*
+          main Function component
+*
+*********************************************************************************/
 export const TableFC: React.FC<TableFCProps> = props => {
   {
     /* ------------------------ 父層引入的 tableDate  */
@@ -91,16 +50,24 @@ export const TableFC: React.FC<TableFCProps> = props => {
   const [pageSize, setPageSize] = useState(10)
   const [pageSizes] = useState([10, 25, 50])
 
-  const clickHandler = (e: React.MouseEvent) => {
-    const value = window.getComputedStyle(e.target, ':after')
-    console.log('clickHandler ~ value', value.content)
-    console.log(value.zIndex)
-    console.log(e.target.parentElement?.children[0].innerText)
-    console.log(e.target.parentElement?.children[1].innerText)
+  {
+    /* ------------------------ 加入收藏 Icon 的 click handler */
+  }
+
+  const clickFavoriteIcon = (e: React.MouseEvent) => {
+    if (e.target.className.includes('favoriteIcon')) {
+      // 找到父層 : table row
+      const tableRowDom = e.target.closest('tr')
+
+      // 取得 movie data title , release date
+      const title_releaseDate =
+        tableRowDom.children[0].innerText + tableRowDom.children[1].innerText // column : title
+      console.log('clickHandler ~ title_releaseDate', title_releaseDate)
+    }
   }
 
   return (
-    <Paper onClick={clickHandler}>
+    <Paper onClick={clickFavoriteIcon}>
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}
@@ -155,12 +122,30 @@ const columns = [
   { name: 'favorite', title: 'Favorite' }
 ]
 
-const rows: object[] = []
+/********************************************************************************
+*
+          children function component
+*
+*********************************************************************************/
+const FavoriteCell = ({ value, style, ...restProps }) => (
+  <Table.Cell
+    {...restProps}
+    // style={{ }}
+    // className='scssClass'
+  >
+    <Typography>
+      <i className='fa-solid fa-heart favoriteIcon'></i>
+    </Typography>
+  </Table.Cell>
+)
 
-for (let index = 0; index < 50; index++) {
-  rows.push({
-    title: `title${index}`,
-    release: `未知${index}`,
-    status: `leaveFirstRound${index}`
-  })
+const Cell = (props: any) => {
+  const { column, row } = props
+  if (column.name === 'favorite') {
+    // 這邊的 props 可以到 movies 從後端來的全部資料
+    console.log(row.id)
+    console.log(props)
+    return <FavoriteCell {...props} />
+  }
+  return <Table.Cell {...props} />
 }
