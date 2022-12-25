@@ -133,9 +133,16 @@ export function ResponsiveAppBar () {
 
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
           <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title='請點擊連入登入頁面'>
+              <NavLink to={'signIn'}>
+                <Button color='info' variant='contained'>
+                  Log In
+                </Button>
+              </NavLink>
+            </Tooltip>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <SettingsIcon />
+                <SettingsIcon sx={{ fontSize: '2rem' }} />
               </IconButton>
             </Tooltip>
             <Menu
