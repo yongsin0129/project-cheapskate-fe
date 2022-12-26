@@ -3,15 +3,18 @@ import { Paper } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { Grid, Box } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
+import Alert from '@mui/material/Alert'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
+import { useNavigate } from 'react-router-dom'
 
+// joi 驗證規則
 const schema = Joi.object({
   email: Joi.string()
     .required()
@@ -19,13 +22,10 @@ const schema = Joi.object({
   password: Joi.string().min(6).max(255).required()
 })
 
-type Inputs = {
-  email: string
-  password: string
-}
-
 const SignIn = () => {
+  // hook 定義
   const theme = useTheme()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -37,13 +37,53 @@ const SignIn = () => {
     reValidateMode: 'onChange',
     resolver: joiResolver(schema)
   })
-  console.log('errors : ', JSON.stringify(errors))
+  const [pageState, setPageState] = React.useState<pageState>({
+    isLoading: false
+  })
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
-
+  // watch 定義
   const [email, password] = watch(['email', 'password']) // watch input value by passing the name of it
-  console.log('watch email : ', email)
-  console.log('watch password : ', password)
+
+  // submit handler
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    setPageState({ isLoading: true })
+    console.log('submit successful')
+    console.log(data)
+
+    console.log('send post request')
+    fetch(`${import.meta.env.VITE_RESTful_api_endPoint}/user/signIn`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success === false) {
+          setPageState({
+            isLoading: false,
+            isError: true,
+            message: data.message
+          })
+        } else {
+          setPageState({ isLoading: false, isError: false })
+          localStorage.setItem(
+            'jwt_token',
+            JSON.stringify(data.data[0].jwtToken)
+          )          
+          navigate('/FollowedMovies')
+        }
+        console.log(data)
+      })
+      .catch(error => {
+        setPageState({ isLoading: false, isError: true, error })
+        console.error(error)
+      })
+  }
 
   return (
     <Paper className='pageContent'>
@@ -61,12 +101,20 @@ const SignIn = () => {
         <Typography component='h1' variant='h5'>
           Sign In
         </Typography>
+
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* -------------------------------- warming message */}
+          {!!pageState.isError && (
+            <Alert severity='error' sx={{ width: '100%' }}>
+              {pageState.message}
+            </Alert>
+          )}
+
           {/* -------------------------------- email input controller */}
           <Controller
             name='email'
             control={control}
-            defaultValue=''
+            defaultValue='user20@example.com'
             rules={{
               required: { value: true, message: '信箱不可為空' },
               pattern: {
@@ -93,7 +141,7 @@ const SignIn = () => {
           <Controller
             name='password'
             control={control}
-            defaultValue=''
+            defaultValue='123456'
             rules={{
               required: { value: true, message: '密碼不可為空' },
               minLength: { value: 6, message: '最短長度為 6 ' }
@@ -112,14 +160,16 @@ const SignIn = () => {
             )}
           />
 
-          <Button
+          {/* -------------------------------- submit button */}
+          <LoadingButton
             type='submit'
             fullWidth
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
+            loading={pageState.isLoading === true}
           >
             Sign In
-          </Button>
+          </LoadingButton>
           <Grid container>
             <Grid item>
               <Link to='/'>Forgot password?</Link>
@@ -135,3 +185,15 @@ const SignIn = () => {
 }
 
 export default SignIn
+
+type Inputs = {
+  email: string
+  password: string
+}
+
+interface pageState {
+  isLoading?: boolean
+  isError?: boolean
+  error?: object
+  message?: string
+}
