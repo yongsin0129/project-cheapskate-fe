@@ -9,6 +9,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { joiResolver } from '@hookform/resolvers/joi'
+import Joi from 'joi'
+
+const schema = Joi.object({
+  email: Joi.string()
+    .required()
+    .email({ tlds: { allow: false } }),
+  password: Joi.string().min(6).max(255).required()
+})
 
 type Inputs = {
   email: string
@@ -25,11 +34,13 @@ const SignIn = () => {
     formState: { errors }
   } = useForm<Inputs>({
     // mode: 'onBlur',   // default mode : 'onSubmit'
-    reValidateMode: 'onChange'
+    reValidateMode: 'onChange',
+    resolver: joiResolver(schema)
   })
   console.log('errors : ', JSON.stringify(errors))
 
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+
   const [email, password] = watch(['email', 'password']) // watch input value by passing the name of it
   console.log('watch email : ', email)
   console.log('watch password : ', password)
@@ -63,7 +74,7 @@ const SignIn = () => {
                 message: '請輸入有效的信箱'
               }
             }}
-            render={({ field, fieldState: { error } }) => {             
+            render={({ field, fieldState: { error } }) => {
               return (
                 <TextField
                   {...field}
