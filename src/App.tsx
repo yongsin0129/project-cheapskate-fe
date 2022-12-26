@@ -8,13 +8,16 @@ import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { ResponsiveAppBar } from './components/AppBar'
+import { Footer } from './components/Footer'
 import {
   HomePage,
   News,
   FirstRoundMovie,
   SecondRoundMovie,
   AllMovies,
-  FollowedMovies
+  FollowedMovies,
+  SignIn,
+  SignUp
 } from './pages'
 
 const ToggleModeButton = () => {
@@ -43,6 +46,7 @@ export function App () {
   return (
     <Router>
       <Box
+        id='app'
         sx={{
           height: '100vh',
           bgcolor: 'background.default'
@@ -57,7 +61,10 @@ export function App () {
           <Route path='/SecondRoundMovie' element={<SecondRoundMovie />} />
           <Route path='/AllMovies' element={<AllMovies />} />
           <Route path='/FollowedMovies' element={<FollowedMovies />} />
+          <Route path='/SignIn' element={<SignIn />} />
+          <Route path='/SignUp' element={<SignUp />} />
         </Routes>
+        <Footer />
       </Box>
     </Router>
   )

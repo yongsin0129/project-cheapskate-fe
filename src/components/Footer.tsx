@@ -2,14 +2,11 @@ import React from 'react'
 import { Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
-const News = () => {
+export const Footer: React.FC = props => {
   const theme = useTheme()
-
   return (
-    <Typography className='pageContent' color={theme.palette.text.primary}>
-      News
+    <Typography id='footer' variant='h6' color={theme.palette.text.primary}>
+      {'Copyright © '} Cheapskate 2022
     </Typography>
   )
 }
-
-export default News

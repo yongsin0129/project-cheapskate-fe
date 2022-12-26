@@ -4,7 +4,7 @@ import { MovieDataContext } from '../main'
 const SecondRoundMovie = () => {
   const MovieData = React.useContext(MovieDataContext)
 
-  return <div>SecondRoundMovie</div>
+  return <div className='pageContent'>SecondRoundMovie</div>
 }
 
 export default SecondRoundMovie

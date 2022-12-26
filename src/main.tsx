@@ -29,7 +29,7 @@ const MovieData: MovieData = {
 }
 export const MovieDataContext = React.createContext(MovieData)
 
-const AppManager = () => {
+const ContextManager = () => {
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
 
   const colorMode = React.useMemo(
@@ -65,13 +65,13 @@ const AppManager = () => {
 }
 
 // 層級
-// AppManager / App
-// AppManger 管理 context
-// App 管理 page and component
+// ContextManager / App
+// ContextManager 管理 context
+// App 管理 routes , page component
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <CssBaseline />
-    <AppManager />
+    <ContextManager />
   </React.StrictMode>
 )

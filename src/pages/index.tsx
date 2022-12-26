@@ -1,9 +1,11 @@
-import News from './news'
+import News from './News'
 import FirstRoundMovie from './FirstRoundMovie'
 import SecondRoundMovie from './SecondRoundMovie'
 import AllMovies from './AllMovies'
 import FollowedMovies from './FollowedMovies'
 import HomePage from './HomePage'
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 export {
   News,
@@ -11,5 +13,7 @@ export {
   SecondRoundMovie,
   AllMovies,
   FollowedMovies,
-  HomePage
+  HomePage,
+  SignIn,
+  SignUp
 }
