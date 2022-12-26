@@ -5,10 +5,12 @@ import './style/dist/main.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import * as helper from './helper'
 
 const client = new ApolloClient({
   uri: import.meta.env.VITE_graphql_endPoint,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  headers: helper.getToken() ? { jwt_token: helper.getToken() } : {}
 })
 
 export const ColorModeContext = React.createContext({

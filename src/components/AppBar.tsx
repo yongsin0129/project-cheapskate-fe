@@ -15,6 +15,20 @@ import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import Link from '@mui/material/Link'
 import { NavLink } from 'react-router-dom'
+import * as gql from '../gqlQuerys'
+import { useQuery } from '@apollo/client'
+
+const Me: React.FC = () => {
+  const { loading, error, data }: QueryResType = useQuery(gql.get_Me)
+  if (loading) return <p className='pageContent'>Loading...</p>
+  if (error) {
+    console.log(error.graphQLErrors[0].message)
+    return <p className='pageContent'>{JSON.stringify(error)} </p>
+  }
+  console.log(data)
+
+  return <p>{data.Me.name}</p>
+}
 
 export function ResponsiveAppBar () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -133,6 +147,7 @@ export function ResponsiveAppBar () {
 
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
           <Box sx={{ flexGrow: 0 }}>
+            <Me />
             <Tooltip title='請點擊連入登入頁面'>
               <NavLink to={'signIn'}>
                 <Button color='info' variant='contained'>
@@ -184,3 +199,9 @@ const pages = [
   { id: '5', title: '收藏清單', herf: './FollowedMovies' }
 ]
 const settings = ['Profile', 'Logout']
+
+interface QueryResType {
+  loading?: any
+  error?: any
+  data?: any
+}

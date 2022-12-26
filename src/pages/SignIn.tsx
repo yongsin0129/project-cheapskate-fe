@@ -74,8 +74,8 @@ const SignIn = () => {
           localStorage.setItem(
             'jwt_token',
             JSON.stringify(data.data[0].jwtToken)
-          )          
-          navigate('/FollowedMovies')
+          )
+          navigate('/FollowedMovies', { state: { reload: true } })
         }
         console.log(data)
       })
