@@ -27,6 +27,7 @@ const SignIn = () => {
     // mode: 'onBlur',   // default mode : 'onSubmit'
     reValidateMode: 'onChange'
   })
+  console.log('errors : ', JSON.stringify(errors))
 
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
   const [email, password] = watch(['email', 'password']) // watch input value by passing the name of it
@@ -62,17 +63,20 @@ const SignIn = () => {
                 message: '請輸入有效的信箱'
               }
             }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                {...field}
-                margin='normal'
-                fullWidth
-                label='Email Address'
-                autoComplete='email'
-              />
-            )}
+            render={({ field, fieldState: { error } }) => {             
+              return (
+                <TextField
+                  {...field}
+                  margin='normal'
+                  fullWidth
+                  label='Email Address'
+                  autoComplete='email'
+                  error={error !== undefined}
+                  helperText={error ? error.message : ''}
+                />
+              )
+            }}
           />
-          {errors.email && <span>{errors.email?.message}</span>}
 
           {/* -------------------------------- password input controller */}
           <Controller
@@ -83,7 +87,7 @@ const SignIn = () => {
               required: { value: true, message: '密碼不可為空' },
               minLength: { value: 6, message: '最短長度為 6 ' }
             }}
-            render={({ field }) => (
+            render={({ field, fieldState: { error } }) => (
               <TextField
                 {...field}
                 margin='normal'
@@ -91,10 +95,11 @@ const SignIn = () => {
                 type='password'
                 label='password'
                 autoComplete='current-password'
+                error={error !== undefined}
+                helperText={error ? error.message : ''}
               />
             )}
           />
-          {errors.password && <span>{errors.password?.message}</span>}
 
           <Button
             type='submit'
