@@ -21,7 +21,7 @@ import {
 } from '@devexpress/dx-react-grid'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Typography } from '@mui/material'
-import { FavoriteCellProps } from '../TableFC'
+import { FavoriteCellProps } from '../Type/Type.TableFC'
 /********************************************************************************
 *
           main Function component
