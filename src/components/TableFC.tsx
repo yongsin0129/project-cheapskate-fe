@@ -80,9 +80,9 @@ export const TableFC: React.FC<TableFCProps> = props => {
         />
         <IntegratedSorting />
 
-        {/* ------------------------ column過濾器的 state manager */}
+        {/* ------------------------ column過濾器的 state manager , IntegratedFiltering 也包含 search bar */}
         {/* <FilteringState defaultFilters={[]} /> */}
-        {/* <IntegratedFiltering /> */}
+        <IntegratedFiltering />
 
         {/* ------------------------分頁器的 state manager */}
         <PagingState
