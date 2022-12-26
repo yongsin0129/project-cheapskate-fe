@@ -21,7 +21,7 @@ import {
 } from '@devexpress/dx-react-grid'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Typography } from '@mui/material'
-
+import { FavoriteCellProps } from '../TableFC'
 /********************************************************************************
 *
           main Function component
@@ -128,27 +128,29 @@ const columns = [
           children function component
 *
 *********************************************************************************/
-const FavoriteCell: React.FC<any> = ({  value,  style,  active,  ...restProps}) => (
-  <Table.Cell {...restProps}>
-    <Typography>
-      <i
-        className={`fa-solid fa-heart favoriteIcon ${
-          active && 'favoriteActive'
-        } `}
-      ></i>
-    </Typography>
-  </Table.Cell>
-)
+const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
+  const { active } = Props
+  return (
+    <Table.Cell {...Props}>
+      <Typography>
+        <i
+          className={`fa-solid fa-heart favoriteIcon ${
+            active && 'favoriteActive'
+          } `}
+        ></i>
+      </Typography>
+    </Table.Cell>
+  )
+}
 
-const Cell = (props: any) => {
+const Cell: React.FC<Table.DataCellProps> = props => {
   const { column, row } = props
   if (column.name === 'favorite') {
     // 這邊的 props 可以到 movies 從後端來的全部資料
-    console.log(row.id)
-    console.log(props)
+    // console.log(props)
 
     // 可以條件判斷，未來用來比對已經存在的 favorite movie
-    if (Math.random() < 0.5) return <FavoriteCell active={true} {...props} />
+    if (Math.random() < 0.5) return <FavoriteCell active={'true'} {...props} />
     else return <FavoriteCell {...props} />
   }
   return <Table.Cell {...props} />
