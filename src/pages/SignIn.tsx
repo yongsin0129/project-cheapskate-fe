@@ -8,18 +8,30 @@ import TextField from '@mui/material/TextField'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+
+type Inputs = {
+  email: string
+  password: string
+}
 
 const SignIn = () => {
   const theme = useTheme()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors }
+  } = useForm<Inputs>({
+    // mode: 'onBlur',   // default mode : 'onSubmit'
+    reValidateMode: 'onChange'
+  })
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
-    })
-  }
+  const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+  const [email, password] = watch(['email', 'password']) // watch input value by passing the name of it
+  console.log('watch email : ', email)
+  console.log('watch password : ', password)
 
   return (
     <Paper className='pageContent'>
@@ -37,27 +49,53 @@ const SignIn = () => {
         <Typography component='h1' variant='h5'>
           Sign In
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            id='email'
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* -------------------------------- email input controller */}
+          <Controller
             name='email'
-            required
-            margin='normal'
-            fullWidth
-            label='Email Address'
-            autoComplete='email'
-            autoFocus
+            control={control}
+            defaultValue=''
+            rules={{
+              required: { value: true, message: '信箱不可為空' },
+              pattern: {
+                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, // email RegExp
+                message: '請輸入有效的信箱'
+              }
+            }}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                {...field}
+                margin='normal'
+                fullWidth
+                label='Email Address'
+                autoComplete='email'
+              />
+            )}
           />
-          <TextField
-            id='password'
+          {errors.email && <span>{errors.email?.message}</span>}
+
+          {/* -------------------------------- password input controller */}
+          <Controller
             name='password'
-            required
-            margin='normal'
-            fullWidth
-            label='Password'
-            type='password'
-            autoComplete='current-password'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: { value: true, message: '密碼不可為空' },
+              minLength: { value: 6, message: '最短長度為 6 ' }
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                margin='normal'
+                fullWidth
+                type='password'
+                label='password'
+                autoComplete='current-password'
+              />
+            )}
           />
+          {errors.password && <span>{errors.password?.message}</span>}
+
           <Button
             type='submit'
             fullWidth
@@ -74,7 +112,7 @@ const SignIn = () => {
               <Link to='/SignUp'>{"Don't have an account? Sign Up"}</Link>
             </Grid>
           </Grid>
-        </Box>
+        </form>
       </Box>
     </Paper>
   )
