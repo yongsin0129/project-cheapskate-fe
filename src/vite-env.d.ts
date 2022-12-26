@@ -7,6 +7,7 @@ type TableFCProps = React.PropsWithChildren<{
 interface tableColumnExtensionsType {
   columnName: string
   align: 'left' | 'right' | 'center'
+  width: string
 }
 
 type tableColumnExtensionsTypeArray = {
@@ -40,13 +41,3 @@ type MovieDataResponsive = {
   updateAt?: Maybe<Scalars['DateTime']>
   url?: Maybe<Scalars['String']>
 }
-
-/********************************************************************************
-*
-          對 TableFC 套件做補充
-*
-*********************************************************************************/
-interface tableColumnExtensionsType {
-  width: string
-}
-
