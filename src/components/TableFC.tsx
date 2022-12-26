@@ -55,13 +55,14 @@ export const TableFC: React.FC<TableFCProps> = props => {
   }
 
   const clickFavoriteIcon = (e: React.MouseEvent) => {
-    if (e.target.className.includes('favoriteIcon')) {
+    if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
       // 找到父層 : table row
-      const tableRowDom = e.target.closest('tr')
+      const tableRowDom = (e.target as HTMLTableElement).closest('tr')
 
       // 取得 movie data title , release date
       const title_releaseDate =
-        tableRowDom.children[0].innerText + tableRowDom.children[1].innerText // column : title
+        (tableRowDom?.children[0]?.innerHTML || '') +
+        (tableRowDom?.children[1].innerHTML || '')
       console.log('clickHandler ~ title_releaseDate', title_releaseDate)
     }
   }
@@ -127,12 +128,14 @@ const columns = [
           children function component
 *
 *********************************************************************************/
-const FavoriteCell = ({ value, style, active, ...restProps }) => (
-  <Table.Cell
-    {...restProps}
-  >
+const FavoriteCell: React.FC<any> = ({  value,  style,  active,  ...restProps}) => (
+  <Table.Cell {...restProps}>
     <Typography>
-      <i className={`fa-solid fa-heart favoriteIcon ${active && 'favoriteActive'} `}></i>
+      <i
+        className={`fa-solid fa-heart favoriteIcon ${
+          active && 'favoriteActive'
+        } `}
+      ></i>
     </Typography>
   </Table.Cell>
 )
@@ -143,7 +146,7 @@ const Cell = (props: any) => {
     // 這邊的 props 可以到 movies 從後端來的全部資料
     console.log(row.id)
     console.log(props)
-    
+
     // 可以條件判斷，未來用來比對已經存在的 favorite movie
     if (Math.random() < 0.5) return <FavoriteCell active={true} {...props} />
     else return <FavoriteCell {...props} />

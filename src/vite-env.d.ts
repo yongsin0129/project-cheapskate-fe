@@ -1,6 +1,8 @@
 /// <reference types="vite/client" />
 type FCProps = { foo: {}; children?: any } // 自行定義一個 props 的格式
-type TableFCProps = React.PropsWithChildren<{ tableData: MovieDataResponsive[] }> // 使用 react 內建的 PropsWithChildren
+type TableFCProps = React.PropsWithChildren<{
+  tableData: MovieDataResponsive[]
+}> // 使用 react 內建的 PropsWithChildren
 
 interface tableColumnExtensionsType {
   columnName: string
@@ -24,7 +26,7 @@ interface MovieData {
   leaveSecondRound: any
   notReleased: any
   streaming: any
-  MyFollowedMovie:any
+  MyFollowedMovie: any
 }
 
 type MovieDataResponsive = {
@@ -38,3 +40,13 @@ type MovieDataResponsive = {
   updateAt?: Maybe<Scalars['DateTime']>
   url?: Maybe<Scalars['String']>
 }
+
+/********************************************************************************
+*
+          對 TableFC 套件做補充
+*
+*********************************************************************************/
+interface tableColumnExtensionsType {
+  width: string
+}
+
