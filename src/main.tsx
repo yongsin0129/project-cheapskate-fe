@@ -11,8 +11,8 @@ import * as helper from './helper'
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {}
 })
-export const MovieDataContext = React.createContext([] as any[])
 export const MeContext = React.createContext([] as any[])
+export const ReactContext = React.createContext<ReactContext>({})
 
 const ContextManager = () => {
   // ---------------------- variable initial ----------------------
@@ -30,7 +30,8 @@ const ContextManager = () => {
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
   const [MeToken, setMeToken] = React.useState(jwt_token)
   const [Me, setMe] = React.useState<any>()
-  const [MovieData, setMovieData] = React.useState<MovieData>({})
+  const [myFollowedMovie, setMyFollowedMovie] =
+    React.useState<MovieDataResponsive[]>()
 
   // ---------------------- useMemo ----------------------
   const colorMode = React.useMemo(
@@ -81,13 +82,13 @@ const ContextManager = () => {
   return (
     <ApolloProvider client={client}>
       <MeContext.Provider value={[MeToken, setMeToken, Me, setMe]}>
-        <MovieDataContext.Provider value={[MovieData, setMovieData]}>
+        <ReactContext.Provider value={{ myFollowedMovie, setMyFollowedMovie }}>
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
               <App />
             </ThemeProvider>
           </ColorModeContext.Provider>
-        </MovieDataContext.Provider>
+        </ReactContext.Provider>
       </MeContext.Provider>
     </ApolloProvider>
   )

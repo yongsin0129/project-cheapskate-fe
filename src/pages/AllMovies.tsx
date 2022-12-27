@@ -1,11 +1,11 @@
 import React from 'react'
-import { MovieDataContext } from '../main'
+import { ReactContext } from '../main'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
 import { TableFC } from '../components/TableFC'
 
 const AllMovies = () => {
-  const MovieData = React.useContext(MovieDataContext)
+  const {myFollowedMovie} = React.useContext(ReactContext)
 
   const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)
   if (loading) return <p className='pageContent'>Loading...</p>

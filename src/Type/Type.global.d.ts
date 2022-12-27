@@ -73,3 +73,10 @@ interface QueryResType {
   error?: any
   data?: any
 }
+
+interface ReactContext {
+  myFollowedMovie?: MovieDataResponsive[]
+  setMyFollowedMovie?: React.Dispatch<
+    React.SetStateAction<MovieDataResponsive[] | undefined>
+  >
+}
