@@ -53,7 +53,7 @@ export function App () {
           bgcolor: 'background.default'
         }}
       >
-        <TransferTokenToMe />
+        {/* <TransferTokenToMe /> */}
         <ResponsiveAppBar />
         <ToggleModeButton />
         <Routes>

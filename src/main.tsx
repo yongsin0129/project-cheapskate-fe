@@ -67,6 +67,13 @@ const ContextManager = () => {
     )
 
     // setMe() // useEffect 裡面不知道為什麼沒有辦法用 async callback function ，先用 TransferTokenToMe FC 做 workaround
+    const asyncFN = async () => {
+      const value = await helper.transferTokenToMe()
+      console.log(' useEffect 裡面的 asyncFN value : ')
+      console.log(value)
+      setMe(value)
+    }
+    asyncFN()
 
   }, [MeToken])
 

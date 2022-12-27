@@ -11,6 +11,7 @@ export const getToken = () => {
 }
 
 export const transferTokenToMe = async () => {
+  console.log('觸發 async transferTokenToMe')
   return fetch(import.meta.env.VITE_graphql_endPoint, {
     method: 'POST',
     body: JSON.stringify({ query: get_Me_NoGql }),
@@ -20,9 +21,9 @@ export const transferTokenToMe = async () => {
       jwt_token: getToken() || ''
     }
   })
-    .then(response => response.json())
-    .then(data => {
-      console.log(' ----  fetch get Me data ---')
+    .then(async response => {
+      const data = await response.json()
+      console.log(' ---- async transferTokenToMe get Me data ---')
       console.log(data)
       return data.data.Me as Me
     })
