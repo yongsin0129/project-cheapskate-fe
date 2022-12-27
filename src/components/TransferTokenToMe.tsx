@@ -13,7 +13,7 @@ export const TransferTokenToMe: React.FC = () => {
     return <p></p>
   }
 
-  const jwt_token = helper.getToken()
+  const jwt_token = helper.getToken()?.data
   // 驗證 token , 並更新 context.Me
   if (!!jwt_token) {
     const { loading, error, data }: QueryResType = useQuery(gql.get_Me)

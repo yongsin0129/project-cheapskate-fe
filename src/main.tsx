@@ -16,20 +16,19 @@ export const MeContext = React.createContext([] as any[])
 
 const ContextManager = () => {
   // ---------------------- variable initial ----------------------
-  const MeToken_init = helper.getToken()
-    ? { jwt_token: helper.getToken()! }
-    : undefined
+  const token = helper.getToken()?.data || null
+  const jwt_token = token && { jwt_token: helper.getToken()?.data as string }
 
   const client_init = new ApolloClient({
     uri: import.meta.env.VITE_graphql_endPoint,
     cache: new InMemoryCache(),
-    headers: MeToken_init // 初始化就帶 jwt_Token or null
+    headers: { ...jwt_token } // 初始化就帶 jwt_Token or null
   })
 
   // ---------------------- useState ----------------------
   const [client, setClient] = React.useState(client_init)
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
-  const [MeToken, setMeToken] = React.useState(MeToken_init)
+  const [MeToken, setMeToken] = React.useState(jwt_token)
   const [Me, setMe] = React.useState<any>()
   const [MovieData, setMovieData] = React.useState<MovieData>({})
 
@@ -58,20 +57,23 @@ const ContextManager = () => {
   React.useEffect(() => {
     console.log('MeToken 發生變化，觸發 useEffect 更新 setClient , setMe')
     console.log(MeToken)
+    const token = helper.getToken()?.data || null
+    const jwt_token = token && { jwt_token: helper.getToken()?.data as string }
+
     setClient(
       new ApolloClient({
         uri: import.meta.env.VITE_graphql_endPoint,
         cache: new InMemoryCache(),
-        headers: helper.getToken() ? { jwt_token: helper.getToken()! } : {}
+        headers: { ...jwt_token }
       })
     )
-    
+
     // 更新 context_Me
     ;(async () => {
       const value = await helper.transferTokenToMe()
       console.log(' useEffect 裡面的 asyncFN value : ')
       console.log(value)
-      setMe(value)
+      setMe(value.data)
     })()
   }, [MeToken])
 
