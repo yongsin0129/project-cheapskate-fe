@@ -27,7 +27,7 @@ export function ResponsiveAppBar () {
     null
   )
   const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
-  const { AppBarState } = React.useContext(ReactContext)
+  const { appBarState } = React.useContext(ReactContext)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -140,9 +140,9 @@ export function ResponsiveAppBar () {
 
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
 
-          {!!AppBarState?.isLoading && <Loading sx={{ scale: '0.2' }} />}
+          {!!appBarState?.isLoading && <Loading sx={{ scale: '0.2' }} />}
 
-          {!AppBarState?.isLoading && (
+          {!appBarState?.isLoading && (
             <Box sx={{ flexGrow: 0 }}>
               {/* 如果 Me 不存在，顯示登入按鈕 */}
               {!Me && (
@@ -179,13 +179,11 @@ export function ResponsiveAppBar () {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    {settings.map(setting => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <NavLink to={setting}>
-                          <Typography textAlign='center'>{setting}</Typography>
-                        </NavLink>
-                      </MenuItem>
-                    ))}
+                    <MenuItem key={'Logout'} onClick={handleCloseUserMenu}>
+                      <Button>
+                        <Typography textAlign='center'>{'Logout'}</Typography>
+                      </Button>
+                    </MenuItem>
                   </Menu>
                 </Box>
               )}

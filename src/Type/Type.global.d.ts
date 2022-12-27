@@ -79,8 +79,10 @@ interface ReactContext {
   setMyFollowedMovie?: React.Dispatch<
     React.SetStateAction<MovieDataResponsive[] | undefined>
   >
-  AppBarState?: PageState
+  appBarState?: PageState
   setAppBarState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+  homePageState?: PageState
+  setHomePageState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
 }
 
 interface PageState {

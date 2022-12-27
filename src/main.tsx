@@ -32,7 +32,8 @@ const ContextManager = () => {
   const [Me, setMe] = React.useState<any>()
   const [myFollowedMovie, setMyFollowedMovie] =
     React.useState<MovieDataResponsive[]>()
-  const [AppBarState, setAppBarState] = React.useState<PageState>()
+  const [appBarState, setAppBarState] = React.useState<PageState>()
+  const [homePageState, setHomePageState] = React.useState<PageState>()
   // ---------------------- useMemo ----------------------
   const colorMode = React.useMemo(
     () => ({
@@ -75,7 +76,17 @@ const ContextManager = () => {
       const value = await helper.transferTokenToMe()
       console.log(' useEffect 裡面的 asyncFN value : ')
       console.log(value)
-      setMe(value.data)
+      if (!!value.success) setMe(value.data)
+      if (!value.success) {
+        if (value.message?.includes('too many connections')) {
+          setHomePageState({
+            isError: true,
+            message: '本時段太多使用者，請過段時間再使用'
+          })
+        } else {
+          setHomePageState({ isError: true, message: value.message })
+        }
+      }
       setAppBarState({ isLoading: false })
     })()
   }, [MeToken])
@@ -88,7 +99,8 @@ const ContextManager = () => {
           value={{
             myFollowedMovie,
             setMyFollowedMovie,
-            AppBarState
+            appBarState,
+            homePageState
           }}
         >
           <ColorModeContext.Provider value={colorMode}>
