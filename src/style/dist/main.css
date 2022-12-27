@@ -28,6 +28,9 @@ body {
 #app .pageContent {
   flex-grow: 1;
 }
+#app .Table-table {
+  table-layout: unset;
+}
 #app #footer {
   position: relative;
   left: 0;

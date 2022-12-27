@@ -1,6 +1,7 @@
 import '../style/dist/loading.css'
 import Box from '@mui/material/Box'
 
+// 自建一個 sx props ，方便外部使用時客制化
 export const Loading: React.FC<LoadingFCProps> = ({ sx }) => {
   return (
     <Box className='loading' sx={sx}>
@@ -16,5 +17,5 @@ export const Loading: React.FC<LoadingFCProps> = ({ sx }) => {
 }
 
 type LoadingFCProps = React.PropsWithChildren<{
-  sx: React.CSSProperties
-}> // 使用 react 內建的 PropsWithChildren
+  sx?: React.CSSProperties
+}>

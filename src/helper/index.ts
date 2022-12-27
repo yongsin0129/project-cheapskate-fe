@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
 
+// ----------------------------- 從瀏覽器的 localStorage 取得 jwt_token
 export const getToken = () => {
   const localStorage_token = localStorage.getItem('jwt_token')
   if (!!localStorage_token) {
@@ -11,6 +12,7 @@ export const getToken = () => {
   return undefined
 }
 
+// ----------------------------- 將 jwt_token 傳入後端做驗證
 export const transferTokenToMe = async () => {
   console.log('觸發 async transferTokenToMe')
   const token = getToken()?.data || null
@@ -42,7 +44,7 @@ export const transferTokenToMe = async () => {
       }
     })
     .catch(error => {
-      console.log(' ----  helper.getMe fetch error ---')
+      console.log(' ----  async transferTokenToMe fetch error ---')
       console.log(JSON.stringify(error))
       return new DTOBase({
         success: false,

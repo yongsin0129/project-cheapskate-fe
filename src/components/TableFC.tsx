@@ -22,6 +22,7 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Typography } from '@mui/material'
 import { FavoriteCellProps } from '../Type/Type.TableFC'
+
 /********************************************************************************
 *
           main Function component

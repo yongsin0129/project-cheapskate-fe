@@ -33,6 +33,9 @@ body {
     flex-grow: 1;
   }
 
+  .Table-table {
+    table-layout: unset;
+  }
   #footer {
     position: relative;
     left: 0;

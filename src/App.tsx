@@ -21,6 +21,7 @@ import {
 } from './pages'
 import { ReactContext } from './main'
 
+// -------------------------------- 明暗 mode 切換的 component
 const ToggleModeButton = () => {
   const theme = useTheme()
   const colorMode = React.useContext(ColorModeContext)
@@ -45,8 +46,6 @@ const ToggleModeButton = () => {
 
 export function App () {
   const { homePageState } = React.useContext(ReactContext)
-  console.log('homePageState')
-  console.log(homePageState)
 
   return (
     <Router>
@@ -57,17 +56,20 @@ export function App () {
           bgcolor: 'background.default'
         }}
       >
-        {/* <TransferTokenToMe /> */}
+        {/*  -----------------------------   網站 nav bar   ------------------- */}
         <ResponsiveAppBar />
-        {/*  -----------------------------   網站 homepage alert 提示  ------------------- */}
 
+        {/*  -----------------------------   網站 homepage alert 提示  ------------------- */}
         {homePageState?.isError && (
           <Alert severity='error' sx={{ width: '100%' }}>
             {homePageState?.message}
           </Alert>
         )}
         
+        {/*  -----------------------------   網站 明暗模式切換  ------------------- */}
         <ToggleModeButton />
+
+        {/*  -----------------------------   網站 路由管理  ------------------- */}
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/News' element={<News />} />

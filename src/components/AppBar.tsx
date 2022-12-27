@@ -23,13 +23,17 @@ import { Loading } from './Loading'
 import { LocalState } from '@apollo/client/core/LocalState'
 
 export function ResponsiveAppBar () {
+  // ---------------------- useContext ----------------------
+  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+  const { appBarState } = React.useContext(ReactContext)
+
+  // ---------------------- useState ----------------------
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   )
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
-  const { appBarState } = React.useContext(ReactContext)
 
+  // ---------------------- handler ----------------------
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -104,7 +108,7 @@ export function ResponsiveAppBar () {
             >
               {pages.map(page => (
                 <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                  <NavLink to={page.herf}>
+                  <NavLink to={page.href}>
                     <Typography textAlign='center'>{page.title}</Typography>
                   </NavLink>
                 </MenuItem>
@@ -137,7 +141,7 @@ export function ResponsiveAppBar () {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <NavLink to={page.herf}>
+                <NavLink to={page.href}>
                   <Typography textAlign='center'>{page.title}</Typography>
                 </NavLink>
               </Button>
@@ -146,10 +150,13 @@ export function ResponsiveAppBar () {
 
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
 
+          {/* 右上角的 loading 動畫 */}
           {!!appBarState?.isLoading && <Loading sx={{ scale: '0.2' }} />}
 
+          {/* 右上角的 loading 結束的主要結構 */}
           {!appBarState?.isLoading && (
             <Box sx={{ flexGrow: 0 }}>
+
               {/* 如果 Me 不存在，顯示登入按鈕 */}
               {!Me && (
                 <Tooltip title='請點擊連入登入頁面'>
@@ -160,7 +167,8 @@ export function ResponsiveAppBar () {
                   </NavLink>
                 </Tooltip>
               )}
-              {/* 如果 Me 存在，顯示歡迎並提供 config */}
+
+              {/* 如果 Me 存在，顯示 configuration */}
               {!!Me && (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography sx={{ marginRight: 2 }}>{Me.name}</Typography>
@@ -185,6 +193,8 @@ export function ResponsiveAppBar () {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
+                    
+                    {/* configuration 打開後的下拉選單 */}
                     <MenuItem key={'Logout'} onClick={handleCloseUserMenu}>
                       <NavLink to='/' onClick={handleLogOut}>
                         <Typography textAlign='center'>{'Logout'}</Typography>
@@ -202,10 +212,9 @@ export function ResponsiveAppBar () {
 }
 
 const pages = [
-  { id: '1', title: '本周新片', herf: './news' },
-  { id: '2', title: '本期首輪', herf: './FirstRoundMovie' },
-  { id: '3', title: '本期二輪', herf: './SecondRoundMovie' },
-  { id: '4', title: '全部電影', herf: './AllMovies' },
-  { id: '5', title: '收藏清單', herf: './FollowedMovies' }
+  { id: '1', title: '本周新片', href: './news' },
+  { id: '2', title: '本期首輪', href: './FirstRoundMovie' },
+  { id: '3', title: '本期二輪', href: './SecondRoundMovie' },
+  { id: '4', title: '全部電影', href: './AllMovies' },
+  { id: '5', title: '收藏清單', href: './FollowedMovies' }
 ]
-const settings = ['Profile', 'Logout']
