@@ -9,6 +9,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { ResponsiveAppBar } from './components/AppBar'
 import { Footer } from './components/Footer'
+import { TransferTokenToMe } from './components/TransferTokenToMe'
 import {
   HomePage,
   News,
@@ -52,6 +53,7 @@ export function App () {
           bgcolor: 'background.default'
         }}
       >
+        <TransferTokenToMe />
         <ResponsiveAppBar />
         <ToggleModeButton />
         <Routes>

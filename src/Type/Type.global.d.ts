@@ -67,3 +67,9 @@ type UserDataResponsive = {
   name?: Maybe<Scalars['String']>
   updateAt?: Maybe<Scalars['DateTime']>
 }
+
+interface QueryResType {
+  loading?: any
+  error?: any
+  data?: any
+}

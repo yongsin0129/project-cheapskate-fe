@@ -17,24 +17,14 @@ import Link from '@mui/material/Link'
 import { NavLink } from 'react-router-dom'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
-
-const Me: React.FC = () => {
-  const { loading, error, data }: QueryResType = useQuery(gql.get_Me)
-  if (loading) return <p className='pageContent'>Loading...</p>
-  if (error) {
-    console.log(error.graphQLErrors[0].message)
-    return <p className='pageContent'>{JSON.stringify(error)} </p>
-  }
-  console.log(data)
-
-  return <p>{data.Me.name}</p>
-}
+import { MeContext } from '../main'
 
 export function ResponsiveAppBar () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   )
+  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -147,43 +137,51 @@ export function ResponsiveAppBar () {
 
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
           <Box sx={{ flexGrow: 0 }}>
-            <Me />
-            <Tooltip title='請點擊連入登入頁面'>
-              <NavLink to={'signIn'}>
-                <Button color='info' variant='contained'>
-                  Sign In
-                </Button>
-              </NavLink>
-            </Tooltip>
-            <Tooltip title='Open settings'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <SettingsIcon sx={{ fontSize: '2rem' }} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <NavLink to={setting}>
-                    <Typography textAlign='center'>{setting}</Typography>
-                  </NavLink>
-                </MenuItem>
-              ))}
-            </Menu>
+            {/* 如果 Me 不存在，顯示登入按鈕 */}
+            {!Me && (
+              <Tooltip title='請點擊連入登入頁面'>
+                <NavLink to={'signIn'}>
+                  <Button color='info' variant='contained'>
+                    Sign In
+                  </Button>
+                </NavLink>
+              </Tooltip>
+            )}
+            {/* 如果 Me 存在，顯示歡迎並提供 config */}
+            {!!Me && (
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography sx={{ marginRight: 2 }}>{Me.name}</Typography>
+                <Tooltip title='Open settings'>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <SettingsIcon sx={{ fontSize: '2rem' }} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id='menu-appbar'
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map(setting => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <NavLink to={setting}>
+                        <Typography textAlign='center'>{setting}</Typography>
+                      </NavLink>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            )}
           </Box>
         </Toolbar>
       </Container>
@@ -199,9 +197,3 @@ const pages = [
   { id: '5', title: '收藏清單', herf: './FollowedMovies' }
 ]
 const settings = ['Profile', 'Logout']
-
-interface QueryResType {
-  loading?: any
-  error?: any
-  data?: any
-}

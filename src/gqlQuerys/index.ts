@@ -26,3 +26,12 @@ export const get_Me = gql`
     }
   }
 `
+export const get_Me_NoGql = `
+  query Me {
+    Me {
+      id
+      name
+      email
+    }
+  }
+`

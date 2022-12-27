@@ -7,26 +7,33 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import * as helper from './helper'
 
+// ---------------------- context create ----------------------
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {}
 })
 export const MovieDataContext = React.createContext([] as any[])
-export const MeTokenContext = React.createContext([] as any[])
+export const MeContext = React.createContext([] as any[])
 
 const ContextManager = () => {
-  // ---------------------- apollo client initial ----------------------
+  // ---------------------- variable initial ----------------------
+  const MeToken_init = helper.getToken()
+    ? { jwt_token: helper.getToken()! }
+    : undefined
+
   const client_init = new ApolloClient({
     uri: import.meta.env.VITE_graphql_endPoint,
     cache: new InMemoryCache(),
-    headers: helper.getToken() ? { jwt_token: helper.getToken() } : {}
+    headers: MeToken_init // 初始化就帶 jwt_Token or null
   })
 
   // ---------------------- useState ----------------------
   const [client, setClient] = React.useState(client_init)
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
-  const [MeToken, setMeToken] = React.useState({})
+  const [MeToken, setMeToken] = React.useState(MeToken_init)
+  const [Me, setMe] = React.useState<any>()
   const [MovieData, setMovieData] = React.useState<MovieData>({})
 
+  // ---------------------- useMemo ----------------------
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -36,7 +43,6 @@ const ContextManager = () => {
     []
   )
 
-  // ---------------------- useMemo ----------------------
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -50,22 +56,24 @@ const ContextManager = () => {
   // ---------------------- useEffect ----------------------
   // context_MeToken 有變化後觸發， new 一個新的 apollo client
   React.useEffect(() => {
-    console.log('MeToken 發生變化，觸發 useEffect')
+    console.log('MeToken 發生變化，觸發 useEffect 更新 setClient')
     console.log(MeToken)
-
     setClient(
       new ApolloClient({
         uri: import.meta.env.VITE_graphql_endPoint,
         cache: new InMemoryCache(),
-        headers: helper.getToken() ? { jwt_token: helper.getToken() } : {}
+        headers: helper.getToken() ? { jwt_token: helper.getToken()! } : {}
       })
     )
+
+    // setMe() // useEffect 裡面不知道為什麼沒有辦法用 async callback function ，先用 TransferTokenToMe FC 做 workaround
+
   }, [MeToken])
 
   // ---------------------- return structure ----------------------
   return (
     <ApolloProvider client={client}>
-      <MeTokenContext.Provider value={[MeToken, setMeToken]}>
+      <MeContext.Provider value={[MeToken, setMeToken, Me, setMe]}>
         <MovieDataContext.Provider value={[MovieData, setMovieData]}>
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
@@ -73,7 +81,7 @@ const ContextManager = () => {
             </ThemeProvider>
           </ColorModeContext.Provider>
         </MovieDataContext.Provider>
-      </MeTokenContext.Provider>
+      </MeContext.Provider>
     </ApolloProvider>
   )
 }

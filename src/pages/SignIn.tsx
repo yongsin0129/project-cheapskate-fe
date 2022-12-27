@@ -13,7 +13,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
-import { MeTokenContext } from '../main'
+import { MeContext } from '../main'
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -25,10 +25,8 @@ const schema = Joi.object({
 
 const SignIn = () => {
   // context 取得
-  const [MeToken, setMeToken] = React.useContext(MeTokenContext)
-  console.log("SignIn ~ setMeToken", setMeToken)
-  console.log("SignIn ~ MeToken", MeToken)
-
+  const [MeToken, setMeToken] = React.useContext(MeContext)
+  
   // hook 定義
   const theme = useTheme()
   const navigate = useNavigate()
@@ -53,10 +51,6 @@ const SignIn = () => {
   // submit handler
   const onSubmit: SubmitHandler<Inputs> = data => {
     setPageState({ isLoading: true })
-    console.log('submit successful')
-    console.log(data)
-
-    console.log('send post request')
     fetch(`${import.meta.env.VITE_RESTful_api_endPoint}/user/signIn`, {
       method: 'POST',
       body: JSON.stringify({
@@ -84,9 +78,8 @@ const SignIn = () => {
             JSON.stringify(data.data[0].jwtToken)
           )
           setMeToken(data.data[0].jwtToken)
-          navigate('/FollowedMovies', { state: { reload: true } })
+          navigate('/FollowedMovies')
         }
-        console.log(data)
       })
       .catch(error => {
         setPageState({ isLoading: false, isError: true, error })
