@@ -13,6 +13,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
+import { MeTokenContext } from '../main'
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -23,6 +24,11 @@ const schema = Joi.object({
 })
 
 const SignIn = () => {
+  // context 取得
+  const [MeToken, setMeToken] = React.useContext(MeTokenContext)
+  console.log("SignIn ~ setMeToken", setMeToken)
+  console.log("SignIn ~ MeToken", MeToken)
+
   // hook 定義
   const theme = useTheme()
   const navigate = useNavigate()
@@ -64,18 +70,21 @@ const SignIn = () => {
       .then(response => response.json())
       .then(data => {
         if (data.success === false) {
+          // ---------- 登入失敗
           setPageState({
             isLoading: false,
             isError: true,
             message: data.message
           })
         } else {
+          // ---------- 登入成功
           setPageState({ isLoading: false, isError: false })
           localStorage.setItem(
             'jwt_token',
             JSON.stringify(data.data[0].jwtToken)
-          )          
-          navigate('/FollowedMovies')
+          )
+          setMeToken(data.data[0].jwtToken)
+          navigate('/FollowedMovies', { state: { reload: true } })
         }
         console.log(data)
       })

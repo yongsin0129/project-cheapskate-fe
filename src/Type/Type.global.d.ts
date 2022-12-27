@@ -37,13 +37,13 @@ interface sortingType {
 }
 
 interface MovieData {
-  firstRound: any
-  leaveFirstRound: any
-  secondRound: any
-  leaveSecondRound: any
-  notReleased: any
-  streaming: any
-  MyFollowedMovie: any
+  firstRound?: any
+  leaveFirstRound?: any
+  secondRound?: any
+  leaveSecondRound?: any
+  notReleased?: any
+  streaming?: any
+  MyFollowedMovie?: any
 }
 
 type MovieDataResponsive = {
