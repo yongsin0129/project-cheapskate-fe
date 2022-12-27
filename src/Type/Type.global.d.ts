@@ -79,4 +79,13 @@ interface ReactContext {
   setMyFollowedMovie?: React.Dispatch<
     React.SetStateAction<MovieDataResponsive[] | undefined>
   >
+  AppBarState?: PageState
+  setAppBarState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+}
+
+interface PageState {
+  isLoading?: boolean
+  isError?: boolean
+  error?: object
+  message?: string
 }

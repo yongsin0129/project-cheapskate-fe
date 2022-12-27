@@ -41,7 +41,7 @@ const SignIn = () => {
     reValidateMode: 'onChange',
     resolver: joiResolver(schema)
   })
-  const [pageState, setPageState] = React.useState<pageState>({
+  const [pageState, setPageState] = React.useState<PageState>({
     isLoading: false
   })
 
@@ -193,9 +193,4 @@ type Inputs = {
   password: string
 }
 
-interface pageState {
-  isLoading?: boolean
-  isError?: boolean
-  error?: object
-  message?: string
-}
+

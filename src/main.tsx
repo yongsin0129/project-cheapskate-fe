@@ -32,7 +32,7 @@ const ContextManager = () => {
   const [Me, setMe] = React.useState<any>()
   const [myFollowedMovie, setMyFollowedMovie] =
     React.useState<MovieDataResponsive[]>()
-
+  const [AppBarState, setAppBarState] = React.useState<PageState>()
   // ---------------------- useMemo ----------------------
   const colorMode = React.useMemo(
     () => ({
@@ -70,11 +70,13 @@ const ContextManager = () => {
     )
 
     // 更新 context_Me
+    setAppBarState({ isLoading: true })
     ;(async () => {
       const value = await helper.transferTokenToMe()
       console.log(' useEffect 裡面的 asyncFN value : ')
       console.log(value)
       setMe(value.data)
+      setAppBarState({ isLoading: false })
     })()
   }, [MeToken])
 
@@ -82,7 +84,13 @@ const ContextManager = () => {
   return (
     <ApolloProvider client={client}>
       <MeContext.Provider value={[MeToken, setMeToken, Me, setMe]}>
-        <ReactContext.Provider value={{ myFollowedMovie, setMyFollowedMovie }}>
+        <ReactContext.Provider
+          value={{
+            myFollowedMovie,
+            setMyFollowedMovie,
+            AppBarState
+          }}
+        >
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
               <App />

@@ -18,6 +18,8 @@ import { NavLink } from 'react-router-dom'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
 import { MeContext } from '../main'
+import { ReactContext } from '../main'
+import { Loading } from './Loading'
 
 export function ResponsiveAppBar () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -25,6 +27,7 @@ export function ResponsiveAppBar () {
     null
   )
   const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+  const { AppBarState } = React.useContext(ReactContext)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -136,53 +139,58 @@ export function ResponsiveAppBar () {
           </Box>
 
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
-          <Box sx={{ flexGrow: 0 }}>
-            {/* 如果 Me 不存在，顯示登入按鈕 */}
-            {!Me && (
-              <Tooltip title='請點擊連入登入頁面'>
-                <NavLink to={'signIn'}>
-                  <Button color='info' variant='contained'>
-                    Sign In
-                  </Button>
-                </NavLink>
-              </Tooltip>
-            )}
-            {/* 如果 Me 存在，顯示歡迎並提供 config */}
-            {!!Me && (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ marginRight: 2 }}>{Me.name}</Typography>
-                <Tooltip title='Open settings'>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <SettingsIcon sx={{ fontSize: '2rem' }} />
-                  </IconButton>
+
+          {!!AppBarState?.isLoading && <Loading sx={{ scale: '0.2' }} />}
+
+          {!AppBarState?.isLoading && (
+            <Box sx={{ flexGrow: 0 }}>
+              {/* 如果 Me 不存在，顯示登入按鈕 */}
+              {!Me && (
+                <Tooltip title='請點擊連入登入頁面'>
+                  <NavLink to={'signIn'}>
+                    <Button color='info' variant='contained'>
+                      Sign In
+                    </Button>
+                  </NavLink>
                 </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id='menu-appbar'
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map(setting => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <NavLink to={setting}>
-                        <Typography textAlign='center'>{setting}</Typography>
-                      </NavLink>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            )}
-          </Box>
+              )}
+              {/* 如果 Me 存在，顯示歡迎並提供 config */}
+              {!!Me && (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography sx={{ marginRight: 2 }}>{Me.name}</Typography>
+                  <Tooltip title='Open settings'>
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <SettingsIcon sx={{ fontSize: '2rem' }} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id='menu-appbar'
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map(setting => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <NavLink to={setting}>
+                          <Typography textAlign='center'>{setting}</Typography>
+                        </NavLink>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              )}
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
