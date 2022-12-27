@@ -20,6 +20,7 @@ import { useQuery } from '@apollo/client'
 import { MeContext } from '../main'
 import { ReactContext } from '../main'
 import { Loading } from './Loading'
+import { LocalState } from '@apollo/client/core/LocalState'
 
 export function ResponsiveAppBar () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -42,6 +43,11 @@ export function ResponsiveAppBar () {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleLogOut = () => {
+    setMeToken(null)
+    localStorage.removeItem('jwt_token')
   }
 
   return (
@@ -180,9 +186,9 @@ export function ResponsiveAppBar () {
                     onClose={handleCloseUserMenu}
                   >
                     <MenuItem key={'Logout'} onClick={handleCloseUserMenu}>
-                      <Button>
+                      <NavLink to='/' onClick={handleLogOut}>
                         <Typography textAlign='center'>{'Logout'}</Typography>
-                      </Button>
+                      </NavLink>
                     </MenuItem>
                   </Menu>
                 </Box>

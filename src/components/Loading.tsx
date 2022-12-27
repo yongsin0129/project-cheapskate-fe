@@ -2,7 +2,6 @@ import '../style/dist/loading.css'
 import Box from '@mui/material/Box'
 
 export const Loading: React.FC<LoadingFCProps> = ({ sx }) => {
-  console.log(sx)
   return (
     <Box className='loading' sx={sx}>
       <div className='loading__square'></div>

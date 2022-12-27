@@ -69,10 +69,13 @@ const ContextManager = () => {
         headers: { ...jwt_token }
       })
     )
-
-    // 更新 context_Me
-    setAppBarState({ isLoading: true })
-    ;(async () => {
+    
+    if(!!jwt_token) updateMe()
+    else setMe(null)
+    
+    // 更新 context_Me    
+    async function updateMe () {
+      setAppBarState({ isLoading: true })
       const value = await helper.transferTokenToMe()
       console.log(' useEffect 裡面的 asyncFN value : ')
       console.log(value)
@@ -88,7 +91,8 @@ const ContextManager = () => {
         }
       }
       setAppBarState({ isLoading: false })
-    })()
+    }
+
   }, [MeToken])
 
   // ---------------------- return structure ----------------------
