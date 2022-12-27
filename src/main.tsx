@@ -54,9 +54,9 @@ const ContextManager = () => {
   )
 
   // ---------------------- useEffect ----------------------
-  // context_MeToken 有變化後觸發， new 一個新的 apollo client
+  // context_MeToken 有變化後觸發， new 一個新的 apollo client 並且更新 Me
   React.useEffect(() => {
-    console.log('MeToken 發生變化，觸發 useEffect 更新 setClient')
+    console.log('MeToken 發生變化，觸發 useEffect 更新 setClient , setMe')
     console.log(MeToken)
     setClient(
       new ApolloClient({
@@ -65,7 +65,8 @@ const ContextManager = () => {
         headers: helper.getToken() ? { jwt_token: helper.getToken()! } : {}
       })
     )
-    // setMe() // useEffect 裡面不知道為什麼沒有辦法用 async callback function ，先用 TransferTokenToMe FC 做 workaround
+    
+    // 更新 context_Me
     ;(async () => {
       const value = await helper.transferTokenToMe()
       console.log(' useEffect 裡面的 asyncFN value : ')
