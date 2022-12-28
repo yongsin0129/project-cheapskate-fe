@@ -54,9 +54,9 @@ export const transferTokenToMe = async () => {
     })
 }
 
-// ----------------------------- 將 jwt_token 傳入後端做驗證
+// ----------------------------- 將 任何的 ErrorMessage 做一層過濾
 export const ErrorMessageTransfer = (message: string) => {
-  if (message?.includes('too many connections')){
+  if (message?.includes('too many connections')) {
     return '本時段太多使用者，請過段時間再使用'
   }
 
@@ -67,4 +67,10 @@ interface Me {
   id: string
   name: string
   email: string
+}
+
+// ----------------------------- 比對一個 value 有無在 array 之中
+export const isValueInArrayObj = (value: any, array: Array<any>) => {
+  const IdArray = array.map((v: any) => v.id)
+  return IdArray.indexOf(value) >= 0
 }

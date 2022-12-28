@@ -23,6 +23,11 @@ export const get_Me = gql`
       id
       name
       email
+      followedMovies {
+        id
+        title
+        releaseDate
+      }
     }
   }
 `
@@ -32,6 +37,11 @@ export const get_Me_NoGql = `
       id
       name
       email
+      followedMovies {
+        id
+        title
+        releaseDate
+      }
     }
   }
 `
