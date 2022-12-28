@@ -138,18 +138,18 @@ const columns = [
 const Cell: React.FC<Table.DataCellProps> = props => {
   const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
   const { column, row } = props
-  
+
   // 針對 'favorite column 客製化'
   if (column.name === 'favorite') {
     const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
     const rowMovieId = props?.row?.id
-    
+
     // 如果 context_Me 的 FollowedMovie 有值，開始比對當前的電影有無在 array 之中
     if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
       if (isValueInArrayObj(rowMovieId, UserFollowedMovieArray))
-      return <FavoriteCell active={'true'} {...props} />
+        return <FavoriteCell active={'true'} {...props} />
     }
-    
+
     // 如果 不是 active , 則生成 空心的愛心
     return <FavoriteCell {...props} />
   }
@@ -158,12 +158,9 @@ const Cell: React.FC<Table.DataCellProps> = props => {
 
 // 層級 Cell / FavoriteCell / Heart_Icon
 const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
-  
   return (
     <Table.Cell {...Props}>
-      <Typography >
-        <Heart_Icon {...Props}/>
-      </Typography>
+      <Heart_Icon {...Props} />
     </Table.Cell>
   )
 }
