@@ -22,6 +22,9 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Typography } from '@mui/material'
 import { FavoriteCellProps } from '../Type/Type.TableFC'
+import { MeContext } from '../main'
+import { isValueInArrayObj } from '../helper'
+
 /********************************************************************************
 *
           main Function component
@@ -68,7 +71,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
   }
 
   return (
-    <Paper onClick={clickFavoriteIcon}>
+    <Paper onClick={clickFavoriteIcon} sx={{ width: '100%' }}>
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}
@@ -128,6 +131,7 @@ const columns = [
           children function component
 *
 *********************************************************************************/
+// 藉由 className favoriteActive 來控制愛心有無 active
 const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
   const { active } = Props
   return (
@@ -143,15 +147,25 @@ const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
   )
 }
 
+// 藉由 每個 column , row 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = props => {
+  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
   const { column, row } = props
-  if (column.name === 'favorite') {
-    // 這邊的 props 可以到 movies 從後端來的全部資料
-    // console.log(props)
 
-    // 可以條件判斷，未來用來比對已經存在的 favorite movie
-    if (Math.random() < 0.5) return <FavoriteCell active={'true'} {...props} />
-    else return <FavoriteCell {...props} />
+  // 針對 'favorite column 客製化'
+  if (column.name === 'favorite') {
+
+    const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
+    const rowMovieId = props?.row?.id
+
+    // 如果 context_Me 的 FollowedMovie 有值，開始比對當前的電影有無在 array 之中
+    if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
+      if (isValueInArrayObj(rowMovieId, UserFollowedMovieArray))
+        return <FavoriteCell active={'true'} {...props} />
+    }
+
+    // 如果 不是 active , 則生成 空心的愛心
+    return <FavoriteCell {...props} />
   }
   return <Table.Cell {...props} />
 }

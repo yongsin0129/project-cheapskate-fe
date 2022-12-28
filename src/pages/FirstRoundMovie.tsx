@@ -1,9 +1,15 @@
 import React from 'react'
-import { MovieDataContext } from '../main'
+import { ReactContext } from '../main'
+import Box from '@mui/material/Box'
+import { Loading } from '../components/Loading'
 
 const FirstRoundMovie = () => {
-  const MovieData = React.useContext(MovieDataContext)
-  return <div className='pageContent'>FirstRoundMovie</div>
+  const { myFollowedMovie } = React.useContext(ReactContext)
+  return (
+    <Box className='pageContent'>
+      FirstRoundMovie
+    </Box>
+  )
 }
 
 export default FirstRoundMovie

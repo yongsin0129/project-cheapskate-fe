@@ -37,13 +37,13 @@ interface sortingType {
 }
 
 interface MovieData {
-  firstRound: any
-  leaveFirstRound: any
-  secondRound: any
-  leaveSecondRound: any
-  notReleased: any
-  streaming: any
-  MyFollowedMovie: any
+  firstRound?: any
+  leaveFirstRound?: any
+  secondRound?: any
+  leaveSecondRound?: any
+  notReleased?: any
+  streaming?: any
+  MyFollowedMovie?: any
 }
 
 type MovieDataResponsive = {
@@ -66,4 +66,28 @@ type UserDataResponsive = {
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   updateAt?: Maybe<Scalars['DateTime']>
+}
+
+interface QueryResType {
+  loading?: any
+  error?: any
+  data?: any
+}
+
+interface ReactContext {
+  myFollowedMovie?: MovieDataResponsive[]
+  setMyFollowedMovie?: React.Dispatch<
+    React.SetStateAction<MovieDataResponsive[] | undefined>
+  >
+  appBarState?: PageState
+  setAppBarState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+  homePageState?: PageState
+  setHomePageState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+}
+
+interface PageState {
+  isLoading?: boolean
+  isError?: boolean
+  error?: object
+  message?: string
 }

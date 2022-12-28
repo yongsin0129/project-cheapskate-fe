@@ -2,7 +2,7 @@ import '././style/dist/app.css'
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ColorModeContext } from './main'
-import { Box } from '@mui/material'
+import { Alert, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
@@ -19,7 +19,9 @@ import {
   SignIn,
   SignUp
 } from './pages'
+import { ReactContext } from './main'
 
+// -------------------------------- 明暗 mode 切換的 component
 const ToggleModeButton = () => {
   const theme = useTheme()
   const colorMode = React.useContext(ColorModeContext)
@@ -43,6 +45,8 @@ const ToggleModeButton = () => {
 }
 
 export function App () {
+  const { homePageState } = React.useContext(ReactContext)
+
   return (
     <Router>
       <Box
@@ -52,8 +56,20 @@ export function App () {
           bgcolor: 'background.default'
         }}
       >
+        {/*  -----------------------------   網站 nav bar   ------------------- */}
         <ResponsiveAppBar />
+
+        {/*  -----------------------------   網站 homepage alert 提示  ------------------- */}
+        {homePageState?.isError && (
+          <Alert severity='error' sx={{ width: '100%' }}>
+            {homePageState?.message}
+          </Alert>
+        )}
+        
+        {/*  -----------------------------   網站 明暗模式切換  ------------------- */}
         <ToggleModeButton />
+
+        {/*  -----------------------------   網站 路由管理  ------------------- */}
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/News' element={<News />} />

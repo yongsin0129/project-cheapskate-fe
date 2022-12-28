@@ -16,3 +16,32 @@ export const get_all_movies = gql`
     }
   }
 `
+
+export const get_Me = gql`
+  query Me {
+    Me {
+      id
+      name
+      email
+      followedMovies {
+        id
+        title
+        releaseDate
+      }
+    }
+  }
+`
+export const get_Me_NoGql = `
+  query Me {
+    Me {
+      id
+      name
+      email
+      followedMovies {
+        id
+        title
+        releaseDate
+      }
+    }
+  }
+`
