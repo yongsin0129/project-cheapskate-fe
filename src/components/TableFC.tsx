@@ -24,6 +24,7 @@ import { Typography, Popper } from '@mui/material'
 import { FavoriteCellProps } from '../Type/Type.TableFC'
 import { MeContext } from '../main'
 import { isValueInArrayObj } from '../helper'
+import { Heart_Icon } from './Heart_Icon'
 
 /********************************************************************************
 *
@@ -132,61 +133,37 @@ const columns = [
           children function component
 *
 *********************************************************************************/
-// 藉由 className favoriteActive 來控制愛心有無 active
-const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
-  const { active } = Props
-
-  const handleHeartClick = (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    rowData: any
-  ) => {
-    if ((e.target as HTMLElement).className.includes('favoriteActive')) {
-      console.log(
-        'favoriteActive id : ' + rowData.id + ' title : ' + rowData.title
-      )
-    } else if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
-      console.log(
-        'favoriteIcon id : ' + rowData.id + ' title : ' + rowData.title
-      )
-    } else {
-      alert('不知道點擊到那邊去了!')
-    }
-  }
-
-  return (
-    <Table.Cell {...Props}>
-      <Typography>
-        <i
-          className={`fa-solid fa-heart favoriteIcon ${
-            active && 'favoriteActive'
-          } `}
-          onClick={e => {
-            handleHeartClick(e, Props.row)
-          }}
-        ></i>
-      </Typography>
-    </Table.Cell>
-  )
-}
 
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = props => {
   const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
   const { column, row } = props
-
+  
   // 針對 'favorite column 客製化'
   if (column.name === 'favorite') {
     const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
     const rowMovieId = props?.row?.id
-
+    
     // 如果 context_Me 的 FollowedMovie 有值，開始比對當前的電影有無在 array 之中
     if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
       if (isValueInArrayObj(rowMovieId, UserFollowedMovieArray))
-        return <FavoriteCell active={'true'} {...props} />
+      return <FavoriteCell active={'true'} {...props} />
     }
-
+    
     // 如果 不是 active , 則生成 空心的愛心
     return <FavoriteCell {...props} />
   }
   return <Table.Cell {...props} />
+}
+
+// 層級 Cell / FavoriteCell / Heart_Icon
+const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
+  
+  return (
+    <Table.Cell {...Props}>
+      <Typography >
+        <Heart_Icon {...Props}/>
+      </Typography>
+    </Table.Cell>
+  )
 }
