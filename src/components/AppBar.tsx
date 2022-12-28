@@ -18,6 +18,7 @@ import { ReactContext } from '../main'
 import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
 import PersonIcon from '@mui/icons-material/Person'
+import { AppBar_tab } from "./AppBar_tab";
 
 export function ResponsiveAppBar () {
   // ---------------------- useContext ----------------------
@@ -29,6 +30,7 @@ export function ResponsiveAppBar () {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   )
+  const [value, setValue] = React.useState(0) //控制 navbar 的 button
 
   // ---------------------- handler ----------------------
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -131,20 +133,10 @@ export function ResponsiveAppBar () {
           </Typography>
 
           {/* ---------------------------------- 正常螢幕使用的 Box ---------------------------------- */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(page => (
-              <Button
-                key={page.id}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <NavLink to={page.href}>
-                  <Typography textAlign='center'>{page.title}</Typography>
-                </NavLink>
-              </Button>
-            ))}
+          
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>       
+            <AppBar_tab/>
           </Box>
-
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
 
           {/* 右上角的 loading 動畫 */}
@@ -167,7 +159,7 @@ export function ResponsiveAppBar () {
               {/* 如果 Me 存在，顯示 configuration */}
               {!!Me && (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Chip icon={<PersonIcon />} label={Me.name} color="primary"/>
+                  <Chip icon={<PersonIcon />} label={Me.name} color='primary' />
                   <Tooltip title='Open settings'>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <SettingsIcon sx={{ fontSize: '2rem' }} />
