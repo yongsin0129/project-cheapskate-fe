@@ -20,7 +20,7 @@ import {
   SearchState
 } from '@devexpress/dx-react-grid'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { Typography } from '@mui/material'
+import { Typography, Popper } from '@mui/material'
 import { FavoriteCellProps } from '../Type/Type.TableFC'
 import { MeContext } from '../main'
 import { isValueInArrayObj } from '../helper'
@@ -57,21 +57,22 @@ export const TableFC: React.FC<TableFCProps> = props => {
     /* ------------------------ 加入收藏 Icon 的 click handler */
   }
 
-  const clickFavoriteIcon = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
-      // 找到父層 : table row
-      const tableRowDom = (e.target as HTMLTableElement).closest('tr')
+  // const clickFavoriteIcon = (e: React.MouseEvent) => {
+  //   if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
+  //     // 找到父層 : table row
+  //     const tableRowDom = (e.target as HTMLTableElement).closest('tr')
 
-      // 取得 movie data title , release date
-      const title_releaseDate =
-        (tableRowDom?.children[0]?.innerHTML || '') +
-        (tableRowDom?.children[1].innerHTML || '')
-      console.log('clickHandler ~ title_releaseDate', title_releaseDate)
-    }
-  }
+  //     // 取得 movie data title , release date
+  //     const title_releaseDate =
+  //       (tableRowDom?.children[0]?.innerHTML || '') +
+  //       (tableRowDom?.children[1].innerHTML || '')
+  //     console.log('clickHandler ~ title_releaseDate', title_releaseDate)
+  //   }
+  // }
+  // <Paper onClick={clickFavoriteIcon} sx={{ width: '100%' }}>
 
   return (
-    <Paper onClick={clickFavoriteIcon} sx={{ width: '100%' }}>
+    <Paper sx={{ width: '100%' }}>
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}
@@ -134,6 +135,24 @@ const columns = [
 // 藉由 className favoriteActive 來控制愛心有無 active
 const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
   const { active } = Props
+
+  const handleHeartClick = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    rowData: any
+  ) => {
+    if ((e.target as HTMLElement).className.includes('favoriteActive')) {
+      console.log(
+        'favoriteActive id : ' + rowData.id + ' title : ' + rowData.title
+      )
+    } else if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
+      console.log(
+        'favoriteIcon id : ' + rowData.id + ' title : ' + rowData.title
+      )
+    } else {
+      alert('不知道點擊到那邊去了!')
+    }
+  }
+
   return (
     <Table.Cell {...Props}>
       <Typography>
@@ -141,20 +160,22 @@ const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
           className={`fa-solid fa-heart favoriteIcon ${
             active && 'favoriteActive'
           } `}
+          onClick={e => {
+            handleHeartClick(e, Props.row)
+          }}
         ></i>
       </Typography>
     </Table.Cell>
   )
 }
 
-// 藉由 每個 column , row 在生成的時候，自定義內容
+// 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = props => {
   const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
   const { column, row } = props
 
   // 針對 'favorite column 客製化'
   if (column.name === 'favorite') {
-
     const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
     const rowMovieId = props?.row?.id
 
