@@ -15,7 +15,7 @@ const AllMovies = () => {
   if (!!loading)
     return (
       <Box className='pageContent'>
-        <Loading sx={{ marginLeft: 'auto', marginRight: 'auto' }} />
+        <Loading />
       </Box>
     )
   if (!!error)
@@ -37,7 +37,6 @@ const AllMovies = () => {
   if (!!tableData)
     return (
       <Box className='pageContent'>
-        AllMovies
         <TableFC tableData={tableData} />
       </Box>
     )

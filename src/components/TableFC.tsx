@@ -69,7 +69,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
   }
 
   return (
-    <Paper onClick={clickFavoriteIcon}>
+    <Paper onClick={clickFavoriteIcon} sx={{ width: '100%' }}>
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}

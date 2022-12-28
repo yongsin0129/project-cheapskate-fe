@@ -30,12 +30,23 @@ body {
   }
 
   .pageContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
+
+    .Table-table {
+      table-layout: unset;
+
+    }
+
+    button.MuiButtonBase-root {
+      color: inherit
+    }
   }
 
-  .Table-table {
-    table-layout: unset;
-  }
+
   #footer {
     position: relative;
     left: 0;
