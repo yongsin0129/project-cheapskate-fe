@@ -18,7 +18,7 @@ import { ReactContext } from '../main'
 import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
 import PersonIcon from '@mui/icons-material/Person'
-import { AppBar_tab } from "./AppBar_tab";
+import { AppBar_tab, pages } from './AppBar_tab'
 
 export function ResponsiveAppBar () {
   // ---------------------- useContext ----------------------
@@ -197,11 +197,3 @@ export function ResponsiveAppBar () {
     </AppBar>
   )
 }
-
-const pages = [
-  { id: '1', title: '本周新片', href: './news' },
-  { id: '2', title: '本期首輪', href: './FirstRoundMovie' },
-  { id: '3', title: '本期二輪', href: './SecondRoundMovie' },
-  { id: '4', title: '全部電影', href: './AllMovies' },
-  { id: '5', title: '收藏清單', href: './FollowedMovies' }
-]

@@ -43,7 +43,7 @@ export function AppBar_tab () {
   )
 }
 
-const pages = [
+export const pages = [
   { id: 'one', title: '關於本站', href: '/' },
   { id: 'two', title: '本期首輪', href: '/FirstRoundMovie' },
   { id: 'three', title: '本期二輪', href: '/SecondRoundMovie' },
