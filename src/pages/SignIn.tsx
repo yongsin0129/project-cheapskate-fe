@@ -14,6 +14,7 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
 import { MeContext } from '../main'
+import * as helper from "../helper";
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -68,7 +69,7 @@ const SignIn = () => {
           setPageState({
             isLoading: false,
             isError: true,
-            message: data.message
+            message: helper.ErrorMessageTransfer(data.message)
           })
         } else {
           // ---------- 登入成功

@@ -57,6 +57,8 @@ const ContextManager = () => {
   // ---------------------- useEffect ----------------------
   // context_MeToken 有變化後觸發， new 一個新的 apollo client 並且更新 Me
   React.useEffect(() => {
+    setAppBarState({ isLoading: true })
+
     console.log('MeToken 發生變化，觸發 useEffect 更新 setClient , setMe')
     console.log(MeToken)
     const token = helper.getToken()?.data || null
@@ -69,13 +71,15 @@ const ContextManager = () => {
         headers: { ...jwt_token }
       })
     )
-    
-    if(!!jwt_token) updateMe()
-    else setMe(null)
-    
-    // 更新 context_Me    
+
+    if (!!jwt_token) updateMe()
+    else {
+      setMe(null)
+      setAppBarState({ isLoading: false })
+    }
+
+    // 更新 context_Me
     async function updateMe () {
-      setAppBarState({ isLoading: true })
       const value = await helper.transferTokenToMe()
       console.log(' useEffect 裡面的 asyncFN value : ')
       console.log(value)
@@ -84,7 +88,7 @@ const ContextManager = () => {
         if (value.message?.includes('too many connections')) {
           setHomePageState({
             isError: true,
-            message: '本時段太多使用者，請過段時間再使用'
+            message: helper.ErrorMessageTransfer(value.message)
           })
         } else {
           setHomePageState({ isError: true, message: value.message })
@@ -92,7 +96,6 @@ const ContextManager = () => {
       }
       setAppBarState({ isLoading: false })
     }
-
   }, [MeToken])
 
   // ---------------------- return structure ----------------------

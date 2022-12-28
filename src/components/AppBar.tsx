@@ -7,20 +7,17 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
-import Link from '@mui/material/Link'
 import { NavLink } from 'react-router-dom'
-import * as gql from '../gqlQuerys'
-import { useQuery } from '@apollo/client'
 import { MeContext } from '../main'
 import { ReactContext } from '../main'
 import { Loading } from './Loading'
-import { LocalState } from '@apollo/client/core/LocalState'
+import Chip from '@mui/material/Chip'
+import PersonIcon from '@mui/icons-material/Person'
 
 export function ResponsiveAppBar () {
   // ---------------------- useContext ----------------------
@@ -156,7 +153,6 @@ export function ResponsiveAppBar () {
           {/* 右上角的 loading 結束的主要結構 */}
           {!appBarState?.isLoading && (
             <Box sx={{ flexGrow: 0 }}>
-
               {/* 如果 Me 不存在，顯示登入按鈕 */}
               {!Me && (
                 <Tooltip title='請點擊連入登入頁面'>
@@ -171,7 +167,7 @@ export function ResponsiveAppBar () {
               {/* 如果 Me 存在，顯示 configuration */}
               {!!Me && (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography sx={{ marginRight: 2 }}>{Me.name}</Typography>
+                  <Chip icon={<PersonIcon />} label={Me.name} color="primary"/>
                   <Tooltip title='Open settings'>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <SettingsIcon sx={{ fontSize: '2rem' }} />
@@ -193,7 +189,6 @@ export function ResponsiveAppBar () {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    
                     {/* configuration 打開後的下拉選單 */}
                     <MenuItem key={'Logout'} onClick={handleCloseUserMenu}>
                       <NavLink to='/' onClick={handleLogOut}>

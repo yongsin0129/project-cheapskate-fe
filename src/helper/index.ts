@@ -54,6 +54,15 @@ export const transferTokenToMe = async () => {
     })
 }
 
+// ----------------------------- 將 jwt_token 傳入後端做驗證
+export const ErrorMessageTransfer = (message: string) => {
+  if (message?.includes('too many connections')){
+    return '本時段太多使用者，請過段時間再使用'
+  }
+
+  return message
+}
+
 interface Me {
   id: string
   name: string
