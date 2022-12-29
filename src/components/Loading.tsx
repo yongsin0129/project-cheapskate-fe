@@ -7,7 +7,7 @@ export const Loading: React.FC<LoadingFCProps> = ({ sx }) => {
     <Box
       className='loading'
       sx={sx}
-      style={{ height: 'inherit', width: 'inherit' }}
+      style={{ height: '3rem', width: '3rem' }}
     >
       <div className='loading__square'></div>
       <div className='loading__square'></div>
