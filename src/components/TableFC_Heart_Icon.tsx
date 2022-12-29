@@ -7,33 +7,28 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useMutation } from '@apollo/client'
 import * as gql from '../gqlQuerys'
+import { MeContext } from '../main'
+import { Table } from '@devexpress/dx-react-grid-material-ui'
+
+interface Heart_IconProps extends Table.DataCellProps {
+  active: string
+}
 
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
-export const Heart_Icon: React.FC<any> = Props => {
+export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
+  // ---------------------------------------------  useContext
+  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+
   // ---------------------------------------------  從父層取得 Props
   const defaultActive = Props.active === 'true'
 
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
-  const [isActive, setIsActive] = React.useState<boolean>(false)
-
-  // ---------------------------------------------  useEffect
-  React.useEffect(() => {
-    // 先確認 localStorage 有無 HeartIcon active 的資料
-    const isActiveInLocal = window.localStorage.getItem(`${Props.row.id}`)
-
-    if (!!isActiveInLocal) {
-      setIsActive(() => JSON.parse(isActiveInLocal))
-    } else {
-      // 若 localStorage 無值，則用 Props 的值
-      setIsActive(defaultActive)
-    }
-  }, [])
 
   // ---------------------------------------------  useMutation
   const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
     gql.AddFollowedMovies,
-    { refetchQueries: [{ query: gql.get_all_movies }] }
+    {}
   )
 
   const addFollowResponseError = (addFollowResponse as QueryResType).error
@@ -68,8 +63,12 @@ export const Heart_Icon: React.FC<any> = Props => {
       // 如果愛心不是 active 觸發 mutation add favorite
     } else if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
       Add_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
-      setIsActive(() => true)
-      window.localStorage.setItem(`${rowData.id}`, JSON.stringify(true))
+
+      // 將點擊的電影資料新增到 context_Me 並更新, 用來刷新 Heart_Icon active state
+      const copy_Me = { ...Me }
+      const { id, title, releaseDate } = rowData
+      copy_Me.followedMovies.push({ id, title, releaseDate })
+      setMe(() => copy_Me)
     } else {
       alert('恭喜觸發 handleHeartClick 彩蛋，請截圖給製作者')
     }
@@ -80,8 +79,15 @@ export const Heart_Icon: React.FC<any> = Props => {
     rowData: any
   ) => {
     handleDeleteConfirmClose()
-    setIsActive(() => false)
-    window.localStorage.setItem(`${rowData.id}`, JSON.stringify(false))
+
+    // 更新 context_Me 刷新 Heart_Icon
+    const copy_Me = { ...Me }
+    const index = copy_Me.followedMovies.findIndex(
+      (v: MovieDataResponsive) => v.id === rowData.id
+    )
+    copy_Me.followedMovies.splice(index, 1)
+    setMe(() => copy_Me)
+
     Remove_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
   }
 
@@ -90,7 +96,7 @@ export const Heart_Icon: React.FC<any> = Props => {
       <i
         // 因為rowData.id 的第一個字可能是數字，這樣 querySelector 無法作用，所以前面加上一個 'a'
         id={`a${Props.row.id}`}
-        className={isActive ? IconActiveClassName : IconNotActiveClassName}
+        className={defaultActive ? IconActiveClassName : IconNotActiveClassName}
         onClick={e => {
           handleHeartClick(e, Props.row)
         }}

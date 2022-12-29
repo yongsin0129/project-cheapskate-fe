@@ -114,7 +114,7 @@ const ContextManager = () => {
         >
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-              <Container maxWidth='xl'>
+              <Container maxWidth='lg'>
                 <App />
               </Container>
             </ThemeProvider>
