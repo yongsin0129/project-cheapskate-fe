@@ -1,12 +1,41 @@
-tbody tr.MuiTableRow-root .favoriteIcon {
+.Table-table th:nth-child(1) .MuiTableSortLabel-root,
+.Table-table th:nth-child(2) .MuiTableSortLabel-root,
+.Table-table th:nth-child(3) .MuiTableSortLabel-root {
+  margin-left: 1rem;
+}
+.Table-table th:nth-child(4) span .Title-title {
+  scale: 1.5;
+  color: red;
+}
+.Table-table th:nth-child(4) span svg {
+  display: none;
+}
+.Table-table tbody tr.MuiTableRow-root .favoriteIcon {
   scale: 1.5;
   font-weight: 100;
 }
-tbody tr.MuiTableRow-root .favoriteIcon:hover {
+.Table-table tbody tr.MuiTableRow-root .favoriteIcon:hover {
   cursor: pointer;
   transform: scale(1.2);
 }
-tbody tr.MuiTableRow-root .favoriteActive {
+.Table-table tbody tr.MuiTableRow-root .favoriteActive {
   color: red;
   font-weight: 900;
+}
+@media screen and (max-width: 428px) {
+  .Table-table thead tr th:nth-child(2) {
+    background-color: aquamarine;
+    display: none;
+  }
+  .Table-table thead tr th:nth-child(4) {
+    position: absolute;
+    right: 3.5rem;
+  }
+  .Table-table tbody tr td:nth-child(2) {
+    display: none;
+  }
+  .Table-table tbody tr td:nth-child(4) {
+    position: absolute;
+    right: 3.5rem;
+  }
 }

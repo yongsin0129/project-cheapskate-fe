@@ -12,34 +12,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-
-    .Table-table {
-      // table-layout: unset;
-
-      th:nth-child(1),
-      th:nth-child(2),
-      th:nth-child(3) {
-        .MuiTableSortLabel-root {
-          // border: 1px solid red;
-          margin-left: 1rem
-        }
-      }
-
-      // row 3四排的 favorite 愛心 Icon
-      th:nth-child(4) span {
-        .Title-title {
-          scale: 1.5;
-          color: red
-        }
-
-        // 讓愛心旁邊的排序 Icon 消息
-        svg {
-          display: none
-        }
-      }
-
-    }
+    flex-grow: 1;  
 
     button.MuiButtonBase-root {
       color: inherit
