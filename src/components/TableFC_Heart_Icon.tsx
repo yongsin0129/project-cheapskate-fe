@@ -11,7 +11,7 @@ import { MeContext } from '../main'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
 
 interface Heart_IconProps extends Table.DataCellProps {
-  active: string
+  active?: string
 }
 
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
