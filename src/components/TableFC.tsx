@@ -151,8 +151,9 @@ const Cell: React.FC<Table.DataCellProps> = props => {
     }
 
     // 如果 不是 active , 則生成 空心的愛心
-    return <FavoriteCell {...props} />
+    return <FavoriteCell  active={'false'} {...props} />
   }
+
   return <Table.Cell {...props} />
 }
 

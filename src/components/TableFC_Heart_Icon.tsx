@@ -7,29 +7,27 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useMutation } from '@apollo/client'
 import * as gql from '../gqlQuerys'
-import { Loading } from '../components/Loading'
 
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
 export const Heart_Icon: React.FC<any> = Props => {
   // ---------------------------------------------  從父層取得 Props
-  const { active } = Props
+  const active = Props.active === 'true'
 
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
+  const [isActive, setIsActive] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    console.log('trigger useEffect for setIsActive')
+    setIsActive(active)
+  }, [active])
 
   // ---------------------------------------------  useMutation
   const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
     gql.AddFollowedMovies,
-    {
-      // 每次執行 mutation ，都會等待 重新run 指定的 Query
-      // 先做個筆記，不知道需不需要 refetch all movies 清單
-      // A : 需要 ，不然 react-router 不會作動更新，點擊其他 router 再點回來一樣是空的
-      // refetchQueries: [{ query: gqlHelper.GET_All_POSTS }], 這邊到時候要指定refetch 收藏清單
-      // awaitRefetchQueries: true
-    }
+    { refetchQueries: [{ query: gql.get_all_movies }] }
   )
-  const addFollowResponseLoading = (addFollowResponse as QueryResType).loading
-  // if (addFollowResponseLoading) return <Loading sx={{ scale: '0.1' }}/>
+
   const addFollowResponseError = (addFollowResponse as QueryResType).error
   if (addFollowResponseError)
     return <p>{JSON.stringify(addFollowResponseError.message)}`</p>
@@ -62,7 +60,7 @@ export const Heart_Icon: React.FC<any> = Props => {
       // 如果愛心不是 active 觸發 mutation add favorite
     } else if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
       Add_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
-      ;(e.target as HTMLElement).classList.add('favoriteActive')
+      setIsActive(() => true)
     } else {
       alert('恭喜觸發 handleHeartClick 彩蛋，請截圖給製作者')
     }
@@ -73,9 +71,7 @@ export const Heart_Icon: React.FC<any> = Props => {
     rowData: any
   ) => {
     handleDeleteConfirmClose()
-    document
-      .querySelector(`#a${rowData.id}`)
-      ?.classList.remove('favoriteActive')
+    setIsActive(() => false)
     Remove_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
   }
 
@@ -84,9 +80,7 @@ export const Heart_Icon: React.FC<any> = Props => {
       <i
         // 因為rowData.id 的第一個字可能是數字，這樣 querySelector 無法作用，所以前面加上一個 'a'
         id={`a${Props.row.id}`}
-        className={`fa-solid fa-heart favoriteIcon ${
-          active && 'favoriteActive'
-        } `}
+        className={isActive ? IconActiveClassName : IconNotActiveClassName}
         onClick={e => {
           handleHeartClick(e, Props.row)
         }}
@@ -120,3 +114,11 @@ export const Heart_Icon: React.FC<any> = Props => {
     </div>
   )
 }
+
+/********************************************************************************
+*
+          helper
+*
+*********************************************************************************/
+const IconNotActiveClassName = 'fa-solid fa-heart favoriteIcon'
+const IconActiveClassName = 'fa-solid fa-heart favoriteIcon favoriteActive'
