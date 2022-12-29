@@ -24,7 +24,7 @@ import { Typography, Popper } from '@mui/material'
 import { FavoriteCellProps } from '../Type/Type.TableFC'
 import { MeContext } from '../main'
 import { isValueInArrayObj } from '../helper'
-import { Heart_Icon } from './Heart_Icon'
+import { Heart_Icon } from './TableFC_Heart_Icon'
 
 /********************************************************************************
 *
