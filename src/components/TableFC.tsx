@@ -117,7 +117,7 @@ const columns = [
   { name: 'title', title: 'Title' },
   { name: 'release', title: 'Release Date' },
   { name: 'status', title: 'Status' },
-  { name: 'favorite', title: 'Favorite' }
+  { name: 'favorite', title:  "\u2764" }
 ]
 
 /********************************************************************************

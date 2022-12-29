@@ -13,8 +13,17 @@
   align-items: center;
   flex-grow: 1;
 }
-#app .pageContent .Table-table {
-  table-layout: unset;
+#app .pageContent .Table-table th:nth-child(1) .MuiTableSortLabel-root,
+#app .pageContent .Table-table th:nth-child(2) .MuiTableSortLabel-root,
+#app .pageContent .Table-table th:nth-child(3) .MuiTableSortLabel-root {
+  margin-left: 1rem;
+}
+#app .pageContent .Table-table th:nth-child(4) span .Title-title {
+  scale: 1.5;
+  color: red;
+}
+#app .pageContent .Table-table th:nth-child(4) span svg {
+  display: none;
 }
 #app .pageContent button.MuiButtonBase-root {
   color: inherit;
