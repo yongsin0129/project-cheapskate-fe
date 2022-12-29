@@ -11,16 +11,24 @@ import * as gql from '../gqlQuerys'
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
 export const Heart_Icon: React.FC<any> = Props => {
   // ---------------------------------------------  從父層取得 Props
-  const active = Props.active === 'true'
+  const defaultActive = Props.active === 'true'
 
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
   const [isActive, setIsActive] = React.useState<boolean>(false)
 
+  // ---------------------------------------------  useEffect
   React.useEffect(() => {
-    console.log('trigger useEffect for setIsActive')
-    setIsActive(active)
-  }, [active])
+    // 先確認 localStorage 有無 HeartIcon active 的資料
+    const isActiveInLocal = window.localStorage.getItem(`${Props.row.id}`)
+
+    if (!!isActiveInLocal) {
+      setIsActive(() => JSON.parse(isActiveInLocal))
+    } else {
+      // 若 localStorage 無值，則用 Props 的值
+      setIsActive(defaultActive)
+    }
+  }, [])
 
   // ---------------------------------------------  useMutation
   const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
@@ -61,6 +69,7 @@ export const Heart_Icon: React.FC<any> = Props => {
     } else if ((e.target as HTMLElement).className.includes('favoriteIcon')) {
       Add_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
       setIsActive(() => true)
+      window.localStorage.setItem(`${rowData.id}`, JSON.stringify(true))
     } else {
       alert('恭喜觸發 handleHeartClick 彩蛋，請截圖給製作者')
     }
@@ -72,6 +81,7 @@ export const Heart_Icon: React.FC<any> = Props => {
   ) => {
     handleDeleteConfirmClose()
     setIsActive(() => false)
+    window.localStorage.setItem(`${rowData.id}`, JSON.stringify(false))
     Remove_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
   }
 
