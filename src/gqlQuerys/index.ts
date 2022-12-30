@@ -77,3 +77,19 @@ export const RemoveFollowedMovies = gql`
     }
   }
 `
+export const get_me_followed_movies = gql`
+  query Me {
+    Me {
+      id
+      name
+      email
+      followedMovies {
+        id
+        title
+        releaseDate
+        status
+        url
+      }
+    }
+  }
+`

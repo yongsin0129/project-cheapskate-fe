@@ -1,4 +1,3 @@
-import News from './News'
 import FirstRoundMovie from './FirstRoundMovie'
 import SecondRoundMovie from './SecondRoundMovie'
 import AllMovies from './AllMovies'
@@ -8,7 +7,6 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 export {
-  News,
   FirstRoundMovie,
   SecondRoundMovie,
   AllMovies,

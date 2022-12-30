@@ -11,7 +11,6 @@ import { ResponsiveAppBar } from './components/AppBar'
 import { Footer } from './components/Footer'
 import {
   HomePage,
-  News,
   FirstRoundMovie,
   SecondRoundMovie,
   AllMovies,
@@ -72,7 +71,6 @@ export function App () {
         {/*  -----------------------------   網站 路由管理  ------------------- */}
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/News' element={<News />} />
           <Route path='/FirstRoundMovie' element={<FirstRoundMovie />} />
           <Route path='/SecondRoundMovie' element={<SecondRoundMovie />} />
           <Route path='/AllMovies' element={<AllMovies />} />

@@ -58,6 +58,8 @@ export const transferTokenToMe = async () => {
 export const ErrorMessageTransfer = (message: string) => {
   if (message?.includes('too many connections')) {
     return '本時段太多使用者，請過段時間再使用'
+  } else if (message?.includes('jwt token not found')) {
+    return '沒有帳號記錄，請先登入'
   }
 
   return message
