@@ -178,7 +178,7 @@ const SignIn = () => {
               <Link to='/'>Forgot password?</Link>
             </Grid>
             <Grid item xs sx={{ textAlign: 'end' }}>
-              <Link to='/SignUp'>{"Don't have an account? Sign Up"}</Link>
+              <Link to='/SignUp'>{"Don't have an account?"}</Link>
             </Grid>
           </Grid>
         </form>

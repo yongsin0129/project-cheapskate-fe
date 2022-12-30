@@ -24,7 +24,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = Props => {
   }, [])
 
   return (
-    <Alert severity='error'>
+    <Alert severity='error' sx={{ width: '100%' }}>
       <AlertTitle>{helper.ErrorMessageTransfer(errorMessage)}</AlertTitle>
       <Typography>{JSON.stringify(errorObj)}</Typography>
     </Alert>
