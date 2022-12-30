@@ -21,37 +21,9 @@ body {
   height: 100%;
 }
 
-#app {
-  display: flex;
-  flex-direction: column;
-
-  header {
-    margin-top: 0.5rem
-  }
-
-  .pageContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-
-    .Table-table {
-      table-layout: unset;
-
-    }
-
-    button.MuiButtonBase-root {
-      color: inherit
-    }
-  }
-
-
-  #footer {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: 1rem 0;
-  }
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
 }

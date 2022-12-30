@@ -6,6 +6,7 @@ import { TableFC } from '../components/TableFC'
 import { Loading } from '../components/Loading'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import { ErrorMessage } from '../components/ErrorMessage'
 
 const AllMovies = () => {
   const { myFollowedMovie } = React.useContext(ReactContext)
@@ -20,7 +21,13 @@ const AllMovies = () => {
     )
   if (!!error)
     return (
-      <Typography className='pageContent'>{JSON.stringify(error)}</Typography>
+      <Box className='pageContent'>
+        <ErrorMessage
+          errorMessage={(error as Error).message}
+          errorObj={error}
+        />
+      </Box>      
+      // <Typography className='pageContent'>{JSON.stringify(error)}</Typography>
     )
 
   // ---------------------------------- 將回傳的 data 做 mapping 來符合 tableFC format

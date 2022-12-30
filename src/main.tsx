@@ -4,6 +4,7 @@ import { App } from './App'
 import './style/dist/main.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import Container from '@mui/material/Container';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import * as helper from './helper'
 
@@ -107,12 +108,15 @@ const ContextManager = () => {
             myFollowedMovie,
             setMyFollowedMovie,
             appBarState,
-            homePageState
+            homePageState,
+            setHomePageState
           }}
         >
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-              <App />
+              <Container maxWidth='lg'>
+                <App />
+              </Container>
             </ThemeProvider>
           </ColorModeContext.Provider>
         </ReactContext.Provider>

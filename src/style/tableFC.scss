@@ -1,46 +1,89 @@
-tbody tr.MuiTableRow-root {
+.Table-table {
 
-  .favoriteIcon {
-    scale: 1.5;
-    font-weight: 100;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.2);
+  // row head 前三排的 都往右邊移動 1rem 抵銷 sorting icon佔的空間
+  th:nth-child(1),
+  th:nth-child(2),
+  th:nth-child(3) {
+    .MuiTableSortLabel-root {
+      margin-left: 1rem
     }
   }
 
-  .favoriteActive {
-    color: red;
-    font-weight: 900;
+  // row head 第四排的 favorite 愛心 Icon
+  th:nth-child(4) span {
+    .Title-title {
+      scale: 1.5;
+      color: red
+    }
+
+    // 讓愛心旁邊的排序 Icon 消息
+    svg {
+      display: none
+    }
+  }
+
+  // TableFC column : heart Icon
+  tbody tr.MuiTableRow-root {
+    .favoriteIcon {
+      scale: 1.5;
+      font-weight: 100;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+    }
+
+    .favoriteActive {
+      color: red;
+      font-weight: 900;
+    }
+  }
+
+
+  // 控制 TableFC column : status 
+  tbody tr td {
+    font-family: 微軟正黑體;
+    font-weight: 700;
+    &:nth-child(3) {
+      p {
+        margin: 0 auto;
+        border-radius: 2rem;
+        width: 65%;
+      }
+
+      p .raw-value {
+        display: none;
+      }
+    }
+  }
+
+
+
+  // 將第二排的 releaseDate 消掉，滿足手機需求
+  // 並將第四排的 heart Icon 往右移動
+  @media screen and (max-width: 428px) {
+    thead tr th {
+      &:nth-child(2) {
+        background-color: aquamarine;
+        display: none;
+      }
+
+      &:nth-child(4) {
+        position: absolute;
+        right: 3.5rem
+      }
+    }
+
+    tbody tr td {
+      &:nth-child(2) {
+        display: none;
+      }
+
+      &:nth-child(4) {
+        position: absolute;
+        right: 3.5rem
+      }
+    }
   }
 }
-
-// tbody tr.MuiTableRow-root {
-//   td:nth-child(4) {
-//     &::after {
-//       font-family: "Font Awesome 5 Free";
-//       z-index: 100;
-//       font-weight: 100;
-//       content: "\f004";
-//       color: red;
-//     }
-
-//     &.followed::after {
-//       font-family: "Font Awesome 5 Free";
-//       z-index: 900;
-//       font-weight: 900;
-//       content: "\f004";
-//       color: red;
-//     }
-
-//     &:hover {
-//       cursor: pointer;
-//       transform: scale(1.05);
-//     }
-
-//   }
-// }
-
-// document.querySelector('tbody tr.MuiTableRow-root td:nth-child(4)').classList.add('followed')
-// document.querySelector('tbody tr.MuiTableRow-root td:nth-child(4)').classList.remove('followed')

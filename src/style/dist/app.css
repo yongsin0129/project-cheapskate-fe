@@ -1,17 +1,35 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#app header {
+  margin-top: 0.5rem;
+}
+#app .pageContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+#app .pageContent button.MuiButtonBase-root {
+  color: inherit;
+}
+#app .TableFilterCell-flexContainer {
   text-align: center;
 }
-
-.TableFilterCell-flexContainer {
-  text-align: center;
-}
-
-.ToggleModeButton {
+#app .ToggleModeButton {
   display: flex;
   flex-direction: row;
   justify-content: end;
   align-items: center;
   padding: 1rem;
+}
+#app #footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 1rem 0;
 }

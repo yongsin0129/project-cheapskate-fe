@@ -45,3 +45,35 @@ export const get_Me_NoGql = `
     }
   }
 `
+
+export const AddFollowedMovies = gql`
+  mutation AddFollowedMovies($movieListId: String) {
+    addFollowedMovies(MovieListId: $movieListId) {
+      id
+      name
+      email
+      followedMovies {
+        id
+        title
+        releaseDate
+        status
+      }
+    }
+  }
+`
+
+export const RemoveFollowedMovies = gql`
+  mutation RemoveFollowedMovies($movieListId: String) {
+    removeFollowedMovies(MovieListId: $movieListId) {
+      id
+      name
+      email
+      followedMovies {
+        id
+        title
+        releaseDate
+        status
+      }
+    }
+  }
+`
