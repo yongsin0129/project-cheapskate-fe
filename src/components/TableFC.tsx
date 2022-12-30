@@ -71,7 +71,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
 
         {/* ------------------------ column排序器的 state manager */}
         <SortingState
-          defaultSorting={[{ columnName: 'title', direction: 'asc' }]}
+          defaultSorting={[{ columnName: 'release', direction: 'desc' }]}
         />
         <IntegratedSorting
           columnExtensions={integratedSortingColumnExtensions}
