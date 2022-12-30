@@ -44,8 +44,14 @@
     position: absolute;
     right: 3.5rem;
   }
+  .Table-table tbody tr td:nth-child(1) {
+    white-space: inherit;
+  }
   .Table-table tbody tr td:nth-child(2) {
     display: none;
+  }
+  .Table-table tbody tr td:nth-child(3) p {
+    font-size: 0.7rem;
   }
   .Table-table tbody tr td:nth-child(4) {
     position: absolute;

@@ -1,0 +1,38 @@
+.homepage .MuiGrid-root .MuiGrid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.homepage #accountDescription,
+.homepage #futurePlanDescription {
+  width: 100%;
+  padding: 1rem;
+}
+.homepage #accountDescription p,
+.homepage #futurePlanDescription p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 428px) {
+  .homepage {
+    font-size: 0.75rem;
+  }
+  .homepage #reasonDescription {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  .homepage #reasonDescription.web {
+    display: none;
+  }
+}
+@media screen and (min-width: 429px) {
+  .homepage #reasonDescription {
+    width: 100%;
+    margin: 0.5rem;
+  }
+  .homepage #reasonDescription.phone {
+    display: none;
+  }
+}

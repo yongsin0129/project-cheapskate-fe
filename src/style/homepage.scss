@@ -1,0 +1,55 @@
+.homepage {
+
+  .MuiGrid-root {
+    .MuiGrid-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  #accountDescription,
+  #futurePlanDescription {
+    width: 100%;
+    padding: 1rem;
+
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  @media screen and (max-width: 428px) {
+    font-size: 0.75rem;
+
+    #reasonDescription {
+      width: 100%;
+      padding: 1rem;
+
+      &.web {
+        display: none;
+      }
+
+      // border: 2px solid red;
+      margin: 0.5rem;
+
+    }
+  }
+
+
+
+  // Web 專用設定
+  @media screen and (min-width: 429px) {
+    #reasonDescription {
+      width: 100%;
+
+      &.phone {
+        display: none;
+      }
+
+      margin: 0.5rem;
+
+    }
+  }
+}
