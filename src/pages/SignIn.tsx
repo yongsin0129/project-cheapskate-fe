@@ -26,7 +26,7 @@ const schema = Joi.object({
 
 const SignIn = () => {
   // context 取得
-  const [MeToken, setMeToken] = React.useContext(MeContext)
+  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
 
   // hook 定義
   const theme = useTheme()
@@ -45,6 +45,14 @@ const SignIn = () => {
   const [pageState, setPageState] = React.useState<PageState>({
     isLoading: false
   })
+
+  // 監控 context_Me 確認有無登入成功並取到 Me User
+  React.useEffect(() => {
+    if (!!Me) {
+      setPageState({ isLoading: false, isError: false })
+      navigate('/FollowedMovies')
+    }
+  }, [Me])
 
   // watch 定義
   const [email, password] = watch(['email', 'password']) // watch input value by passing the name of it
@@ -72,14 +80,14 @@ const SignIn = () => {
             message: helper.ErrorMessageTransfer(data.message)
           })
         } else {
-          // ---------- 登入成功
-          setPageState({ isLoading: false, isError: false })
+          // ---------- 登入成功 
           localStorage.setItem(
             'jwt_token',
             JSON.stringify(data.data[0].jwtToken)
           )
+
+          // 
           setMeToken(data.data[0].jwtToken)
-          navigate('/FollowedMovies')
         }
       })
       .catch(error => {
