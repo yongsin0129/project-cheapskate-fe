@@ -126,16 +126,17 @@ export function ResponsiveAppBar () {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none'
+              textDecoration: 'none',
+              fontSize: '0.8rem'
             }}
           >
             Cheapskate
           </Typography>
 
           {/* ---------------------------------- 正常螢幕使用的 Box ---------------------------------- */}
-          
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>       
-            <AppBar_tab/>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <AppBar_tab />
           </Box>
           {/* ---------------------------------- 右邊 settings 的 Box ---------------------------------- */}
 

@@ -2,9 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
 import './style/dist/main.css'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import {
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes
+} from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import Container from '@mui/material/Container';
+import Container from '@mui/material/Container'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import * as helper from './helper'
 
@@ -45,15 +49,14 @@ const ContextManager = () => {
     []
   )
 
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode
-        }
-      }),
-    [mode]
-  )
+  const theme = React.useMemo(() => {
+    let theme = createTheme({
+      palette: {
+        mode
+      }
+    })
+    return responsiveFontSizes(theme);
+  }, [mode])
 
   // ---------------------- useEffect ----------------------
   // context_MeToken 有變化後觸發， new 一個新的 apollo client 並且更新 Me

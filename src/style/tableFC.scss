@@ -45,6 +45,7 @@
   tbody tr td {
     font-family: 微軟正黑體;
     font-weight: 700;
+
     &:nth-child(3) {
       p {
         margin: 0 auto;
@@ -59,10 +60,11 @@
   }
 
 
-
+  // ------------------------------------------針對手機做的畫面優化---------------------------------------
   // 將第二排的 releaseDate 消掉，滿足手機需求
   // 並將第四排的 heart Icon 往右移動
   @media screen and (max-width: 428px) {
+
     thead tr th {
       &:nth-child(2) {
         background-color: aquamarine;
@@ -76,8 +78,19 @@
     }
 
     tbody tr td {
+      &:nth-child(1) {
+        white-space: inherit;
+      }
+
       &:nth-child(2) {
         display: none;
+      }
+
+
+      &:nth-child(3) {
+        p {
+          font-size: 0.7rem
+        }
       }
 
       &:nth-child(4) {
