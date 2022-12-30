@@ -1,6 +1,6 @@
 .Table-table {
-  // table-layout: unset;
 
+  // row head 前三排的 都往右邊移動 1rem 抵銷 sorting icon佔的空間
   th:nth-child(1),
   th:nth-child(2),
   th:nth-child(3) {
@@ -9,7 +9,7 @@
     }
   }
 
-  // row 3四排的 favorite 愛心 Icon
+  // row head 第四排的 favorite 愛心 Icon
   th:nth-child(4) span {
     .Title-title {
       scale: 1.5;
@@ -22,9 +22,8 @@
     }
   }
 
-
+  // TableFC column : heart Icon
   tbody tr.MuiTableRow-root {
-
     .favoriteIcon {
       scale: 1.5;
       font-weight: 100;
@@ -42,24 +41,28 @@
   }
 
 
-
+  // 控制 TableFC column : status 
   tbody tr td {
+    font-family: 微軟正黑體;
+    font-weight: 700;
     &:nth-child(3) {
+      p {
+        margin: 0 auto;
+        border-radius: 2rem;
+        width: 65%;
+      }
+
       p .raw-value {
-        background-color: aquamarine;
         display: none;
       }
-      // &::after {        
-      //   content: '111'
-      // }
     }
   }
 
 
 
+  // 將第二排的 releaseDate 消掉，滿足手機需求
+  // 並將第四排的 heart Icon 往右移動
   @media screen and (max-width: 428px) {
-
-    // 嘗試將 第三排 消掉滿足手機需求
     thead tr th {
       &:nth-child(2) {
         background-color: aquamarine;

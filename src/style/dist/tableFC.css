@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .Table-table th:nth-child(1) .MuiTableSortLabel-root,
 .Table-table th:nth-child(2) .MuiTableSortLabel-root,
 .Table-table th:nth-child(3) .MuiTableSortLabel-root {
@@ -22,8 +23,16 @@
   color: red;
   font-weight: 900;
 }
+.Table-table tbody tr td {
+  font-family: 微軟正黑體;
+  font-weight: 700;
+}
+.Table-table tbody tr td:nth-child(3) p {
+  margin: 0 auto;
+  border-radius: 2rem;
+  width: 65%;
+}
 .Table-table tbody tr td:nth-child(3) p .raw-value {
-  background-color: aquamarine;
   display: none;
 }
 @media screen and (max-width: 428px) {
