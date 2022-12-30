@@ -11,7 +11,6 @@ import { ResponsiveAppBar } from './components/AppBar'
 import { Footer } from './components/Footer'
 import {
   HomePage,
-  News,
   FirstRoundMovie,
   SecondRoundMovie,
   AllMovies,
@@ -19,6 +18,7 @@ import {
   SignIn,
   SignUp
 } from './pages'
+import ProtectedRoute from './components/ProtectedRoute'
 import { ReactContext } from './main'
 
 // -------------------------------- 明暗 mode 切換的 component
@@ -45,7 +45,7 @@ const ToggleModeButton = () => {
 }
 
 export function App () {
-  const { homePageState } = React.useContext(ReactContext)
+  const { homePageState, setHomePageState } = React.useContext(ReactContext)
 
   return (
     <Router>
@@ -61,22 +61,31 @@ export function App () {
 
         {/*  -----------------------------   網站 homepage alert 提示  ------------------- */}
         {homePageState?.isError && (
-          <Alert severity='error' sx={{ width: '100%' }}>
+          <Alert
+            severity='error'
+            sx={{ width: '100%', marginTop: '1rem' }}
+            onClose={() =>
+              setHomePageState && setHomePageState({ isError: false })
+            }
+          >
             {homePageState?.message}
           </Alert>
         )}
-        
+
         {/*  -----------------------------   網站 明暗模式切換  ------------------- */}
         <ToggleModeButton />
 
         {/*  -----------------------------   網站 路由管理  ------------------- */}
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/News' element={<News />} />
           <Route path='/FirstRoundMovie' element={<FirstRoundMovie />} />
           <Route path='/SecondRoundMovie' element={<SecondRoundMovie />} />
           <Route path='/AllMovies' element={<AllMovies />} />
-          <Route path='/FollowedMovies' element={<FollowedMovies />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path='/FollowedMovies' element={<FollowedMovies />} />
+          </Route>
+
           <Route path='/SignIn' element={<SignIn />} />
           <Route path='/SignUp' element={<SignUp />} />
         </Routes>

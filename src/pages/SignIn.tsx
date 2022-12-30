@@ -14,7 +14,7 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
 import { MeContext } from '../main'
-import * as helper from "../helper";
+import * as helper from '../helper'
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -26,8 +26,8 @@ const schema = Joi.object({
 
 const SignIn = () => {
   // context 取得
-  const [MeToken, setMeToken] = React.useContext(MeContext)
-  
+  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+
   // hook 定義
   const theme = useTheme()
   const navigate = useNavigate()
@@ -45,6 +45,14 @@ const SignIn = () => {
   const [pageState, setPageState] = React.useState<PageState>({
     isLoading: false
   })
+
+  // 監控 context_Me 確認有無登入成功並取到 Me User
+  React.useEffect(() => {
+    if (!!Me) {
+      setPageState({ isLoading: false, isError: false })
+      navigate('/FollowedMovies')
+    }
+  }, [Me])
 
   // watch 定義
   const [email, password] = watch(['email', 'password']) // watch input value by passing the name of it
@@ -72,19 +80,23 @@ const SignIn = () => {
             message: helper.ErrorMessageTransfer(data.message)
           })
         } else {
-          // ---------- 登入成功
-          setPageState({ isLoading: false, isError: false })
+          // ---------- 登入成功 
           localStorage.setItem(
             'jwt_token',
             JSON.stringify(data.data[0].jwtToken)
           )
+
+          // 
           setMeToken(data.data[0].jwtToken)
-          navigate('/FollowedMovies')
         }
       })
       .catch(error => {
-        setPageState({ isLoading: false, isError: true, error })
-        console.error(error)
+        setPageState({
+          isLoading: false,
+          isError: true,
+          error,
+          message: JSON.stringify(error)
+        })
       })
   }
 
@@ -92,7 +104,7 @@ const SignIn = () => {
     <Paper className='pageContent'>
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 1,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center'
@@ -178,7 +190,7 @@ const SignIn = () => {
               <Link to='/'>Forgot password?</Link>
             </Grid>
             <Grid item xs sx={{ textAlign: 'end' }}>
-              <Link to='/SignUp'>{"Don't have an account? Sign Up"}</Link>
+              <Link to='/SignUp'>{"Don't have an account?"}</Link>
             </Grid>
           </Grid>
         </form>
@@ -193,5 +205,3 @@ type Inputs = {
   email: string
   password: string
 }
-
-
