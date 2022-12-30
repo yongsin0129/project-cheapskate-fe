@@ -25,6 +25,7 @@ import { FavoriteCellProps } from '../Type/Type.TableFC'
 import { MeContext } from '../main'
 import { isValueInArrayObj } from '../helper'
 import { Heart_Icon } from './TableFC_Heart_Icon'
+import { StatusCell } from './TableFC_Status_Cell'
 
 /********************************************************************************
 *
@@ -117,7 +118,7 @@ const columns = [
   { name: 'title', title: 'Title' },
   { name: 'release', title: 'Release Date' },
   { name: 'status', title: 'Status' },
-  { name: 'favorite', title:  "\u2764" }
+  { name: 'favorite', title: '\u2764' }
 ]
 
 /********************************************************************************
@@ -144,6 +145,11 @@ const Cell: React.FC<Table.DataCellProps> = props => {
 
     // 如果 不是 active , 則生成 空心的愛心
     return <FavoriteCell active={'false'} {...props} />
+  }
+
+  // 針對 'status column 客製化'
+  if (column.name === 'status') {
+    return <StatusCell {...props} />
   }
 
   return <Table.Cell {...props} />

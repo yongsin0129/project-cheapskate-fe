@@ -43,8 +43,22 @@
 
 
 
+  tbody tr td {
+    &:nth-child(3) {
+      p .raw-value {
+        background-color: aquamarine;
+        display: none;
+      }
+      // &::after {        
+      //   content: '111'
+      // }
+    }
+  }
+
+
 
   @media screen and (max-width: 428px) {
+
     // 嘗試將 第三排 消掉滿足手機需求
     thead tr th {
       &:nth-child(2) {

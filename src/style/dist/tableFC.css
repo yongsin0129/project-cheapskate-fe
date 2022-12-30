@@ -22,6 +22,10 @@
   color: red;
   font-weight: 900;
 }
+.Table-table tbody tr td:nth-child(3) p .raw-value {
+  background-color: aquamarine;
+  display: none;
+}
 @media screen and (max-width: 428px) {
   .Table-table thead tr th:nth-child(2) {
     background-color: aquamarine;
