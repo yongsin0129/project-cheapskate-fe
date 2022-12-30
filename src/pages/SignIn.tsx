@@ -14,7 +14,7 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
 import { MeContext } from '../main'
-import * as helper from "../helper";
+import * as helper from '../helper'
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -27,7 +27,7 @@ const schema = Joi.object({
 const SignIn = () => {
   // context 取得
   const [MeToken, setMeToken] = React.useContext(MeContext)
-  
+
   // hook 定義
   const theme = useTheme()
   const navigate = useNavigate()
@@ -83,8 +83,12 @@ const SignIn = () => {
         }
       })
       .catch(error => {
-        setPageState({ isLoading: false, isError: true, error })
-        console.error(error)
+        setPageState({
+          isLoading: false,
+          isError: true,
+          error,
+          message: JSON.stringify(error)
+        })
       })
   }
 
@@ -92,7 +96,7 @@ const SignIn = () => {
     <Paper className='pageContent'>
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 1,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center'
@@ -193,5 +197,3 @@ type Inputs = {
   email: string
   password: string
 }
-
-
