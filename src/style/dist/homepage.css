@@ -3,11 +3,13 @@
   justify-content: center;
   align-items: center;
 }
+.homepage #reasonDescription,
 .homepage #accountDescription,
 .homepage #futurePlanDescription {
   width: 100%;
   padding: 1rem;
 }
+.homepage #reasonDescription p,
 .homepage #accountDescription p,
 .homepage #futurePlanDescription p {
   display: flex;
