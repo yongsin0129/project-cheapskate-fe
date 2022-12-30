@@ -56,6 +56,12 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     rowData: any
   ) => {
+    // 如果 context_Me 裡面沒有 MeToken 轉換的值，表示未登入狀態
+    if (!Me) {
+      alert(' 加入收藏是會員專屬功能，請先登入會員 !!')
+      return
+    }
+
     // 如果愛心已經是 active 觸發 mutation remove favorite
     if ((e.target as HTMLElement).className.includes('favoriteActive')) {
       handleDeleteConfirmClickOpen()
