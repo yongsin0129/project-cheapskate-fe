@@ -1,0 +1,9 @@
+{
+  "name": "cheapskate-fe",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
