@@ -1,16 +1,23 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { AppBarStateContext, MeContext, HomePageStateContext } from '../context'
+import {
+  AppBarStateContext,
+  SetMeContext,
+  MeTokenContext,
+  HomePageSetStateContext
+} from '../context'
 import * as helper from '../helper'
 
-export const UserValidator = () => {
+export const UserValidator = React.memo(() => {
   console.log(
-    '// ------------------------------   UserValidator     ------------------------------ '
+    '// ------------------------------   reRender test : UserValidator     ------------------------------ '
   )
   // ------------------------------     context   ------------------------------
   const { setAppBarState } = React.useContext(AppBarStateContext)
-  const { MeToken, setMe } = React.useContext(MeContext)
-  const { setHomePageState } = React.useContext(HomePageStateContext)
+  const setMe = React.useContext(SetMeContext)
+  const MeToken = React.useContext(MeTokenContext)
+
+  const setHomePageState = React.useContext(HomePageSetStateContext)
 
   // ------------------------------     useRef   ------------------------------
   const MeTokenRef = React.useRef<{ jwt_token: string } | null>(null)
@@ -59,6 +66,7 @@ export const UserValidator = () => {
         setAppBarState!({ isLoading: false })
       }
     }
-  })
+  }, [MeToken])
+
   return <Outlet />
-}
+})

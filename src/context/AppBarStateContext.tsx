@@ -12,8 +12,12 @@ export const AppBarStateManager: React.FC<React.PropsWithChildren> = ({
 }) => {
   const [appBarState, setAppBarState] = React.useState<PageState>()
 
+  const AppBarStateContextValue = React.useMemo(() => {
+    return { appBarState, setAppBarState }
+  }, [appBarState, setAppBarState])
+
   return (
-    <AppBarStateContext.Provider value={{ appBarState, setAppBarState }}>
+    <AppBarStateContext.Provider value={{ ...AppBarStateContextValue }}>
       {children}
     </AppBarStateContext.Provider>
   )

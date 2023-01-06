@@ -20,10 +20,14 @@ import {
 } from './pages'
 import ProtectedRoute from './components/ProtectedRoute'
 import { UserValidator } from './components/UserValidator'
-import { HomePageStateContext } from './context'
+import { HomePageStateContext, HomePageSetStateContext } from './context'
 
 // -------------------------------- 明暗 mode 切換的 component
-const ToggleModeButton = () => {
+const ToggleModeButton = React.memo(() => {
+  console.log(
+    '// ------------------------------     reRender test :  ToggleModeButton  ------------------------------ '
+  )
+
   const theme = useTheme()
   const colorMode = React.useContext(ColorModeContext)
 
@@ -43,11 +47,15 @@ const ToggleModeButton = () => {
       </IconButton>
     </Box>
   )
-}
+})
 
 export function App () {
-  const { homePageState, setHomePageState } =
-    React.useContext(HomePageStateContext)
+  console.log(
+    '// ------------------------------     reRender test :  App  ------------------------------ '
+  )
+
+  const homePageState = React.useContext(HomePageStateContext)
+  const setHomePageState = React.useContext(HomePageSetStateContext)
 
   return (
     <Router>
@@ -70,9 +78,7 @@ export function App () {
             <Alert
               severity='error'
               sx={{ width: '100%', marginTop: '1rem' }}
-              onClose={() =>
-                setHomePageState && setHomePageState({ isError: false })
-              }
+              onClose={() => setHomePageState!({ isError: false })}
             >
               {homePageState?.message}
             </Alert>

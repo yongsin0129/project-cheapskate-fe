@@ -5,8 +5,10 @@ import { useTheme } from '@mui/material/styles'
 
 interface StatusCellProps extends Table.DataCellProps {}
 
-export const StatusCell: React.FC<StatusCellProps> = Props => {
+export const StatusCell: React.FC<StatusCellProps> = React.memo(Props => {
   const Theme = useTheme()
+
+  // 從父層取得此電影的上映狀態
   const { status }: { status: string } = Props.row
   let displayStatus: string
   let background: object
@@ -70,4 +72,4 @@ export const StatusCell: React.FC<StatusCellProps> = Props => {
       </Typography>
     </Table.Cell>
   )
-}
+})

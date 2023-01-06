@@ -8,6 +8,10 @@ import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
 
 const SecondRoundMovie = () => {
+  console.log(
+    '// ------------------------------     reRender test :  SecondRoundMovie  ------------------------------ '
+  )
+
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(
     gql.get_movies_by_status,

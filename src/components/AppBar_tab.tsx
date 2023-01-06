@@ -4,13 +4,17 @@ import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { NavLink, useLocation } from 'react-router-dom'
 
-export function AppBar_tab () {
+export const AppBar_tab = React.memo(() => {
+  console.log(
+    '// ------------------------------   reRender test : AppBar_tab     ------------------------------ '
+  )
+
   // 取得當前路徑
   const { pathname } = useLocation()
 
   const [value, setValue] = React.useState('one')
 
-  React.useEffect(() => {
+  React.useEffect(() => {    
     // 比對當前路徑，得到目前應該位在那一個 tag
     const currentTagValue = pages.find(v => v.href === pathname)?.id
     setValue(currentTagValue || 'one')
@@ -41,7 +45,7 @@ export function AppBar_tab () {
       </Tabs>
     </Box>
   )
-}
+})
 
 export const pages = [
   { id: 'one', title: '關於本站', href: '/' },
