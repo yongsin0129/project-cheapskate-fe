@@ -33,6 +33,10 @@ import { StatusCell } from './TableFC_Status_Cell'
 *
 *********************************************************************************/
 export const TableFC: React.FC<TableFCProps> = props => {
+  console.log(
+    '// ------------------------------   reRender test : TableFC     ------------------------------ '
+  )
+
   {
     /* ------------------------ 父層引入的 tableDate  */
   }
@@ -129,7 +133,7 @@ const columns = [
 
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = props => {
-  const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
+  const Me = React.useContext(MeContext)
   const { column, row } = props
 
   // 針對 'favorite column 客製化'

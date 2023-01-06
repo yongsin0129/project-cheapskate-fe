@@ -6,11 +6,15 @@ import { Loading } from '../components/Loading'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
-import { MeContext } from '../context'
+import { MeTokenContext } from '../context'
 
 const FollowedMovies = () => {
+  console.log(
+    '// ------------------------------     reRender test :  FollowedMovies  ------------------------------ '
+  )
+
   // ------------------------------     useContext   ------------------------------
-  const { MeToken } = React.useContext(MeContext)
+  const MeToken = React.useContext(MeTokenContext)
 
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(

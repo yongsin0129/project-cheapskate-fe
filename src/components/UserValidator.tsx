@@ -2,7 +2,8 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import {
   AppBarStateContext,
-  MeContext,
+  SetMeContext,
+  MeTokenContext,
   HomePageSetStateContext
 } from '../context'
 import * as helper from '../helper'
@@ -13,7 +14,9 @@ export const UserValidator = React.memo(() => {
   )
   // ------------------------------     context   ------------------------------
   const { setAppBarState } = React.useContext(AppBarStateContext)
-  const { MeToken, setMe } = React.useContext(MeContext)
+  const setMe = React.useContext(SetMeContext)
+  const MeToken = React.useContext(MeTokenContext)
+
   const setHomePageState = React.useContext(HomePageSetStateContext)
 
   // ------------------------------     useRef   ------------------------------

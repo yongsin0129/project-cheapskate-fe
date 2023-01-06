@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useMutation } from '@apollo/client'
 import * as gql from '../gqlQuerys'
-import { MeContext } from '../context'
+import { MeContext, SetMeContext, MeTokenContext } from '../context'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
 
 interface Heart_IconProps extends Table.DataCellProps {
@@ -17,7 +17,9 @@ interface Heart_IconProps extends Table.DataCellProps {
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
 export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
   // ---------------------------------------------  useContext
-  const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
+  const Me = React.useContext(MeContext)
+  const setMe = React.useContext(SetMeContext)
+  const MeToken = React.useContext(MeTokenContext)
 
   // ---------------------------------------------  從父層取得 Props
   const defaultActive = Props.active === 'true'
@@ -25,7 +27,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
 
-  // ---------------------------------------------  useMutation
+  // ---------------------------------------------  useMutation for Add
   const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
     gql.AddFollowedMovies,
     {
@@ -35,8 +37,9 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
 
   const addFollowResponseError = (addFollowResponse as QueryResType).error
   if (addFollowResponseError)
-    return <p>{JSON.stringify(addFollowResponseError.message)}`</p>
+    return <p>{JSON.stringify(addFollowResponseError.message)}</p>
 
+  // ---------------------------------------------  useMutation for Remove
   const [Remove_Followed_Movies_Function, removeFollowResponse] = useMutation(
     gql.RemoveFollowedMovies,
     {

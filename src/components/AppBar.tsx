@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { NavLink } from 'react-router-dom'
-import { MeContext } from '../context'
+import { MeContext, SetMeTokenContext } from '../context'
 import { AppBarStateContext } from '../context'
 import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
@@ -26,7 +26,8 @@ export const ResponsiveAppBar = React.memo(() => {
   )
 
   // ---------------------- useContext ----------------------
-  const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
+  const Me = React.useContext(MeContext)
+  const setMeToken = React.useContext(SetMeTokenContext)
   const { appBarState } = React.useContext(AppBarStateContext)
 
   // ---------------------- useState ----------------------

@@ -8,11 +8,15 @@ import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
 
 const FirstRoundMovie = () => {
+  console.log(
+    '// ------------------------------     reRender test :  FirstRoundMovie  ------------------------------ '
+  )
+
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(
     gql.get_movies_by_status,
     {
-      variables: { status: 'firstRound' }      
+      variables: { status: 'firstRound' }
     }
   )
   if (!!loading)

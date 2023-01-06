@@ -10,6 +10,10 @@ import StorageIcon from '@mui/icons-material/Storage'
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna'
 
 const HomePage = () => {
+  console.log(
+    '// ------------------------------     reRender test :  HomePage  ------------------------------ '
+  )
+
   const Theme = useTheme()
 
   return (

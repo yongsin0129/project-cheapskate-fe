@@ -8,6 +8,10 @@ import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
 
 const AllMovies = () => {
+  console.log(
+    '// ------------------------------     reRender test :  AllMovies  ------------------------------ '
+  )
+
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)
   if (!!loading)
@@ -23,7 +27,7 @@ const AllMovies = () => {
           errorMessage={(error as Error).message}
           errorObj={error}
         />
-      </Box>      
+      </Box>
       // <Typography className='pageContent'>{JSON.stringify(error)}</Typography>
     )
 
