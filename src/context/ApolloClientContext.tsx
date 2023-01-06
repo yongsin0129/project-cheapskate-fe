@@ -1,9 +1,6 @@
 import React from 'react'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider
-} from '@apollo/client'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import * as helper from "../helper";
 
 // ------------------------------     create context   ------------------------------
 // export const ApolloClientContext = React.createContext({})

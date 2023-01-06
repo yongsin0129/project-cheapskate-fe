@@ -19,6 +19,7 @@ import {
   SignUp
 } from './pages'
 import ProtectedRoute from './components/ProtectedRoute'
+import { UserValidator } from './components/UserValidator'
 import { HomePageStateContext } from './context'
 
 // -------------------------------- 明暗 mode 切換的 component
@@ -58,6 +59,9 @@ export function App () {
             bgcolor: 'background.default'
           }}
         >
+          {/*  -----------------------------   使用者驗證 (localstorage -> context_MeToken -> context_Me)   ------------------- */}
+          <UserValidator />
+
           {/*  -----------------------------   網站 nav bar   ------------------- */}
           <ResponsiveAppBar />
 
