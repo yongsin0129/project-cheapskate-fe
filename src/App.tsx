@@ -1,7 +1,7 @@
 import '././style/dist/app.css'
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { ColorModeContext } from './main'
+import { ColorModeContext } from './context'
 import { Alert, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'

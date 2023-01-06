@@ -9,6 +9,7 @@ import {
 } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
+import ContextManager2 from './context'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import * as helper from './helper'
 
@@ -19,7 +20,7 @@ export const ColorModeContext = React.createContext({
 export const MeContext = React.createContext([] as any[])
 export const ReactContext = React.createContext<ReactContext>({})
 
-const ContextManager = () => {
+const ContextManager: React.FC<React.PropsWithChildren> = ({ children }) => {
   // ---------------------- variable initial ----------------------
   const token = helper.getToken()?.data || null
   const jwt_token = token && { jwt_token: helper.getToken()?.data as string }
@@ -55,7 +56,7 @@ const ContextManager = () => {
         mode
       }
     })
-    return responsiveFontSizes(theme);
+    return responsiveFontSizes(theme)
   }, [mode])
 
   // ---------------------- useEffect ----------------------
@@ -115,13 +116,11 @@ const ContextManager = () => {
             setHomePageState
           }}
         >
-          <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-              <Container maxWidth='lg'>
-                <App />
-              </Container>
-            </ThemeProvider>
-          </ColorModeContext.Provider>
+          {/* <ColorModeContext.Provider value={colorMode}> */}
+          {/* <ThemeProvider theme={theme}> */}
+          <Container maxWidth='lg'>{children}</Container>
+          {/* </ThemeProvider> */}
+          {/* </ColorModeContext.Provider> */}
         </ReactContext.Provider>
       </MeContext.Provider>
     </ApolloProvider>
@@ -136,6 +135,10 @@ const ContextManager = () => {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <CssBaseline />
-    <ContextManager />
+    <ContextManager2>
+      <ContextManager>
+        <App />
+      </ContextManager>
+    </ContextManager2>
   </React.StrictMode>
 )
