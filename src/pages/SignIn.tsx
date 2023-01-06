@@ -86,8 +86,8 @@ const SignIn = () => {
             JSON.stringify(data.data[0].jwtToken)
           )
 
-          //
-          setMeToken!(data.data[0].jwtToken)
+          // MeToken 放入 { jwt_token: 'string' }
+          setMeToken!({ jwt_token: data.data[0].jwtToken })
         }
       })
       .catch(error => {

@@ -28,7 +28,9 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
   // ---------------------------------------------  useMutation
   const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
     gql.AddFollowedMovies,
-    {}
+    {
+      context: { headers: { ...MeToken } }
+    }
   )
 
   const addFollowResponseError = (addFollowResponse as QueryResType).error
@@ -37,7 +39,9 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
 
   const [Remove_Followed_Movies_Function, removeFollowResponse] = useMutation(
     gql.RemoveFollowedMovies,
-    {}
+    {
+      context: { headers: { ...MeToken } }
+    }
   )
   const removeFollowResponseError = (removeFollowResponse as QueryResType).error
   if (addFollowResponseError)
