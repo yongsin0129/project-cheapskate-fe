@@ -12,10 +12,10 @@ export const ColorModeContext = React.createContext({
 export const ColorSwitchManager: React.FC<React.PropsWithChildren> = ({
   children
 }) => {
-  // state
+  // ------------------------------     useState   ------------------------------ 
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
   
-  // optimization
+  // ------------------------------     useMemo   ------------------------------ 
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -25,6 +25,7 @@ export const ColorSwitchManager: React.FC<React.PropsWithChildren> = ({
     []
   )
 
+  // mode 改變時，會重新創造一個 MUI theme 傳下去所有子元件
   const theme = React.useMemo(() => {
     let theme = createTheme({
       palette: {

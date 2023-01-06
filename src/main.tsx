@@ -2,11 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
 import './style/dist/main.css'
-import {
-  ThemeProvider,
-  createTheme,
-  responsiveFontSizes
-} from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import ContextManager2 from './context'
@@ -14,9 +9,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import * as helper from './helper'
 
 // ---------------------- context create ----------------------
-export const ColorModeContext = React.createContext({
-  toggleColorMode: () => {}
-})
 export const MeContext = React.createContext([] as any[])
 export const ReactContext = React.createContext<ReactContext>({})
 
@@ -33,31 +25,12 @@ const ContextManager: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   // ---------------------- useState ----------------------
   const [client, setClient] = React.useState(client_init)
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light')
   const [MeToken, setMeToken] = React.useState(jwt_token)
   const [Me, setMe] = React.useState<any>()
   const [myFollowedMovie, setMyFollowedMovie] =
     React.useState<MovieDataResponsive[]>()
   const [appBarState, setAppBarState] = React.useState<PageState>()
   const [homePageState, setHomePageState] = React.useState<PageState>()
-  // ---------------------- useMemo ----------------------
-  const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'))
-      }
-    }),
-    []
-  )
-
-  const theme = React.useMemo(() => {
-    let theme = createTheme({
-      palette: {
-        mode
-      }
-    })
-    return responsiveFontSizes(theme)
-  }, [mode])
 
   // ---------------------- useEffect ----------------------
   // context_MeToken 有變化後觸發， new 一個新的 apollo client 並且更新 Me
@@ -116,11 +89,7 @@ const ContextManager: React.FC<React.PropsWithChildren> = ({ children }) => {
             setHomePageState
           }}
         >
-          {/* <ColorModeContext.Provider value={colorMode}> */}
-          {/* <ThemeProvider theme={theme}> */}
           <Container maxWidth='lg'>{children}</Container>
-          {/* </ThemeProvider> */}
-          {/* </ColorModeContext.Provider> */}
         </ReactContext.Provider>
       </MeContext.Provider>
     </ApolloProvider>

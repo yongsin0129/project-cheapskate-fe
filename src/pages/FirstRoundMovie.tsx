@@ -15,7 +15,7 @@ const FirstRoundMovie = () => {
   const { loading, error, data }: QueryResType = useQuery(
     gql.get_movies_by_status,
     {
-      variables: { status: 'firstRound' }
+      variables: { status: 'firstRound' }      
     }
   )
   if (!!loading)

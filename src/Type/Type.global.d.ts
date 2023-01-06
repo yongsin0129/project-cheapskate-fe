@@ -91,3 +91,9 @@ interface PageState {
   error?: object
   message?: string
 }
+
+interface Me {
+  id: string
+  name: string
+  email: string
+}
