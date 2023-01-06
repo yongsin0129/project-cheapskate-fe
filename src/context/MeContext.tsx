@@ -20,8 +20,12 @@ export const MeManager: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [MeToken, setMeToken] = React.useState(jwt_token)
   const [Me, setMe] = React.useState<Me | null>(null)
 
+  const MeContextValue = React.useMemo(() => {
+    return { MeToken, setMeToken, Me, setMe }
+  }, [MeToken, setMeToken, Me, setMe])
+
   return (
-    <MeContext.Provider value={{ MeToken, setMeToken, Me, setMe }}>
+    <MeContext.Provider value={{ ...MeContextValue }}>
       {children}
     </MeContext.Provider>
   )

@@ -1,10 +1,11 @@
 import React from 'react'
 import { MeContext } from '../context'
-import { HomePageStateContext } from "../context";
+import { HomePageSetStateContext } from '../context'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoute = () => {
-  const { homePageState, setHomePageState } = React.useContext(HomePageStateContext)
+  const setHomePageState = React.useContext(HomePageSetStateContext)
+
   const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
 
   // 如果 context_Me 有值，表示有登入可繼續 next() , 否則跳轉到登入頁面

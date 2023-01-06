@@ -1,20 +1,23 @@
 import React from 'react'
 
-interface HomePageContext {
-  homePageState?: PageState | undefined
-  setHomePageState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
-}
+type setHomePageState = React.Dispatch<React.SetStateAction<PageState>>
 
-export const HomePageStateContext = React.createContext<HomePageContext>({})
+// ------------------------------     create Context   ------------------------------
+export const HomePageStateContext = React.createContext<PageState | null>(null)
+export const HomePageSetStateContext =
+  React.createContext<setHomePageState | null>(null)
 
+// ------------------------------     function component   ------------------------------
 export const HomePageStateManager: React.FC<React.PropsWithChildren> = ({
   children
 }) => {
-  const [homePageState, setHomePageState] = React.useState<PageState>()
+  const [homePageState, setHomePageState] = React.useState<PageState>({})
 
   return (
-    <HomePageStateContext.Provider value={{ homePageState, setHomePageState }}>
-      {children}
+    <HomePageStateContext.Provider value={homePageState}>
+      <HomePageSetStateContext.Provider value={setHomePageState}>
+        {children}
+      </HomePageSetStateContext.Provider>
     </HomePageStateContext.Provider>
   )
 }

@@ -14,13 +14,17 @@ import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { NavLink } from 'react-router-dom'
 import { MeContext } from '../context'
-import { AppBarStateContext } from "../context";
+import { AppBarStateContext } from '../context'
 import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
 import PersonIcon from '@mui/icons-material/Person'
 import { AppBar_tab, pages } from './AppBar_tab'
 
-export function ResponsiveAppBar () {
+export const ResponsiveAppBar = React.memo(() => {
+  console.log(
+    '// ------------------------------     reRender test :  ResponsiveAppBar  ------------------------------ '
+  )
+
   // ---------------------- useContext ----------------------
   const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
   const { appBarState } = React.useContext(AppBarStateContext)
@@ -30,7 +34,6 @@ export function ResponsiveAppBar () {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   )
-  const [value, setValue] = React.useState(0) //控制 navbar 的 button
 
   // ---------------------- handler ----------------------
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -197,4 +200,4 @@ export function ResponsiveAppBar () {
       </Container>
     </AppBar>
   )
-}
+})

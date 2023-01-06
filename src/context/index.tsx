@@ -7,6 +7,7 @@ export { MeContext } from './MeContext'
 export { AppBarStateContext } from './AppBarStateContext'
 import { AppBarStateManager } from './AppBarStateContext'
 export { HomePageStateContext } from './HomePageStateContext'
+export { HomePageSetStateContext } from './HomePageStateContext'
 import { HomePageStateManager } from './HomePageStateContext'
 
 const ContextManager: React.FC<React.PropsWithChildren> = ({ children }) => {
