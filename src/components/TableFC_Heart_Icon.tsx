@@ -9,13 +9,14 @@ import { useMutation } from '@apollo/client'
 import * as gql from '../gqlQuerys'
 import { MeContext, SetMeContext, MeTokenContext } from '../context'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
+import _ from 'lodash'
 
 interface Heart_IconProps extends Table.DataCellProps {
   active?: string
 }
 
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
-export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
+export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   // ---------------------------------------------  useContext
   const Me = React.useContext(MeContext)
   const setMe = React.useContext(SetMeContext)
@@ -78,7 +79,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
       Add_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
 
       // 將點擊的電影資料新增到 context_Me 並更新, 用來刷新 Heart_Icon active state
-      const copy_Me = { ...Me }
+      const copy_Me = _.cloneDeep(Me)
       const { id, title, releaseDate } = rowData
       copy_Me.followedMovies.push({ id, title, releaseDate })
       setMe!(() => copy_Me)
@@ -94,7 +95,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
     handleDeleteConfirmClose()
 
     // 更新 context_Me 刷新 Heart_Icon
-    const copy_Me = { ...Me! }
+    const copy_Me = _.cloneDeep(Me!)
     const index = copy_Me.followedMovies!.findIndex(v => v!.id === rowData.id)
     copy_Me.followedMovies!.splice(index, 1)
     setMe!(() => copy_Me)
@@ -140,7 +141,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
       </Dialog>
     </div>
   )
-}
+})
 
 /********************************************************************************
 *

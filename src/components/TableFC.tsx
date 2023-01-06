@@ -132,23 +132,15 @@ const columns = [
 *********************************************************************************/
 
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
-const Cell: React.FC<Table.DataCellProps> = props => {
-  const Me = React.useContext(MeContext)
+const Cell: React.FC<Table.DataCellProps> = React.memo(props => {
+  console.log(
+    '// ------------------------------   reRender test : Row Cell     ------------------------------ '
+  )
   const { column, row } = props
 
   // 針對 'favorite column 客製化'
   if (column.name === 'favorite') {
-    const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
-    const rowMovieId = props?.row?.id
-
-    // 如果 context_Me 的 FollowedMovie 有值，開始比對當前的電影有無在 array 之中
-    if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
-      if (isValueInArrayObj(rowMovieId, UserFollowedMovieArray))
-        return <FavoriteCell active={'true'} {...props} />
-    }
-
-    // 如果 不是 active , 則生成 空心的愛心
-    return <FavoriteCell active={'false'} {...props} />
+    return <FavoriteCell {...props} />
   }
 
   // 針對 'status column 客製化'
@@ -157,13 +149,30 @@ const Cell: React.FC<Table.DataCellProps> = props => {
   }
 
   return <Table.Cell {...props} />
-}
+})
 
 // 層級 Cell / FavoriteCell / Heart_Icon
 const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
+  const Me = React.useContext(MeContext)
+  const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
+  const rowMovieId = Props?.row?.id
+
+  // 如果 context_Me 的 FollowedMovie 有值，開始比對當前的電影有無在 array 之中
+  if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
+    
+    // 此電影有在 user 收藏中 實心愛心 
+    if (isValueInArrayObj(rowMovieId, UserFollowedMovieArray))
+      return (
+        <Table.Cell {...Props}>
+          <Heart_Icon active={'true'} {...Props} />
+        </Table.Cell>
+      )
+  }
+
+  // 此電影不在 user 收藏中 空心愛心 
   return (
     <Table.Cell {...Props}>
-      <Heart_Icon {...Props} />
+      <Heart_Icon active={'false'} {...Props} />
     </Table.Cell>
   )
 }
