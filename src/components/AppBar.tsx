@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useApolloClient } from '@apollo/client'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -29,6 +30,7 @@ export const ResponsiveAppBar = React.memo(() => {
   const Me = React.useContext(MeContext)
   const setMeToken = React.useContext(SetMeTokenContext)
   const { appBarState } = React.useContext(AppBarStateContext)
+  const client = useApolloClient()
 
   // ---------------------- useState ----------------------
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -55,6 +57,7 @@ export const ResponsiveAppBar = React.memo(() => {
   const handleLogOut = () => {
     setMeToken!(null)
     localStorage.removeItem('jwt_token')
+    client.clearStore()
   }
 
   return (
