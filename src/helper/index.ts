@@ -65,12 +65,6 @@ export const ErrorMessageTransfer = (message: string) => {
   return message
 }
 
-interface Me {
-  id: string
-  name: string
-  email: string
-}
-
 // ----------------------------- 比對一個 value 有無在 array 之中
 export const isValueInArrayObj = (value: any, array: Array<any>) => {
   const IdArray = array.map((v: any) => v.id)

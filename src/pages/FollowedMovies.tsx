@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactContext } from '../main'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
 import { TableFC } from '../components/TableFC'
@@ -7,11 +6,18 @@ import { Loading } from '../components/Loading'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
+import { MeContext } from '../context'
 
 const FollowedMovies = () => {
+  // ------------------------------     useContext   ------------------------------
+  const { MeToken } = React.useContext(MeContext)
+
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(
-    gql.get_me_followed_movies
+    gql.get_me_followed_movies,
+    {
+      context: { headers: { ...MeToken } }
+    }
   )
   if (!!loading)
     return (

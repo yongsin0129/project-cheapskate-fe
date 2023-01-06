@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactContext } from '../main'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
 import { TableFC } from '../components/TableFC'
@@ -9,8 +8,6 @@ import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
 
 const AllMovies = () => {
-  const { myFollowedMovie } = React.useContext(ReactContext)
-
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)
   if (!!loading)

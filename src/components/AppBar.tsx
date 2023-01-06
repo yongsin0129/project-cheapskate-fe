@@ -13,8 +13,8 @@ import MenuItem from '@mui/material/MenuItem'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { NavLink } from 'react-router-dom'
-import { MeContext } from '../main'
-import { ReactContext } from '../main'
+import { MeContext } from '../context'
+import { AppBarStateContext } from "../context";
 import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
 import PersonIcon from '@mui/icons-material/Person'
@@ -22,8 +22,8 @@ import { AppBar_tab, pages } from './AppBar_tab'
 
 export function ResponsiveAppBar () {
   // ---------------------- useContext ----------------------
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
-  const { appBarState } = React.useContext(ReactContext)
+  const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
+  const { appBarState } = React.useContext(AppBarStateContext)
 
   // ---------------------- useState ----------------------
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -49,7 +49,7 @@ export function ResponsiveAppBar () {
   }
 
   const handleLogOut = () => {
-    setMeToken(null)
+    setMeToken!(null)
     localStorage.removeItem('jwt_token')
   }
 

@@ -1,8 +1,8 @@
 import '././style/dist/app.css'
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { ColorModeContext } from './main'
-import { Alert, Box } from '@mui/material'
+import { ColorModeContext } from './context'
+import { Container, Alert, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
@@ -19,7 +19,8 @@ import {
   SignUp
 } from './pages'
 import ProtectedRoute from './components/ProtectedRoute'
-import { ReactContext } from './main'
+import { UserValidator } from './components/UserValidator'
+import { HomePageStateContext } from './context'
 
 // -------------------------------- 明暗 mode 切換的 component
 const ToggleModeButton = () => {
@@ -45,52 +46,58 @@ const ToggleModeButton = () => {
 }
 
 export function App () {
-  const { homePageState, setHomePageState } = React.useContext(ReactContext)
+  const { homePageState, setHomePageState } =
+    React.useContext(HomePageStateContext)
 
   return (
     <Router>
-      <Box
-        id='app'
-        sx={{
-          height: '100vh',
-          bgcolor: 'background.default'
-        }}
-      >
-        {/*  -----------------------------   網站 nav bar   ------------------- */}
-        <ResponsiveAppBar />
+      <Container maxWidth='lg'>
+        <Box
+          id='app'
+          sx={{
+            height: '100vh',
+            bgcolor: 'background.default'
+          }}
+        >
+          {/*  -----------------------------   使用者驗證 (localstorage -> context_MeToken -> context_Me)   ------------------- */}
+          <UserValidator />
 
-        {/*  -----------------------------   網站 homepage alert 提示  ------------------- */}
-        {homePageState?.isError && (
-          <Alert
-            severity='error'
-            sx={{ width: '100%', marginTop: '1rem' }}
-            onClose={() =>
-              setHomePageState && setHomePageState({ isError: false })
-            }
-          >
-            {homePageState?.message}
-          </Alert>
-        )}
+          {/*  -----------------------------   網站 nav bar   ------------------- */}
+          <ResponsiveAppBar />
 
-        {/*  -----------------------------   網站 明暗模式切換  ------------------- */}
-        <ToggleModeButton />
+          {/*  -----------------------------   網站 homepage alert 提示  ------------------- */}
+          {homePageState?.isError && (
+            <Alert
+              severity='error'
+              sx={{ width: '100%', marginTop: '1rem' }}
+              onClose={() =>
+                setHomePageState && setHomePageState({ isError: false })
+              }
+            >
+              {homePageState?.message}
+            </Alert>
+          )}
 
-        {/*  -----------------------------   網站 路由管理  ------------------- */}
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/FirstRoundMovie' element={<FirstRoundMovie />} />
-          <Route path='/SecondRoundMovie' element={<SecondRoundMovie />} />
-          <Route path='/AllMovies' element={<AllMovies />} />
+          {/*  -----------------------------   網站 明暗模式切換  ------------------- */}
+          <ToggleModeButton />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path='/FollowedMovies' element={<FollowedMovies />} />
-          </Route>
+          {/*  -----------------------------   網站 路由管理  ------------------- */}
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/FirstRoundMovie' element={<FirstRoundMovie />} />
+            <Route path='/SecondRoundMovie' element={<SecondRoundMovie />} />
+            <Route path='/AllMovies' element={<AllMovies />} />
 
-          <Route path='/SignIn' element={<SignIn />} />
-          <Route path='/SignUp' element={<SignUp />} />
-        </Routes>
-        <Footer />
-      </Box>
+            <Route element={<ProtectedRoute />}>
+              <Route path='/FollowedMovies' element={<FollowedMovies />} />
+            </Route>
+
+            <Route path='/SignIn' element={<SignIn />} />
+            <Route path='/SignUp' element={<SignUp />} />
+          </Routes>
+          <Footer />
+        </Box>
+      </Container>
     </Router>
   )
 }

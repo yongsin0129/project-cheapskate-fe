@@ -14,7 +14,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
-import { MeContext } from '../main'
+import { MeContext } from '../context'
 import * as helper from '../helper'
 
 // joi 驗證規則
@@ -34,7 +34,7 @@ const schema = Joi.object({
 
 const SignUp = () => {
   // context 取得
-  const [MeToken, setMeToken] = React.useContext(MeContext)
+  const { MeToken, setMeToken } = React.useContext(MeContext)
 
   // hook 定義
   const theme = useTheme()
