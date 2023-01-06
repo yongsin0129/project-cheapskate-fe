@@ -24,6 +24,10 @@ import { HomePageStateContext, HomePageSetStateContext } from './context'
 
 // -------------------------------- 明暗 mode 切換的 component
 const ToggleModeButton = React.memo(() => {
+  console.log(
+    '// ------------------------------     reRender test :  ToggleModeButton  ------------------------------ '
+  )
+
   const theme = useTheme()
   const colorMode = React.useContext(ColorModeContext)
 
@@ -74,9 +78,7 @@ export function App () {
             <Alert
               severity='error'
               sx={{ width: '100%', marginTop: '1rem' }}
-              onClose={() =>
-                setHomePageState!({ isError: false })
-              }
+              onClose={() => setHomePageState!({ isError: false })}
             >
               {homePageState?.message}
             </Alert>

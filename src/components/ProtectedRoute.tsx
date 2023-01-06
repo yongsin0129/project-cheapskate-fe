@@ -4,6 +4,10 @@ import { HomePageSetStateContext } from '../context'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoute = () => {
+  console.log(
+    '// ------------------------------   reRender test : ProtectedRoute     ------------------------------ '
+  )
+
   const setHomePageState = React.useContext(HomePageSetStateContext)
 
   const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
