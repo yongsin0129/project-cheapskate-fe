@@ -1,5 +1,11 @@
 import React from 'react'
-export const AppBarStateContext = React.createContext<ReactContext>({})
+
+interface appBarStateContext {
+  appBarState?: PageState
+  setAppBarState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+}
+
+export const AppBarStateContext = React.createContext<appBarStateContext>({})
 
 export const AppBarStateManager: React.FC<React.PropsWithChildren> = ({
   children

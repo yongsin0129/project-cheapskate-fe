@@ -22,7 +22,7 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Typography, Popper } from '@mui/material'
 import { FavoriteCellProps } from '../Type/Type.TableFC'
-import { MeContext } from '../main'
+import { MeContext } from '../context'
 import { isValueInArrayObj } from '../helper'
 import { Heart_Icon } from './TableFC_Heart_Icon'
 import { StatusCell } from './TableFC_Status_Cell'
@@ -129,7 +129,7 @@ const columns = [
 
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = props => {
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+  const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
   const { column, row } = props
 
   // 針對 'favorite column 客製化'

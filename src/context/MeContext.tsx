@@ -1,19 +1,28 @@
 import React from 'react'
 import * as helper from '../helper'
 
-export const MeContext = React.createContext({})
+interface MeContext {
+  MeToken?: { jwt_token: string } | null
+  setMeToken?: React.Dispatch<
+    React.SetStateAction<{ jwt_token: string } | null>
+  >
+  Me?: Me | null
+  setMe?: React.Dispatch<React.SetStateAction<Me | null>>
+}
+
+export const MeContext = React.createContext<MeContext>({})
 
 // ------------------------------     variable initial   ------------------------------
 const token = helper.getToken()?.data || null
 const jwt_token = token && { jwt_token: helper.getToken()?.data as string }
 
-export const MeManager: React.FC<React.PropsWithChildren> = () => {
+export const MeManager: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [MeToken, setMeToken] = React.useState(jwt_token)
   const [Me, setMe] = React.useState<Me | null>(null)
 
   return (
-    <MeContext.Provider
-      value={{ MeToken, setMeToken, Me, setMe }}
-    ></MeContext.Provider>
+    <MeContext.Provider value={{ MeToken, setMeToken, Me, setMe }}>
+      {children}
+    </MeContext.Provider>
   )
 }

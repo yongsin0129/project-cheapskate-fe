@@ -13,7 +13,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
-import { MeContext } from '../main'
+import { MeContext } from '../context'
 import * as helper from '../helper'
 
 // joi 驗證規則
@@ -26,7 +26,7 @@ const schema = Joi.object({
 
 const SignIn = () => {
   // context 取得
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+  const { MeToken, setMeToken, Me, setMe } = React.useContext(MeContext)
 
   // hook 定義
   const theme = useTheme()
@@ -80,14 +80,14 @@ const SignIn = () => {
             message: helper.ErrorMessageTransfer(data.message)
           })
         } else {
-          // ---------- 登入成功 
+          // ---------- 登入成功
           localStorage.setItem(
             'jwt_token',
             JSON.stringify(data.data[0].jwtToken)
           )
 
-          // 
-          setMeToken(data.data[0].jwtToken)
+          //
+          setMeToken!(data.data[0].jwtToken)
         }
       })
       .catch(error => {

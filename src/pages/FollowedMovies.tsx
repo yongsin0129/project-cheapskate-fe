@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactContext } from '../main'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
 import { TableFC } from '../components/TableFC'

@@ -1,5 +1,11 @@
 import React from 'react'
-export const HomePageStateContext = React.createContext<ReactContext>({})
+
+interface HomePageContext {
+  homePageState?: PageState | undefined
+  setHomePageState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+}
+
+export const HomePageStateContext = React.createContext<HomePageContext>({})
 
 export const HomePageStateManager: React.FC<React.PropsWithChildren> = ({
   children
