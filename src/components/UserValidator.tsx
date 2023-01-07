@@ -10,7 +10,7 @@ import * as helper from '../helper'
 
 export const UserValidator = React.memo(() => {
   // debug 專用
-  helper.debugTool.traceStack(UserValidator)
+  helper.debugTool.traceStack(UserValidator, 'UserValidator')
 
   // ------------------------------     context   ------------------------------
   const { setAppBarState } = React.useContext(AppBarStateContext)

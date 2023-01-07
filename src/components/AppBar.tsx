@@ -24,7 +24,7 @@ import * as helper from '../helper'
 
 export const ResponsiveAppBar = React.memo(() => {
   // debug 專用
-  helper.debugTool.traceStack(ResponsiveAppBar)
+  helper.debugTool.traceStack(ResponsiveAppBar, 'ResponsiveAppBar')
 
   // ---------------------- useContext ----------------------
   const Me = React.useContext(MeContext)

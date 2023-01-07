@@ -26,7 +26,7 @@ import * as helper from './helper'
 // -------------------------------- 明暗 mode 切換的 component
 const ToggleModeButton = React.memo(() => {
   // debug 專用
-  helper.debugTool.traceStack(ToggleModeButton)
+  helper.debugTool.traceStack(ToggleModeButton, 'ToggleModeButton')
 
   const theme = useTheme()
   const colorMode = React.useContext(ColorModeContext)

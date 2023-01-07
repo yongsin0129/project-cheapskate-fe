@@ -5,7 +5,7 @@ import * as helper from '../helper'
 
 export const Footer: React.FC = React.memo(() => {
   // debug 專用
-  helper.debugTool.traceStack(Footer)
+  helper.debugTool.traceStack(Footer, 'Footer')
 
   const theme = useTheme()
 

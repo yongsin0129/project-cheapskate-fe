@@ -3,7 +3,7 @@ import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
 
 // ------------------------------     helper config   ------------------------------
-const debugMode = true
+const debugMode = false
 
 // ----------------------------- 從瀏覽器的 localStorage 取得 jwt_token
 export const getToken = () => {
@@ -73,10 +73,12 @@ export const isValueInArrayObj = (value: any, array: Array<any>) => {
 
 // ------------------------------     DebugMode   ------------------------------
 export const debugTool = {
-  traceStack: (func?: Function) => {
+  traceStack: (func?: Function, additionalTitle?: string) => {
     if (!debugMode) return
 
-    console.groupCollapsed(`${func?.name || 'name'} to show to identify trace`)
+    console.groupCollapsed(
+      `${func?.name || additionalTitle || 'anonymous Name'} to show to identify trace`
+    )
     console.log('additional data hidden inside collapsed group')
     console.trace(func?.name) // hidden in collapsed group
     console.groupEnd()

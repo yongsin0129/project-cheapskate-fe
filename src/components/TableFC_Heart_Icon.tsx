@@ -19,7 +19,7 @@ interface Heart_IconProps extends Table.DataCellProps {
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
 export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   // debug 專用
-  helper.debugTool.traceStack(Heart_Icon)
+  helper.debugTool.traceStack(Heart_Icon, 'Heart_Icon')
 
   // ---------------------------------------------  useContext
   const Me = React.useContext(MeContext)

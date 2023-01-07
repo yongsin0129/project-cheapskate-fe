@@ -134,7 +134,7 @@ const columns = [
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = React.memo(props => {
   // debug 專用
-  helper.debugTool.traceStack(Cell)
+  helper.debugTool.traceStack(Cell, 'Cell')
 
   // 父層取得 column 資料
   const { column, row } = props

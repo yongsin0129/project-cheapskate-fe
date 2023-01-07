@@ -8,7 +8,7 @@ interface StatusCellProps extends Table.DataCellProps {}
 
 export const StatusCell: React.FC<StatusCellProps> = React.memo(Props => {
   // debug 專用
-  helper.debugTool.traceStack(StatusCell)
+  helper.debugTool.traceStack(StatusCell, 'StatusCell')
 
   const Theme = useTheme()
 

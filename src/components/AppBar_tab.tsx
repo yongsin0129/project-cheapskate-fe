@@ -7,7 +7,7 @@ import * as helper from '../helper'
 
 export const AppBar_tab = React.memo(() => {
   // debug 專用
-  helper.debugTool.traceStack(AppBar_tab)
+  helper.debugTool.traceStack(AppBar_tab, 'AppBar_tab')
 
   // 取得當前路徑
   const { pathname } = useLocation()
