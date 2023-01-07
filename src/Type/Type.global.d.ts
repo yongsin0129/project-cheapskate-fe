@@ -20,10 +20,13 @@ type Scalars = {
   DateTime: string
 }
 
-type FCProps = { foo: {}; children?: any } // 自行定義一個 props 的格式
+// 自行定義一個 props 的格式
+type FCProps = { foo: {}; children?: any } 
+
+// 使用 react 內建的 PropsWithChildren
 type TableFCProps = React.PropsWithChildren<{
   tableData: MovieDataResponsive[]
-}> // 使用 react 內建的 PropsWithChildren
+}> 
 
 interface tableColumnExtensionsType {
   columnName: string
@@ -34,16 +37,6 @@ interface tableColumnExtensionsType {
 interface sortingType {
   columnName: string
   direction: 'asc' | 'desc'
-}
-
-interface MovieData {
-  firstRound?: any
-  leaveFirstRound?: any
-  secondRound?: any
-  leaveSecondRound?: any
-  notReleased?: any
-  streaming?: any
-  MyFollowedMovie?: any
 }
 
 type MovieDataResponsive = {
