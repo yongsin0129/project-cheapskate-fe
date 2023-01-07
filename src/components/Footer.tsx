@@ -1,11 +1,11 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import * as helper from '../helper'
 
 export const Footer: React.FC = React.memo(() => {
-  console.log(
-    '// ------------------------------   reRender test : Footer     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(Footer)
 
   const theme = useTheme()
 

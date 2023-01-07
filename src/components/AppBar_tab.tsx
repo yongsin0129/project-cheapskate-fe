@@ -3,18 +3,18 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { NavLink, useLocation } from 'react-router-dom'
+import * as helper from '../helper'
 
 export const AppBar_tab = React.memo(() => {
-  console.log(
-    '// ------------------------------   reRender test : AppBar_tab     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(AppBar_tab)
 
   // 取得當前路徑
   const { pathname } = useLocation()
 
   const [value, setValue] = React.useState('one')
 
-  React.useEffect(() => {    
+  React.useEffect(() => {
     // 比對當前路徑，得到目前應該位在那一個 tag
     const currentTagValue = pages.find(v => v.href === pathname)?.id
     setValue(currentTagValue || 'one')

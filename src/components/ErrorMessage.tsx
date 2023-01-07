@@ -6,9 +6,8 @@ import AlertTitle from '@mui/material/AlertTitle'
 import * as helper from '../helper'
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = Props => {
-  console.log(
-    '// ------------------------------   reRender test : ErrorMessage     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(ErrorMessage)
 
   const { errorMessage } = Props
   const { errorObj } = Props

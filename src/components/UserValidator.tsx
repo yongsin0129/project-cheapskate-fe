@@ -9,9 +9,9 @@ import {
 import * as helper from '../helper'
 
 export const UserValidator = React.memo(() => {
-  console.log(
-    '// ------------------------------   reRender test : UserValidator     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(UserValidator)
+
   // ------------------------------     context   ------------------------------
   const { setAppBarState } = React.useContext(AppBarStateContext)
   const setMe = React.useContext(SetMeContext)

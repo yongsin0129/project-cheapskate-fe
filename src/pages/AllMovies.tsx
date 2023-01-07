@@ -6,11 +6,11 @@ import { Loading } from '../components/Loading'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
+import * as helper from '../helper'
 
 const AllMovies = () => {
-  console.log(
-    '// ------------------------------     reRender test :  AllMovies  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(AllMovies)
 
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)

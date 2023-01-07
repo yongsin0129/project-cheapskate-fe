@@ -4,6 +4,7 @@ import {
   createTheme,
   responsiveFontSizes
 } from '@mui/material/styles'
+import * as helper from '../helper'
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {}
@@ -12,10 +13,13 @@ export const ColorModeContext = React.createContext({
 export const ColorSwitchManager: React.FC<React.PropsWithChildren> = ({
   children
 }) => {
-  // ------------------------------     useState   ------------------------------ 
+  // debug 專用
+  helper.debugTool.traceStack(ColorSwitchManager)
+
+  // ------------------------------     useState   ------------------------------
   const [mode, setMode] = React.useState<'light' | 'dark'>('light')
-  
-  // ------------------------------     useMemo   ------------------------------ 
+
+  // ------------------------------     useMemo   ------------------------------
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -37,9 +41,7 @@ export const ColorSwitchManager: React.FC<React.PropsWithChildren> = ({
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        {children}
-      </ThemeProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   )
 }

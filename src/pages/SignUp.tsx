@@ -30,9 +30,8 @@ const schema = Joi.object({
 })
 
 const SignUp = () => {
-  console.log(
-    '// ------------------------------     reRender test :  SignUp  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(SignUp)
 
   // hook 定義
   const theme = useTheme()

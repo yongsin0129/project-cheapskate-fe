@@ -1,4 +1,5 @@
 import React from 'react'
+import * as helper from '../helper'
 
 type setHomePageState = React.Dispatch<React.SetStateAction<PageState>>
 
@@ -11,6 +12,9 @@ export const HomePageSetStateContext =
 export const HomePageStateManager: React.FC<React.PropsWithChildren> = ({
   children
 }) => {
+  // debug 專用
+  helper.debugTool.traceStack(HomePageStateManager)
+
   const [homePageState, setHomePageState] = React.useState<PageState>({})
 
   return (

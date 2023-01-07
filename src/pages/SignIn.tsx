@@ -25,9 +25,8 @@ const schema = Joi.object({
 })
 
 const SignIn = () => {
-  console.log(
-    '// ------------------------------     reRender test :  SignIn  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(SignIn)
 
   // context 取得
   const Me = React.useContext(MeContext)

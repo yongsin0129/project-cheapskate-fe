@@ -20,11 +20,11 @@ import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
 import PersonIcon from '@mui/icons-material/Person'
 import { AppBar_tab, pages } from './AppBar_tab'
+import * as helper from '../helper'
 
 export const ResponsiveAppBar = React.memo(() => {
-  console.log(
-    '// ------------------------------     reRender test :  ResponsiveAppBar  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(ResponsiveAppBar)
 
   // ---------------------- useContext ----------------------
   const Me = React.useContext(MeContext)

@@ -2,11 +2,11 @@ import React from 'react'
 import { MeTokenContext } from '../context'
 import { HomePageSetStateContext } from '../context'
 import { Navigate, Outlet } from 'react-router-dom'
+import * as helper from '../helper'
 
 const ProtectedRoute = () => {
-  console.log(
-    '// ------------------------------   reRender test : ProtectedRoute     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(ProtectedRoute)
 
   const setHomePageState = React.useContext(HomePageSetStateContext)
 

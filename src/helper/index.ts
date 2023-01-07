@@ -70,3 +70,21 @@ export const isValueInArrayObj = (value: any, array: Array<any>) => {
   const IdArray = array.map((v: any) => v.id)
   return IdArray.indexOf(value) >= 0
 }
+
+// ------------------------------     DebugMode   ------------------------------
+const debugMode = true
+export const debugTool = {
+  traceStack: (func?: Function) => {
+    if (!debugMode) return
+
+    console.groupCollapsed(`${func?.name || 'name'} to show to identify trace`)
+    console.log('additional data hidden inside collapsed group')
+    console.trace(func?.name) // hidden in collapsed group
+    console.groupEnd()
+  },
+  printFunctionName: (func: Function) => {
+    if (!debugMode) return
+    
+    console.log(func.name)
+  }
+}

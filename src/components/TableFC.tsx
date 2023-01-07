@@ -26,6 +26,7 @@ import { MeContext } from '../context'
 import { isValueInArrayObj } from '../helper'
 import { Heart_Icon } from './TableFC_Heart_Icon'
 import { StatusCell } from './TableFC_Status_Cell'
+import * as helper from '../helper'
 
 /********************************************************************************
 *
@@ -33,9 +34,8 @@ import { StatusCell } from './TableFC_Status_Cell'
 *
 *********************************************************************************/
 export const TableFC: React.FC<TableFCProps> = props => {
-  console.log(
-    '// ------------------------------   reRender test : TableFC     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(TableFC)
 
   {
     /* ------------------------ 父層引入的 tableDate  */
@@ -133,9 +133,10 @@ const columns = [
 
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = React.memo(props => {
-  console.log(
-    '// ------------------------------   reRender test : Row Cell     ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(Cell)
+
+  // 父層取得 column 資料
   const { column, row } = props
 
   // 針對 'favorite column 客製化'
@@ -159,8 +160,7 @@ const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
 
   // 如果 context_Me 的 FollowedMovie 有值，開始比對當前的電影有無在 array 之中
   if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
-    
-    // 此電影有在 user 收藏中 實心愛心 
+    // 此電影有在 user 收藏中 實心愛心
     if (isValueInArrayObj(rowMovieId, UserFollowedMovieArray))
       return (
         <Table.Cell {...Props}>
@@ -169,7 +169,7 @@ const FavoriteCell: React.FC<FavoriteCellProps> = Props => {
       )
   }
 
-  // 此電影不在 user 收藏中 空心愛心 
+  // 此電影不在 user 收藏中 空心愛心
   return (
     <Table.Cell {...Props}>
       <Heart_Icon active={'false'} {...Props} />

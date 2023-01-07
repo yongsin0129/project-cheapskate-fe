@@ -21,12 +21,12 @@ import {
 import ProtectedRoute from './components/ProtectedRoute'
 import { UserValidator } from './components/UserValidator'
 import { HomePageStateContext, HomePageSetStateContext } from './context'
+import * as helper from './helper'
 
 // -------------------------------- 明暗 mode 切換的 component
 const ToggleModeButton = React.memo(() => {
-  console.log(
-    '// ------------------------------     reRender test :  ToggleModeButton  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(ToggleModeButton)
 
   const theme = useTheme()
   const colorMode = React.useContext(ColorModeContext)
@@ -50,9 +50,8 @@ const ToggleModeButton = React.memo(() => {
 })
 
 export function App () {
-  console.log(
-    '// ------------------------------     reRender test :  App  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(App)
 
   const homePageState = React.useContext(HomePageStateContext)
   const setHomePageState = React.useContext(HomePageSetStateContext)

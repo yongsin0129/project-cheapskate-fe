@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { MeTokenContext } from '../context'
+import * as helper from '../helper'
 
 const FollowedMovies = () => {
-  console.log(
-    '// ------------------------------     reRender test :  FollowedMovies  ------------------------------ '
-  )
+  // debug 專用
+  helper.debugTool.traceStack(FollowedMovies)
 
   // ------------------------------     useContext   ------------------------------
   const MeToken = React.useContext(MeTokenContext)
