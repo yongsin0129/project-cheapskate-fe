@@ -2,11 +2,17 @@ import React from 'react'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
 import { Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import * as helper from '../helper'
 
 interface StatusCellProps extends Table.DataCellProps {}
 
-export const StatusCell: React.FC<StatusCellProps> = Props => {
+export const StatusCell: React.FC<StatusCellProps> = React.memo(Props => {
+  // debug 專用
+  helper.debugTool.traceStack(StatusCell, 'StatusCell')
+
   const Theme = useTheme()
+
+  // 從父層取得此電影的上映狀態
   const { status }: { status: string } = Props.row
   let displayStatus: string
   let background: object
@@ -70,4 +76,4 @@ export const StatusCell: React.FC<StatusCellProps> = Props => {
       </Typography>
     </Table.Cell>
   )
-}
+})

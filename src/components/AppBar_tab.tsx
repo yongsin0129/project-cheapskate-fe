@@ -3,8 +3,12 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { NavLink, useLocation } from 'react-router-dom'
+import * as helper from '../helper'
 
-export function AppBar_tab () {
+export const AppBar_tab = React.memo(() => {
+  // debug 專用
+  helper.debugTool.traceStack(AppBar_tab, 'AppBar_tab')
+
   // 取得當前路徑
   const { pathname } = useLocation()
 
@@ -41,7 +45,7 @@ export function AppBar_tab () {
       </Tabs>
     </Box>
   )
-}
+})
 
 export const pages = [
   { id: 'one', title: '關於本站', href: '/' },

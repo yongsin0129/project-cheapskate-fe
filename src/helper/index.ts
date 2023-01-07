@@ -2,6 +2,9 @@ import { useQuery } from '@apollo/client'
 import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
 
+// ------------------------------     helper config   ------------------------------
+const debugMode = false
+
 // ----------------------------- 從瀏覽器的 localStorage 取得 jwt_token
 export const getToken = () => {
   const localStorage_token = localStorage.getItem('jwt_token')
@@ -14,7 +17,6 @@ export const getToken = () => {
 
 // ----------------------------- 將 jwt_token 傳入後端做驗證
 export const transferTokenToMe = async () => {
-  console.log('觸發 async transferTokenToMe')
   const token = getToken()?.data || null
   const jwt_token = token && { jwt_token: getToken()?.data as string }
 
@@ -28,8 +30,7 @@ export const transferTokenToMe = async () => {
   })
     .then(async response => {
       const data = await response.json()
-      console.log(' ---- async transferTokenToMe get Me data ---')
-      console.log(data)
+
       if (!!data.errors) {
         return new DTOBase({
           success: false,
@@ -44,8 +45,6 @@ export const transferTokenToMe = async () => {
       }
     })
     .catch(error => {
-      console.log(' ----  async transferTokenToMe fetch error ---')
-      console.log(JSON.stringify(error))
       return new DTOBase({
         success: false,
         error,
@@ -65,14 +64,39 @@ export const ErrorMessageTransfer = (message: string) => {
   return message
 }
 
-interface Me {
-  id: string
-  name: string
-  email: string
-}
-
 // ----------------------------- 比對一個 value 有無在 array 之中
 export const isValueInArrayObj = (value: any, array: Array<any>) => {
   const IdArray = array.map((v: any) => v.id)
   return IdArray.indexOf(value) >= 0
+}
+
+// ------------------------------     DebugMode   ------------------------------
+export const debugTool = {
+  traceStack: (func?: Function, additionalTitle?: string) => {
+    if (!debugMode) return
+
+    console.groupCollapsed(
+      `${func?.name || additionalTitle || 'anonymous Name'} to show to identify trace`
+    )
+    console.log('additional data hidden inside collapsed group')
+    console.trace(func?.name) // hidden in collapsed group
+    console.groupEnd()
+  },
+  printFunctionName: (func: Function) => {
+    if (!debugMode) return
+
+    console.log(func.name)
+  },
+  printUnknown: (unknown: any, header?: string) => {
+    if (!debugMode) return
+
+    console.log(` ----------------   ${header}     --------------- `)
+    console.log(unknown)
+    console.log(` ----------------                 --------------- `)
+  },
+  printMessage: (mes: string) => {
+    if (!debugMode) return
+
+    console.log(` --  ${mes}  -- `)
+  }
 }

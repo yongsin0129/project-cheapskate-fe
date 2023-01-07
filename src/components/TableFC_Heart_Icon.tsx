@@ -7,17 +7,24 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useMutation } from '@apollo/client'
 import * as gql from '../gqlQuerys'
-import { MeContext } from '../main'
+import { MeContext, SetMeContext, MeTokenContext } from '../context'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
+import _ from 'lodash'
+import * as helper from '../helper'
 
 interface Heart_IconProps extends Table.DataCellProps {
   active?: string
 }
 
 // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
-export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
+export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
+  // debug 專用
+  helper.debugTool.traceStack(Heart_Icon, 'Heart_Icon')
+
   // ---------------------------------------------  useContext
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+  const Me = React.useContext(MeContext)
+  const setMe = React.useContext(SetMeContext)
+  const MeToken = React.useContext(MeTokenContext)
 
   // ---------------------------------------------  從父層取得 Props
   const defaultActive = Props.active === 'true'
@@ -25,19 +32,24 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
 
-  // ---------------------------------------------  useMutation
+  // ---------------------------------------------  useMutation for Add
   const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
     gql.AddFollowedMovies,
-    {}
+    {
+      context: { headers: { ...MeToken } }
+    }
   )
 
   const addFollowResponseError = (addFollowResponse as QueryResType).error
   if (addFollowResponseError)
-    return <p>{JSON.stringify(addFollowResponseError.message)}`</p>
+    return <p>{JSON.stringify(addFollowResponseError.message)}</p>
 
+  // ---------------------------------------------  useMutation for Remove
   const [Remove_Followed_Movies_Function, removeFollowResponse] = useMutation(
     gql.RemoveFollowedMovies,
-    {}
+    {
+      context: { headers: { ...MeToken } }
+    }
   )
   const removeFollowResponseError = (removeFollowResponse as QueryResType).error
   if (addFollowResponseError)
@@ -71,10 +83,10 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
       Add_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
 
       // 將點擊的電影資料新增到 context_Me 並更新, 用來刷新 Heart_Icon active state
-      const copy_Me = { ...Me }
+      const copy_Me = _.cloneDeep(Me)
       const { id, title, releaseDate } = rowData
       copy_Me.followedMovies.push({ id, title, releaseDate })
-      setMe(() => copy_Me)
+      setMe!(() => copy_Me)
     } else {
       alert('恭喜觸發 handleHeartClick 彩蛋，請截圖給製作者')
     }
@@ -87,12 +99,10 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
     handleDeleteConfirmClose()
 
     // 更新 context_Me 刷新 Heart_Icon
-    const copy_Me = { ...Me }
-    const index = copy_Me.followedMovies.findIndex(
-      (v: MovieDataResponsive) => v.id === rowData.id
-    )
-    copy_Me.followedMovies.splice(index, 1)
-    setMe(() => copy_Me)
+    const copy_Me = _.cloneDeep(Me!)
+    const index = copy_Me.followedMovies!.findIndex(v => v!.id === rowData.id)
+    copy_Me.followedMovies!.splice(index, 1)
+    setMe!(() => copy_Me)
 
     Remove_Followed_Movies_Function({ variables: { movieListId: rowData.id } })
   }
@@ -135,7 +145,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = Props => {
       </Dialog>
     </div>
   )
-}
+})
 
 /********************************************************************************
 *

@@ -1,20 +1,17 @@
 import React from 'react'
 import { Paper } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { Grid, Box } from '@mui/material'
+import { Box } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Alert from '@mui/material/Alert'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
 import { useNavigate } from 'react-router-dom'
-import { MeContext } from '../main'
 import * as helper from '../helper'
 
 // joi 驗證規則
@@ -33,8 +30,8 @@ const schema = Joi.object({
 })
 
 const SignUp = () => {
-  // context 取得
-  const [MeToken, setMeToken] = React.useContext(MeContext)
+  // debug 專用
+  helper.debugTool.traceStack(SignUp)
 
   // hook 定義
   const theme = useTheme()

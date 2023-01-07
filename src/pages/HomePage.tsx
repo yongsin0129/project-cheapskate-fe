@@ -8,8 +8,12 @@ import '../style/dist/homepage.css'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import StorageIcon from '@mui/icons-material/Storage'
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna'
+import * as helper from '../helper'
 
 const HomePage = () => {
+  // debug 專用
+  helper.debugTool.traceStack(HomePage)
+
   const Theme = useTheme()
 
   return (

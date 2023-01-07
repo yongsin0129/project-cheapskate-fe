@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useApolloClient } from '@apollo/client'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -13,24 +14,29 @@ import MenuItem from '@mui/material/MenuItem'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { NavLink } from 'react-router-dom'
-import { MeContext } from '../main'
-import { ReactContext } from '../main'
+import { MeContext, SetMeTokenContext } from '../context'
+import { AppBarStateContext } from '../context'
 import { Loading } from './Loading'
 import Chip from '@mui/material/Chip'
 import PersonIcon from '@mui/icons-material/Person'
 import { AppBar_tab, pages } from './AppBar_tab'
+import * as helper from '../helper'
 
-export function ResponsiveAppBar () {
+export const ResponsiveAppBar = React.memo(() => {
+  // debug 專用
+  helper.debugTool.traceStack(ResponsiveAppBar, 'ResponsiveAppBar')
+
   // ---------------------- useContext ----------------------
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
-  const { appBarState } = React.useContext(ReactContext)
+  const Me = React.useContext(MeContext)
+  const setMeToken = React.useContext(SetMeTokenContext)
+  const { appBarState } = React.useContext(AppBarStateContext)
+  const client = useApolloClient()
 
   // ---------------------- useState ----------------------
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   )
-  const [value, setValue] = React.useState(0) //控制 navbar 的 button
 
   // ---------------------- handler ----------------------
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -49,8 +55,9 @@ export function ResponsiveAppBar () {
   }
 
   const handleLogOut = () => {
-    setMeToken(null)
+    setMeToken!(null)
     localStorage.removeItem('jwt_token')
+    client.clearStore()
   }
 
   return (
@@ -197,4 +204,4 @@ export function ResponsiveAppBar () {
       </Container>
     </AppBar>
   )
-}
+})

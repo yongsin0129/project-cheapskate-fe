@@ -74,20 +74,16 @@ interface QueryResType {
   data?: any
 }
 
-interface ReactContext {
-  myFollowedMovie?: MovieDataResponsive[]
-  setMyFollowedMovie?: React.Dispatch<
-    React.SetStateAction<MovieDataResponsive[] | undefined>
-  >
-  appBarState?: PageState
-  setAppBarState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
-  homePageState?: PageState
-  setHomePageState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
-}
-
 interface PageState {
   isLoading?: boolean
   isError?: boolean
   error?: object
   message?: string
+}
+
+interface Me {
+  id: string
+  name: string
+  email: string
+  followedMovies: Array<Maybe<MovieDataResponsive>>
 }

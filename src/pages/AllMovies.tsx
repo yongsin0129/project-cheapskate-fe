@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactContext } from '../main'
 import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
 import { TableFC } from '../components/TableFC'
@@ -7,9 +6,11 @@ import { Loading } from '../components/Loading'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
+import * as helper from '../helper'
 
 const AllMovies = () => {
-  const { myFollowedMovie } = React.useContext(ReactContext)
+  // debug 專用
+  helper.debugTool.traceStack(AllMovies)
 
   // --------------------------------- Query handle error
   const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)
@@ -26,7 +27,7 @@ const AllMovies = () => {
           errorMessage={(error as Error).message}
           errorObj={error}
         />
-      </Box>      
+      </Box>
       // <Typography className='pageContent'>{JSON.stringify(error)}</Typography>
     )
 

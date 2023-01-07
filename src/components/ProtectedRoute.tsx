@@ -1,21 +1,25 @@
 import React from 'react'
-import { MeContext } from '../main'
-import { ReactContext } from '../main'
+import { MeTokenContext } from '../context'
+import { HomePageSetStateContext } from '../context'
 import { Navigate, Outlet } from 'react-router-dom'
+import * as helper from '../helper'
 
 const ProtectedRoute = () => {
-  const { homePageState, setHomePageState } = React.useContext(ReactContext)
-  const [MeToken, setMeToken, Me, setMe] = React.useContext(MeContext)
+  // debug 專用
+  helper.debugTool.traceStack(ProtectedRoute)
+
+  const setHomePageState = React.useContext(HomePageSetStateContext)
+
+  const MeToken = React.useContext(MeTokenContext)
 
   // 如果 context_Me 有值，表示有登入可繼續 next() , 否則跳轉到登入頁面
-  if (!!Me) return <Outlet />
+  if (!!MeToken) return <Outlet />
   else {
     React.useEffect(() => {
-      setHomePageState &&
-        setHomePageState({
-          isError: true,
-          message: '收藏清單是會員專屬功能，請先登入會員 !!'
-        })
+      setHomePageState!({
+        isError: true,
+        message: '收藏清單是會員專屬功能，請先登入會員 !!'
+      })
     }, [])
     return <Navigate to='/signIn' />
   }
