@@ -2,6 +2,9 @@ import { useQuery } from '@apollo/client'
 import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
 
+// ------------------------------     helper config   ------------------------------
+const debugMode = true
+
 // ----------------------------- 從瀏覽器的 localStorage 取得 jwt_token
 export const getToken = () => {
   const localStorage_token = localStorage.getItem('jwt_token')
@@ -28,8 +31,7 @@ export const transferTokenToMe = async () => {
   })
     .then(async response => {
       const data = await response.json()
-      console.log(' ---- async transferTokenToMe get Me data ---')
-      console.log(data)
+
       if (!!data.errors) {
         return new DTOBase({
           success: false,
@@ -44,8 +46,6 @@ export const transferTokenToMe = async () => {
       }
     })
     .catch(error => {
-      console.log(' ----  async transferTokenToMe fetch error ---')
-      console.log(JSON.stringify(error))
       return new DTOBase({
         success: false,
         error,
@@ -72,7 +72,6 @@ export const isValueInArrayObj = (value: any, array: Array<any>) => {
 }
 
 // ------------------------------     DebugMode   ------------------------------
-const debugMode = true
 export const debugTool = {
   traceStack: (func?: Function) => {
     if (!debugMode) return
@@ -84,7 +83,19 @@ export const debugTool = {
   },
   printFunctionName: (func: Function) => {
     if (!debugMode) return
-    
+
     console.log(func.name)
+  },
+  printUnknown: (unknown: any, header?: string) => {
+    if (!debugMode) return
+
+    console.log(` ----------------   ${header}     --------------- `)
+    console.log(unknown)
+    console.log(` ----------------                 --------------- `)
+  },
+  printMessage: (mes: string) => {
+    if (!debugMode) return
+
+    console.log(` --  ${mes}  -- `)
   }
 }

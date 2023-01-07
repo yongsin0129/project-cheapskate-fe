@@ -33,8 +33,8 @@ export const UserValidator = React.memo(() => {
 
       // 將 AppBar 的 loading 狀態為 true
       setAppBarState!({ isLoading: true })
-      console.log('MeToken 發生變化，觸發 useEffect 更新 setClient , setMe')
-      console.log(MeToken)
+      helper.debugTool.printMessage('MeToken 發生變化，觸發 setMe')
+      helper.debugTool.printUnknown(MeToken, 'MeToken')
 
       // 更新 context_Me
       if (!!MeToken) updateMe()
@@ -46,8 +46,8 @@ export const UserValidator = React.memo(() => {
 
       async function updateMe () {
         const value = await helper.transferTokenToMe()
-        console.log(' useEffect 裡面的 asyncFN value : ')
-        console.log(value)
+        helper.debugTool.printMessage(' asyncFN transferTokenToMe return : ')
+        helper.debugTool.printUnknown(value, 'return value')
 
         // 如果轉換成功，將 context_Me 更新
         if (!!value.success) setMe!(value.data as Me)
