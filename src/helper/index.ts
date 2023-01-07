@@ -17,7 +17,6 @@ export const getToken = () => {
 
 // ----------------------------- 將 jwt_token 傳入後端做驗證
 export const transferTokenToMe = async () => {
-  console.log('觸發 async transferTokenToMe')
   const token = getToken()?.data || null
   const jwt_token = token && { jwt_token: getToken()?.data as string }
 
