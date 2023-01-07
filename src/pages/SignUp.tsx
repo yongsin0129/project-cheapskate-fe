@@ -21,7 +21,7 @@ const schema = Joi.object({
     .required()
     .email({ tlds: { allow: false } }),
   password: Joi.string().min(6).max(255).required(),
-  password_confirmation: Joi.any()
+  password_confirmation: Joi.string()
     .equal(Joi.ref('password'))
     .required()
     .label('password_confirmation')

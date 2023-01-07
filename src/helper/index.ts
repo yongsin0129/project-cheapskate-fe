@@ -65,9 +65,13 @@ export const ErrorMessageTransfer = (message: string) => {
 }
 
 // ----------------------------- 比對一個 value 有無在 array 之中
-export const isValueInArrayObj = (value: any, array: Array<any>) => {
-  const IdArray = array.map((v: any) => v.id)
-  return IdArray.indexOf(value) >= 0
+type IdObject = Object & { id?: string }
+export const isValueInArrayObj = (
+  idValue: string,
+  array: Array<IdObject | null>
+) => {
+  const IdArray = array.map(v => v?.id)
+  return IdArray.indexOf(idValue) >= 0
 }
 
 // ------------------------------     DebugMode   ------------------------------
@@ -76,7 +80,9 @@ export const debugTool = {
     if (!debugMode) return
 
     console.groupCollapsed(
-      `${func?.name || additionalTitle || 'anonymous Name'} to show to identify trace`
+      `${
+        func?.name || additionalTitle || 'anonymous Name'
+      } to show to identify trace`
     )
     console.log('additional data hidden inside collapsed group')
     console.trace(func?.name) // hidden in collapsed group
