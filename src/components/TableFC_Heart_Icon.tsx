@@ -16,7 +16,6 @@ interface Heart_IconProps extends Table.DataCellProps {
   active?: string
 }
 
-// Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
 export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   // debug 專用
   helper.debugTool.traceStack(Heart_Icon, 'Heart_Icon')
@@ -25,9 +24,20 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   const Me = React.useContext(MeContext)
   const setMe = React.useContext(SetMeContext)
   const MeToken = React.useContext(MeTokenContext)
-
-  // ---------------------------------------------  從父層取得 Props
-  const defaultActive = Props.active === 'true'
+  
+  // ---------------------------------------------  從父層取得 Props ，判斷愛心實心 or 空心
+  const rowMovieId = Props?.row?.id
+  let defaultActive
+  
+  const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
+  if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
+    // 此電影有在 user 的收藏中 ， return 實心愛心
+    if (helper.isValueInArrayObj(rowMovieId, UserFollowedMovieArray)) {
+      defaultActive = true
+    } else {
+      defaultActive = false
+    }
+  }
 
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
@@ -108,10 +118,11 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   }
 
   return (
-    <div>
+    <Table.Cell {...Props}>
       <i
         // 因為rowData.id 的第一個字可能是數字，這樣 querySelector 無法作用，所以前面加上一個 'a'
         id={`a${Props.row.id}`}
+        // Heart_Icon 藉由 className favoriteActive 來控制愛心有無 active
         className={defaultActive ? IconActiveClassName : IconNotActiveClassName}
         onClick={e => {
           handleHeartClick(e, Props.row)
@@ -143,7 +154,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Table.Cell>
   )
 })
 
