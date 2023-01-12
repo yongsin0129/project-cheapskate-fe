@@ -66,6 +66,12 @@ export const TableFC: React.FC<TableFCProps> = props => {
     { columnName: 'status', compare: compareFavorite },
     { columnName: 'release', compare: compareRelease }
   ])
+  {
+    /* ------------------------ Sorting Extensions  */
+  }
+  const [sortingStateColumnExtensions] = useState([
+    { columnName: 'favorite', sortingEnabled: false }
+  ])
 
   return (
     <Paper sx={{ width: '100%' }}>
@@ -77,6 +83,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
         {/* ------------------------ column排序器的 state manager */}
         <SortingState
           defaultSorting={[{ columnName: 'release', direction: 'desc' }]}
+          columnExtensions={sortingStateColumnExtensions}
         />
         <IntegratedSorting
           columnExtensions={integratedSortingColumnExtensions}
