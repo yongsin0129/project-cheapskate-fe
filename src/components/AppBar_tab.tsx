@@ -12,12 +12,17 @@ export const AppBar_tab = React.memo(() => {
   // 取得當前路徑
   const { pathname } = useLocation()
 
-  const [value, setValue] = React.useState('one')
+  // 比對當前路徑，得到目前應該位在那一個 tag
+  let currentTagValue = pages.find(v => v.href === pathname)?.id
+
+  const [value, setValue] = React.useState(currentTagValue || 'one')
 
   React.useEffect(() => {
-    // 比對當前路徑，得到目前應該位在那一個 tag
-    const currentTagValue = pages.find(v => v.href === pathname)?.id
-    setValue(currentTagValue || 'one')
+    // 如果 pathname 有變化，判斷要不要更改 tag 的 highlight 位置
+    currentTagValue = pages.find(v => v.href === pathname)?.id
+
+    if (value === currentTagValue) return
+    else setValue(currentTagValue || 'one')
   }, [pathname])
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {

@@ -3,7 +3,7 @@ import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
 
 // ------------------------------     helper config   ------------------------------
-const debugMode = false
+const debugMode = true
 
 // ----------------------------- 從瀏覽器的 localStorage 取得 jwt_token
 export const getToken = () => {
