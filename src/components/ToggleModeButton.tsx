@@ -8,7 +8,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { ColorModeContext } from '../context'
 import * as helper from '../helper'
 
-import styles from "./styles/ToggleModeButton.module.scss";
+import styles from "./styles/toggleModeButton.module.scss";
 
 export const ToggleModeButton = React.memo(() => {
   // debug 專用
