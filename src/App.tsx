@@ -1,14 +1,12 @@
-import '././style/dist/app.css'
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { ColorModeContext } from './context'
 import { Container, Alert, Box } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
-import Brightness4Icon from '@mui/icons-material/Brightness4'
-import Brightness7Icon from '@mui/icons-material/Brightness7'
+
 import { ResponsiveAppBar } from './components/AppBar'
 import { Footer } from './components/Footer'
+import { ToggleModeButton } from './components/ToggleModeButton'
+import ProtectedRoute from './components/ProtectedRoute'
+import { UserValidator } from './components/UserValidator'
 import {
   HomePage,
   FirstRoundMovie,
@@ -18,36 +16,10 @@ import {
   SignIn,
   SignUp
 } from './pages'
-import ProtectedRoute from './components/ProtectedRoute'
-import { UserValidator } from './components/UserValidator'
 import { HomePageStateContext, HomePageSetStateContext } from './context'
 import * as helper from './helper'
 
-// -------------------------------- 明暗 mode 切換的 component
-const ToggleModeButton = React.memo(() => {
-  // debug 專用
-  helper.debugTool.traceStack(ToggleModeButton, 'ToggleModeButton')
-
-  const theme = useTheme()
-  const colorMode = React.useContext(ColorModeContext)
-
-  return (
-    <Box className='ToggleModeButton' sx={{ color: 'secondary.light' }}>
-      {theme.palette.mode} mode
-      <IconButton
-        sx={{ ml: 1 }}
-        onClick={colorMode.toggleColorMode}
-        color='inherit'
-      >
-        {theme.palette.mode === 'dark' ? (
-          <Brightness7Icon />
-        ) : (
-          <Brightness4Icon />
-        )}
-      </IconButton>
-    </Box>
-  )
-})
+import styles from './app.module.scss'
 
 export function App () {
   // debug 專用
@@ -60,9 +32,8 @@ export function App () {
     <Router>
       <Container maxWidth='lg'>
         <Box
-          id='app'
+          id={styles.app}
           sx={{
-            height: '100vh',
             bgcolor: 'background.default'
           }}
         >
