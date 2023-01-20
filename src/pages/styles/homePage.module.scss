@@ -1,0 +1,52 @@
+.homepage {
+
+  :global {
+
+    .Grid-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #reasonDescription {
+      margin: 0.5rem;
+    }
+
+    #reasonDescription,
+    #accountDescription,
+    #futurePlanDescription {
+      width: 100%;
+      padding: 1rem;
+
+      p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    // phone 專用設定
+    @media screen and (max-width: 448px) {
+      font-size: 0.75rem;
+
+      #reasonDescription {
+        padding: 1rem;
+
+        &.web {
+          display: none;
+        }
+      }
+    }
+
+
+
+    // Web 專用設定
+    @media screen and (min-width: 449px) {
+      #reasonDescription {
+        &.phone {
+          display: none;
+        }
+      }
+    }
+  }
+}

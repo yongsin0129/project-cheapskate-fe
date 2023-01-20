@@ -4,11 +4,14 @@ import { useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
-import '../style/dist/homepage.css'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import StorageIcon from '@mui/icons-material/Storage'
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna'
+
 import * as helper from '../helper'
+
+import styles from './styles/homePage.module.scss'
+// import '../style/dist/homepage.css'
 
 const HomePage = () => {
   // debug 專用
@@ -17,7 +20,7 @@ const HomePage = () => {
   const Theme = useTheme()
 
   return (
-    <Paper className='pageContent homepage' sx={{ paddingBottom: 2 }}>
+    <Paper className={`pageContent ${styles.homepage}`} sx={{ paddingBottom: 2 }}>
       {/* ----------------------------------  ------- title ---------------  */}
       <Typography color={Theme.palette.primary.main} variant='h2'>
         cheapskate
@@ -71,7 +74,7 @@ const HomePage = () => {
       </Paper>
 
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className="Grid-item">
           <Paper id='accountDescription' className='' elevation={2}>
             {/* ----------------------------------  ------- 帳號說明 ---------------  */}
             <Typography variant='h6' color={Theme.palette.warning.main}>
@@ -87,7 +90,7 @@ const HomePage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className="Grid-item">
           <Paper id='futurePlanDescription' className='' elevation={2}>
             {/* ----------------------------------  ------- 未來計畫 ---------------  */}
             <Stack spacing={2}>

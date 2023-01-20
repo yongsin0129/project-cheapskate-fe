@@ -3,172 +3,203 @@
     left: 0;
     top: 0;
   }
+
   10.5% {
     left: 0;
     top: 0;
   }
+
   12.5% {
     left: 32px;
     top: 0;
   }
+
   23% {
     left: 32px;
     top: 0;
   }
+
   25% {
     left: 64px;
     top: 0;
   }
+
   35.5% {
     left: 64px;
     top: 0;
   }
+
   37.5% {
     left: 64px;
     top: 32px;
   }
+
   48% {
     left: 64px;
     top: 32px;
   }
+
   50% {
     left: 32px;
     top: 32px;
   }
+
   60.5% {
     left: 32px;
     top: 32px;
   }
+
   62.5% {
     left: 32px;
     top: 64px;
   }
+
   73% {
     left: 32px;
     top: 64px;
   }
+
   75% {
     left: 0;
     top: 64px;
   }
+
   85.5% {
     left: 0;
     top: 64px;
   }
+
   87.5% {
     left: 0;
     top: 32px;
   }
+
   98% {
     left: 0;
     top: 32px;
   }
+
   100% {
     left: 0;
     top: 0;
   }
 }
+
 @keyframes square-animation {
   0% {
     left: 0;
     top: 0;
   }
+
   10.5% {
     left: 0;
     top: 0;
   }
+
   12.5% {
     left: 32px;
     top: 0;
   }
+
   23% {
     left: 32px;
     top: 0;
   }
+
   25% {
     left: 64px;
     top: 0;
   }
+
   35.5% {
     left: 64px;
     top: 0;
   }
+
   37.5% {
     left: 64px;
     top: 32px;
   }
+
   48% {
     left: 64px;
     top: 32px;
   }
+
   50% {
     left: 32px;
     top: 32px;
   }
+
   60.5% {
     left: 32px;
     top: 32px;
   }
+
   62.5% {
     left: 32px;
     top: 64px;
   }
+
   73% {
     left: 32px;
     top: 64px;
   }
+
   75% {
     left: 0;
     top: 64px;
   }
+
   85.5% {
     left: 0;
     top: 64px;
   }
+
   87.5% {
     left: 0;
     top: 32px;
   }
+
   98% {
     left: 0;
     top: 32px;
   }
+
   100% {
     left: 0;
     top: 0;
   }
 }
+
 @-webkit-keyframes hue-rotate {
   0% {
     -webkit-filter: hue-rotate(0deg);
     filter: hue-rotate(0deg);
   }
+
   100% {
     -webkit-filter: hue-rotate(360deg);
     filter: hue-rotate(360deg);
   }
 }
+
 @keyframes hue-rotate {
   0% {
     -webkit-filter: hue-rotate(0deg);
     filter: hue-rotate(0deg);
   }
+
   100% {
     -webkit-filter: hue-rotate(360deg);
     filter: hue-rotate(360deg);
   }
 }
-body {
-  display: flex;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-}
 
 .loading {
   position: relative;
-  width: 96px;
-  height: 96px;
+  width: 3rem;
+  height: 3rem;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   -webkit-animation: hue-rotate 10s linear infinite both;
