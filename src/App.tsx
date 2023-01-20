@@ -19,7 +19,7 @@ import {
 import { HomePageStateContext, HomePageSetStateContext } from './context'
 import * as helper from './helper'
 
-import styles from './app.module.scss'
+import styles from './style/app.module.scss'
 
 export function App () {
   // debug 專用

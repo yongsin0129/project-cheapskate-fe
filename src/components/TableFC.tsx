@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import '../style/dist/tableFC.css'
 import Paper from '@mui/material/Paper'
 import {
   Grid,
   Table,
   TableHeaderRow,
-  TableFilterRow,
   PagingPanel,
   SearchPanel,
   Toolbar
@@ -15,19 +13,15 @@ import {
   IntegratedSorting,
   PagingState,
   IntegratedPaging,
-  FilteringState,
   IntegratedFiltering,
   SearchState
 } from '@devexpress/dx-react-grid'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import { Typography, Popper } from '@mui/material'
-import { FavoriteCellProps } from '../Type/Type.TableFC'
-import { MeContext } from '../context'
-import { isValueInArrayObj } from '../helper'
+
 import { Heart_Icon as FavoriteCell } from './TableFC_Heart_Icon'
 import { StatusCell } from './TableFC_Status_Cell'
 import * as helper from '../helper'
 
+import styles from './styles/table.module.scss'
 /********************************************************************************
 *
           main Function component
@@ -74,7 +68,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
   ])
 
   return (
-    <Paper sx={{ width: '100%' }}>
+    <Paper sx={{ width: '100%' }} className={styles.table}>
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}
