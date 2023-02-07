@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+
 import {
   AppBarStateContext,
   SetMeContext,
@@ -16,7 +17,6 @@ export const UserValidator = React.memo(() => {
   const { setAppBarState } = React.useContext(AppBarStateContext)
   const setMe = React.useContext(SetMeContext)
   const MeToken = React.useContext(MeTokenContext)
-
   const setHomePageState = React.useContext(HomePageSetStateContext)
 
   // ------------------------------     useRef   ------------------------------
@@ -26,6 +26,7 @@ export const UserValidator = React.memo(() => {
   React.useEffect(() => {
     // 如果 context_MeToken 沒有變化，直接 return
     if (MeTokenRef.current === MeToken) return
+    
     // 如果 context_MeToken 有變化，開始同步 context_Me
     else {
       // 將最近的 MeToken 存入 Ref 中

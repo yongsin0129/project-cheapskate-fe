@@ -1,11 +1,11 @@
-import React from 'react'
-import * as gql from '../gqlQuerys'
 import { useQuery } from '@apollo/client'
-import { TableFC } from '../components/TableFC'
-import { Loading } from '../components/Loading'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+
+import { TableFC } from '../components/TableFC'
+import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
+import * as gql from '../gqlQuerys'
 import * as helper from '../helper'
 
 const AllMovies = () => {
@@ -28,7 +28,6 @@ const AllMovies = () => {
           errorObj={error}
         />
       </Box>
-      // <Typography className='pageContent'>{JSON.stringify(error)}</Typography>
     )
 
   // ---------------------------------- 將回傳的 data 做 mapping 來符合 tableFC format

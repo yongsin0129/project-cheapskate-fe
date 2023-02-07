@@ -1,4 +1,3 @@
-import React from 'react'
 import { Paper, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
@@ -11,7 +10,6 @@ import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna'
 import * as helper from '../helper'
 
 import styles from './styles/homePage.module.scss'
-// import '../style/dist/homepage.css'
 
 const HomePage = () => {
   // debug 專用
