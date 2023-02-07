@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
 
