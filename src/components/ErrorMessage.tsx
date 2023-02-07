@@ -1,20 +1,20 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import { HomePageSetStateContext } from '../context'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
+
+import { HomePageSetStateContext } from '../context'
 import * as helper from '../helper'
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = Props => {
   // debug 專用
   helper.debugTool.traceStack(ErrorMessage)
 
-  const { errorMessage } = Props
-  const { errorObj } = Props
-  const { config } = Props
+  const { errorMessage, errorObj, config } = Props
 
   const setHomePageState = React.useContext(HomePageSetStateContext)
 
+  // 藉由傳入的 config 來控制此 errorMessage 有無需要顯示在 Homepage
   React.useEffect(() => {
     setHomePageState!({
       isError: config?.isHomePageStateError,
