@@ -1,11 +1,11 @@
-import React from 'react'
-import * as gql from '../gqlQuerys'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+
 import { useQuery } from '@apollo/client'
 import { TableFC } from '../components/TableFC'
 import { Loading } from '../components/Loading'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import { ErrorMessage } from '../components/ErrorMessage'
+import * as gql from '../gqlQuerys'
 import * as helper from '../helper'
 
 const FirstRoundMovie = () => {

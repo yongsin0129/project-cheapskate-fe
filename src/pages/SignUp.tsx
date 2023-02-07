@@ -1,17 +1,16 @@
 import React from 'react'
-import { Paper } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import { Box } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import Joi from 'joi'
+import { joiResolver } from '@hookform/resolvers/joi'
+import { Paper, Box } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
-import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Alert from '@mui/material/Alert'
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import Typography from '@mui/material/Typography'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { joiResolver } from '@hookform/resolvers/joi'
-import Joi from 'joi'
-import { useNavigate } from 'react-router-dom'
+import LoadingButton from '@mui/lab/LoadingButton'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
+
 import * as helper from '../helper'
 
 // joi 驗證規則
@@ -34,8 +33,6 @@ const SignUp = () => {
   helper.debugTool.traceStack(SignUp)
 
   // hook 定義
-  const theme = useTheme()
-
   const navigate = useNavigate()
 
   const {

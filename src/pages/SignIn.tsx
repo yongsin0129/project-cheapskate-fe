@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link,useNavigate } from 'react-router-dom'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import Joi from 'joi'
+import { joiResolver } from '@hookform/resolvers/joi'
 import { Paper } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
 import { Grid, Box } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -8,11 +11,7 @@ import TextField from '@mui/material/TextField'
 import Alert from '@mui/material/Alert'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { joiResolver } from '@hookform/resolvers/joi'
-import Joi from 'joi'
-import { useNavigate } from 'react-router-dom'
+
 import { MeContext, SetMeTokenContext } from '../context'
 import * as helper from '../helper'
 
@@ -33,7 +32,6 @@ const SignIn = () => {
   const setMeToken = React.useContext(SetMeTokenContext)
 
   // hook 定義
-  const theme = useTheme()
   const navigate = useNavigate()
   const {
     register,
