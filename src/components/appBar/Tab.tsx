@@ -5,7 +5,7 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 
-import * as helper from '../helper'
+import * as helper from '../../helper'
 
 export const AppBar_tab = React.memo(() => {
   // debug 專用
