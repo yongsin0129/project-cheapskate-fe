@@ -9,9 +9,9 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-import { MeContext, SetMeContext, MeTokenContext } from '../context'
-import * as gql from '../gqlQuerys'
-import * as helper from '../helper'
+import { MeContext, SetMeContext, MeTokenContext } from '../../context'
+import * as gql from '../../gqlQuerys'
+import * as helper from '../../helper'
 
 interface Heart_IconProps extends Table.DataCellProps {
   active?: string

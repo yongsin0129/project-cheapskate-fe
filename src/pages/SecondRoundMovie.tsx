@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 
-import { TableFC } from '../components/TableFC'
+import { TableFC } from '../components/table'
 import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
 import * as gql from '../gqlQuerys'

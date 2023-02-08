@@ -3,7 +3,7 @@ import { Table } from '@devexpress/dx-react-grid-material-ui'
 import { Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
-import * as helper from '../helper'
+import * as helper from '../../helper'
 
 interface StatusCellProps extends Table.DataCellProps {}
 

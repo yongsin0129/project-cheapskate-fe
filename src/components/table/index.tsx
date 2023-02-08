@@ -17,9 +17,9 @@ import {
   SearchState
 } from '@devexpress/dx-react-grid'
 
-import { Heart_Icon as FavoriteCell } from './TableFC_Heart_Icon'
-import { StatusCell } from './TableFC_Status_Cell'
-import * as helper from '../helper'
+import { Heart_Icon as FavoriteCell } from './HeartIcon'
+import { StatusCell } from './StatusCell'
+import * as helper from '../../helper'
 
 import styles from './styles/table.module.scss'
 
