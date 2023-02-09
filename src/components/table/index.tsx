@@ -20,15 +20,18 @@ import {
 import { Heart_Icon as FavoriteCell } from './HeartIcon'
 import { StatusCell } from './StatusCell'
 import * as helper from '../../helper'
+import * as Type from '../../Type'
 
 import styles from './styles/table.module.scss'
 
-/********************************************************************************
-*
-          main Function component
-*
-*********************************************************************************/
-export const TableFC: React.FC<TableFCProps> = props => {
+const columns = [
+  { name: 'title', title: 'Title' },
+  { name: 'release', title: 'Release Date' },
+  { name: 'status', title: 'Status' },
+  { name: 'favorite', title: '\u2764' }
+]
+
+export const TableFC: React.FC<Type.table.TableProps> = props => {
   // debug 專用
   helper.debugTool.traceStack(TableFC)
 
@@ -45,7 +48,7 @@ export const TableFC: React.FC<TableFCProps> = props => {
     { columnName: 'release', align: 'center', width: '32%' },
     { columnName: 'status', align: 'center', width: '20%' },
     { columnName: 'favorite', align: 'center', width: '8%' }
-  ] as tableColumnExtensionsType[])
+  ] as Type.table.TableColumnExtensionsType[])
 
   {
     /* ------------------------ 分頁器的 state definition */
@@ -120,19 +123,11 @@ export const TableFC: React.FC<TableFCProps> = props => {
   )
 }
 
-const columns = [
-  { name: 'title', title: 'Title' },
-  { name: 'release', title: 'Release Date' },
-  { name: 'status', title: 'Status' },
-  { name: 'favorite', title: '\u2764' }
-]
-
 /********************************************************************************
 *
           children function component
 *
 *********************************************************************************/
-
 // 藉由 每個 ( column , row ) 在生成的時候，自定義內容
 const Cell: React.FC<Table.DataCellProps> = React.memo(props => {
   // debug 專用
@@ -151,15 +146,18 @@ const Cell: React.FC<Table.DataCellProps> = React.memo(props => {
     return <StatusCell {...props} />
   }
 
-  // 另外兩個 column : title and releaseDate
+  // 另外兩個 column (title and releaseDate) 不需要客製化，直接沿用 Table.Cell就好
   return <Table.Cell {...props} />
 })
-
 /********************************************************************************
 *
           helper for Custom Sorting Algorithm
 *
 *********************************************************************************/
+interface priorityState {
+  [index: string]: Number
+}
+
 function compareFavorite (a: string, b: string) {
   const priorityState: priorityState = {
     firstRound: 1,
@@ -180,10 +178,6 @@ function compareRelease (a: string, b: string) {
   const UnixA = dateTimeFormatter(a)
   const UnixB = dateTimeFormatter(b)
   return UnixA > UnixB ? 1 : -1
-}
-
-interface priorityState {
-  [index: string]: Number
 }
 
 function dateTimeFormatter (dataTime: string) {

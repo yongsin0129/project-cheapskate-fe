@@ -1,10 +1,11 @@
 import React from 'react'
 
 import * as helper from '../helper'
+import * as Type from '../Type'
 
 interface appBarStateContext {
-  appBarState?: PageState
-  setAppBarState?: React.Dispatch<React.SetStateAction<PageState | undefined>>
+  appBarState?: Type.PageState
+  setAppBarState?: React.Dispatch<React.SetStateAction<Type.PageState | undefined>>
 }
 
 export const AppBarStateContext = React.createContext<appBarStateContext>({})
@@ -15,7 +16,7 @@ export const AppBarStateManager: React.FC<React.PropsWithChildren> = ({
   // debug 專用
   helper.debugTool.traceStack(AppBarStateManager)
 
-  const [appBarState, setAppBarState] = React.useState<PageState>()
+  const [appBarState, setAppBarState] = React.useState<Type.PageState>()
 
   const AppBarStateContextValue = React.useMemo(() => {
     return { appBarState, setAppBarState }

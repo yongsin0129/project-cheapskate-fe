@@ -9,6 +9,7 @@ import { ErrorMessage } from '../components/ErrorMessage'
 import { MeTokenContext } from '../context'
 import * as gql from '../gqlQuerys'
 import * as helper from '../helper'
+import * as Type from '../Type'
 
 const FollowedMovies = () => {
   // debug 專用
@@ -18,7 +19,7 @@ const FollowedMovies = () => {
   const MeToken = React.useContext(MeTokenContext)
 
   // --------------------------------- Query handle error
-  const { loading, error, data }: QueryResType = useQuery(
+  const { loading, error, data } = useQuery<Type.MeDataQueryType>(
     gql.get_me_followed_movies,
     {
       context: { headers: { ...MeToken } }
@@ -42,16 +43,8 @@ const FollowedMovies = () => {
     )
 
   // ---------------------------------- 將回傳的 data 做 mapping 來符合 tableFC format
-  const followedMovies = data?.Me?.followedMovies || null
-  const tableData = followedMovies?.map(v => {
-    return {
-      id: v?.id,
-      title: v?.title,
-      release: v?.releaseDate,
-      status: v?.status,
-      url: v?.url
-    }
-  })
+  const followedMovies = data?.Me.followedMovies || null
+  const tableData = helper.mappingQueryMoviesData(followedMovies)
 
   if (!!tableData)
     return (
@@ -63,9 +56,3 @@ const FollowedMovies = () => {
 }
 
 export default FollowedMovies
-
-interface QueryResType {
-  loading?: unknown
-  error?: unknown
-  data?: { Me: UserDataResponsive }
-}
