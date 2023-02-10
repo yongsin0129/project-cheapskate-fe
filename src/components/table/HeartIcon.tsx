@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { MeContext, SetMeContext, MeTokenContext } from '../../context'
 import * as gql from '../../gqlQuerys'
 import * as helper from '../../helper'
+import * as Type from '../../Type'
 
 interface Heart_IconProps extends Table.DataCellProps {
   active?: string
@@ -30,7 +31,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   const rowMovieId = Props?.row?.id
   let defaultActive
   
-  const UserFollowedMovieArray = (Me as UserDataResponsive)?.followedMovies
+  const UserFollowedMovieArray = (Me as Type.UserDataResType)?.followedMovies
   if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
     // 此電影有在 user 的收藏中 ， return 實心愛心
     if (helper.isValueInArrayObj(rowMovieId, UserFollowedMovieArray)) {
@@ -43,27 +44,27 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
 
-  // ---------------------------------------------  useMutation for Add
-  const [Add_Followed_Movies_Function, addFollowResponse] = useMutation(
+  //   useMutation for Add
+  const [Add_Followed_Movies_Function, addFollowResponse] = useMutation<Type.MovieDataResType>(
     gql.AddFollowedMovies,
     {
       context: { headers: { ...MeToken } }
     }
   )
 
-  const addFollowResponseError = (addFollowResponse as QueryResType).error
-  if (addFollowResponseError)
+  const addFollowResponseError = (addFollowResponse).error
+  if (!!addFollowResponseError)
     return <p>{JSON.stringify(addFollowResponseError.message)}</p>
 
-  // ---------------------------------------------  useMutation for Remove
-  const [Remove_Followed_Movies_Function, removeFollowResponse] = useMutation(
+  //   useMutation for Remove
+  const [Remove_Followed_Movies_Function, removeFollowResponse] = useMutation<Type.MovieDataResType>(
     gql.RemoveFollowedMovies,
     {
       context: { headers: { ...MeToken } }
     }
   )
-  const removeFollowResponseError = (removeFollowResponse as QueryResType).error
-  if (addFollowResponseError)
+  const removeFollowResponseError = (removeFollowResponse).error
+  if (!!removeFollowResponseError)
     return <p>{JSON.stringify(removeFollowResponseError.message)}`</p>
 
   // ----------------------------------------------   handler

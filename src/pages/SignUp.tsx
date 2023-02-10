@@ -12,6 +12,15 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 
 import * as helper from '../helper'
+import * as Type from '../Type'
+
+type Inputs = {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
+  adminPassword: string
+}
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -47,7 +56,7 @@ const SignUp = () => {
     resolver: joiResolver(schema)
   })
 
-  const [pageState, setPageState] = React.useState<PageState>({
+  const [pageState, setPageState] = React.useState<Type.PageState>({
     isLoading: false
   })
 
@@ -249,11 +258,3 @@ const SignUp = () => {
 }
 
 export default SignUp
-
-type Inputs = {
-  name: string
-  email: string
-  password: string
-  password_confirmation: string
-  adminPassword: string
-}

@@ -7,13 +7,14 @@ import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
 import * as gql from '../gqlQuerys'
 import * as helper from '../helper'
+import * as Type from '../Type'
 
 const AllMovies = () => {
   // debug 專用
   helper.debugTool.traceStack(AllMovies)
 
   // --------------------------------- Query handle error
-  const { loading, error, data }: QueryResType = useQuery(gql.get_all_movies)
+  const { loading, error, data } = useQuery<Type.MovieDataQueryType>(gql.get_all_movies)
   if (!!loading)
     return (
       <Box className='pageContent'>
@@ -31,16 +32,8 @@ const AllMovies = () => {
     )
 
   // ---------------------------------- 將回傳的 data 做 mapping 來符合 tableFC format
-  const tableData = data?.Movies?.map(v => {
-    return {
-      id: v.id,
-      title: v.title,
-      release: v.releaseDate,
-      status: v.status,
-      url: v.url
-    }
-  })
-
+  
+  const tableData = helper.mappingQueryMoviesData(data?.Movies)
   if (!!tableData)
     return (
       <Box className='pageContent'>
@@ -51,9 +44,3 @@ const AllMovies = () => {
 }
 
 export default AllMovies
-
-interface QueryResType {
-  loading?: unknown
-  error?: unknown
-  data?: { Movies: MovieDataResponsive[] }
-}

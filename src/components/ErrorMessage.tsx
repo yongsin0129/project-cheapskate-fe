@@ -6,6 +6,16 @@ import AlertTitle from '@mui/material/AlertTitle'
 import { HomePageSetStateContext } from '../context'
 import * as helper from '../helper'
 
+type ErrorMessageProps = React.PropsWithChildren<{
+  errorMessage: string
+  errorObj?: any
+  config?: ConfigOption
+}>
+
+interface ConfigOption {
+  isHomePageStateError: boolean
+}
+
 export const ErrorMessage: React.FC<ErrorMessageProps> = Props => {
   // debug 專用
   helper.debugTool.traceStack(ErrorMessage)
@@ -28,15 +38,4 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = Props => {
       <Typography>{JSON.stringify(errorObj)}</Typography>
     </Alert>
   )
-}
-
-// 使用 react 內建的 PropsWithChildren
-type ErrorMessageProps = React.PropsWithChildren<{
-  errorMessage: string
-  errorObj?: any
-  config?: ConfigOption
-}>
-
-interface ConfigOption {
-  isHomePageStateError: boolean
 }

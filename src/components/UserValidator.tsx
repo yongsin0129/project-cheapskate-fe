@@ -8,6 +8,7 @@ import {
   HomePageSetStateContext
 } from '../context'
 import * as helper from '../helper'
+import * as Type from '../Type'
 
 export const UserValidator = React.memo(() => {
   // debug 專用
@@ -47,11 +48,11 @@ export const UserValidator = React.memo(() => {
 
       async function updateMe () {
         const value = await helper.transferTokenToMe()
-        helper.debugTool.printMessage(' asyncFN transferTokenToMe return : ')
+        helper.debugTool.printMessage(' asyncFn transferTokenToMe return : ')
         helper.debugTool.printUnknown(value, 'return value')
 
         // 如果轉換成功，將 context_Me 更新
-        if (!!value.success) setMe!(value.data as Me)
+        if (!!value.success) setMe!(value.data as Type.Me)
 
         // 如果轉換失敗，將 message 顯示在 HomePage 上
         if (!value.success) {

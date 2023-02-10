@@ -1,5 +1,6 @@
 import { get_Me_NoGql } from '../gqlQuerys'
 import { DTOBase } from '../DTO/dto.base'
+import * as Type from '../Type'
 
 // ------------------------------     helper config   ------------------------------
 const debugMode = false
@@ -39,7 +40,7 @@ export const transferTokenToMe = async () => {
       } else {
         return new DTOBase({
           success: true,
-          data: data.data.Me as Me
+          data: data.data.Me as Type.Me
         })
       }
     })
@@ -71,6 +72,23 @@ export const isValueInArrayObj = (
 ) => {
   const IdArray = array.map(v => v?.id)
   return IdArray.indexOf(idValue) >= 0
+}
+
+// ------------------------------     將 graphql query 回來的 movies data mapping 成 table 格式  ------------------------------
+export function mappingQueryMoviesData (
+  MoviesData: (Type.MovieDataResType | null)[] | undefined | null
+) {
+  if (!MoviesData) return null
+  return MoviesData.map(v => {
+    if (!v) return null
+    return {
+      id: v.id,
+      title: v.title,
+      release: v.releaseDate,
+      status: v.status,
+      url: v.url
+    }
+  })
 }
 
 // ------------------------------     DebugMode   ------------------------------

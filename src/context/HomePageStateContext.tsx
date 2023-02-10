@@ -1,11 +1,12 @@
 import React from 'react'
 
 import * as helper from '../helper'
+import * as Type from '../Type'
 
-type setHomePageState = React.Dispatch<React.SetStateAction<PageState>>
+type setHomePageState = React.Dispatch<React.SetStateAction<Type.PageState>>
 
 // ------------------------------     create Context   ------------------------------
-export const HomePageStateContext = React.createContext<PageState | null>(null)
+export const HomePageStateContext = React.createContext<Type.PageState | null>(null)
 export const HomePageSetStateContext =
   React.createContext<setHomePageState | null>(null)
 
@@ -16,7 +17,7 @@ export const HomePageStateManager: React.FC<React.PropsWithChildren> = ({
   // debug 專用
   helper.debugTool.traceStack(HomePageStateManager)
 
-  const [homePageState, setHomePageState] = React.useState<PageState>({})
+  const [homePageState, setHomePageState] = React.useState<Type.PageState>({})
 
   return (
     <HomePageStateContext.Provider value={homePageState}>

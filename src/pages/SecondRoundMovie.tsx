@@ -7,13 +7,14 @@ import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
 import * as gql from '../gqlQuerys'
 import * as helper from '../helper'
+import * as Type from '../Type'
 
 const SecondRoundMovie = () => {
   // debug 專用
   helper.debugTool.traceStack(SecondRoundMovie)
 
   // --------------------------------- Query handle error
-  const { loading, error, data }: QueryResType = useQuery(
+  const { loading, error, data } = useQuery<Type.MovieDataQueryType>(
     gql.get_movies_by_status,
     {
       variables: { status: 'secondRound' }
@@ -36,15 +37,7 @@ const SecondRoundMovie = () => {
     )
 
   // ---------------------------------- 將回傳的 data 做 mapping 來符合 tableFC format
-  const tableData = data?.Movies?.map(v => {
-    return {
-      id: v.id,
-      title: v.title,
-      release: v.releaseDate,
-      status: v.status,
-      url: v.url
-    }
-  })
+  const tableData = helper.mappingQueryMoviesData(data?.Movies)
 
   if (!!tableData)
     return (
@@ -56,9 +49,3 @@ const SecondRoundMovie = () => {
 }
 
 export default SecondRoundMovie
-
-interface QueryResType {
-  loading?: unknown
-  error?: unknown
-  data?: { Movies: MovieDataResponsive[] }
-}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
@@ -14,6 +14,12 @@ import Typography from '@mui/material/Typography'
 
 import { MeContext, SetMeTokenContext } from '../context'
 import * as helper from '../helper'
+import * as Type from '../Type'
+
+type Inputs = {
+  email: string
+  password: string
+}
 
 // joi 驗證規則
 const schema = Joi.object({
@@ -44,7 +50,7 @@ const SignIn = () => {
     reValidateMode: 'onChange',
     resolver: joiResolver(schema)
   })
-  const [pageState, setPageState] = React.useState<PageState>({
+  const [pageState, setPageState] = React.useState<Type.PageState>({
     isLoading: false
   })
 
@@ -202,8 +208,3 @@ const SignIn = () => {
 }
 
 export default SignIn
-
-type Inputs = {
-  email: string
-  password: string
-}
