@@ -24,9 +24,26 @@ const HomePage = () => {
         cheapskate
       </Typography>
       {/* ----------------------------------  ------- subtitle ---------------  */}
-      <Typography color={Theme.palette.secondary.main} variant='subtitle1'>
+      <Typography color={Theme.palette.secondary.main} variant='h6'>
         小氣鬼的電影追蹤工具
       </Typography>
+      {/* ----------------------------------  ------- 網站功能說明 --------------- */}
+      <Paper id='websiteDescription' className='' elevation={2} sx={{marginTop:"1rem"}}>
+        <Typography variant='h6' color={Theme.palette.info.main}>
+          網站功能說明
+        </Typography>
+
+        <Typography>
+          <ul>
+            <li>1.查詢最新首輪電影</li>
+            <li>2.查詢最新二輪電影</li>
+            <li>3.建立專屬收藏清單</li>
+            <li>4.確認清單上映狀態</li>
+          </ul>
+        </Typography>
+
+        <Typography>備註: 首輪及二輪資料每 12 小時更新</Typography>
+      </Paper>
       {/* ----------------------------------  ------- 緣起說明 ---------------  */}
       {/* --- For web */}
       <Paper id='reasonDescription' className='web' elevation={2}>
@@ -70,7 +87,6 @@ const HomePage = () => {
           於是這支 app 就開始進入開發階段。
         </Typography>
       </Paper>
-
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} className="Grid-item">
           <Paper id='accountDescription' className='' elevation={2}>
@@ -82,9 +98,10 @@ const HomePage = () => {
               因為小氣鬼是免費仔 <br />
               伺服器及資料庫都用免費的 <br />
               所以暫不開放註冊帳號 <br />
-              資料庫預設有 100 組帳號 <br />
-              email : use[1-100]example.com <br />
-              password : 123456
+              資料庫預設有 100 組帳號可使用 <br />
+              email : use[1-100]@example.com <br />
+              password : 123456<br />
+              也可聯絡作者(永C)創建專屬帳號
             </Typography>
           </Paper>
         </Grid>
@@ -123,7 +140,6 @@ const HomePage = () => {
           </Paper>
         </Grid>
       </Grid>
-
       {/* ----------------------------------  ------- Github ---------------  */}
       <Typography
         id='githubLink'
