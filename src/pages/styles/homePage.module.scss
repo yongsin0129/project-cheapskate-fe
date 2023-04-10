@@ -12,6 +12,7 @@
       margin: 0.5rem;
     }
 
+    #websiteDescription,
     #reasonDescription,
     #accountDescription,
     #futurePlanDescription {
@@ -27,7 +28,6 @@
 
     // phone 專用設定
     @media screen and (max-width: 448px) {
-      font-size: 0.75rem;
 
       #reasonDescription {
         padding: 1rem;
