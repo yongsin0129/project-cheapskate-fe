@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography'
 
 import { MeContext, SetMeTokenContext } from '../context'
 import * as helper from '../helper'
-import * as Type from '../Type'
+import * as Type from '../type'
 
 type Inputs = {
   email: string

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import * as helper from '../helper'
-import * as Type from '../Type'
+import * as Type from '../type'
 
 interface appBarStateContext {
   appBarState?: Type.PageState

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import * as helper from '../helper'
-import * as Type from '../Type'
+import * as Type from '../type'
 
 // ------------------------------     type definition   ------------------------------
 type SetMe = React.Dispatch<React.SetStateAction<Type.Me | null>> | null

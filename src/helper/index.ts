@@ -1,6 +1,6 @@
 import { get_Me_NoGql } from '../gqlQuerys'
-import { DTOBase } from '../DTO/dto.base'
-import * as Type from '../Type'
+import { DTOBase } from '../dto/baseDTO'
+import * as Type from '../type'
 
 // ------------------------------     helper config   ------------------------------
 const debugMode = false

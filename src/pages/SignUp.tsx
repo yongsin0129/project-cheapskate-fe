@@ -12,7 +12,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 
 import * as helper from '../helper'
-import * as Type from '../Type'
+import * as Type from '../type'
 
 type Inputs = {
   name: string

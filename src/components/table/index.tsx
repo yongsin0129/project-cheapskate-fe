@@ -20,7 +20,7 @@ import {
 import { Heart_Icon as FavoriteCell } from './HeartIcon'
 import { StatusCell } from './StatusCell'
 import * as helper from '../../helper'
-import * as Type from '../../Type'
+import * as Type from '../../type'
 
 import styles from './styles/table.module.scss'
 
