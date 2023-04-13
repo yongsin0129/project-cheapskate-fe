@@ -9,7 +9,7 @@ import { ErrorMessage } from '../components/ErrorMessage'
 import { MeTokenContext } from '../context'
 import * as gql from '../gqlQuerys'
 import * as helper from '../helper'
-import * as Type from '../Type'
+import * as Type from '../type'
 
 const FollowedMovies = () => {
   // debug 專用

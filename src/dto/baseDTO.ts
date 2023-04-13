@@ -12,7 +12,8 @@ export class DTOBase {
   }
 }
 
-// 簡化寫化 :　1.不需要宣告　2.不需要 this 指定屬性 3.直接寫在建構函式的參數中
+// 簡化寫化 :　1. 不需要宣告　2. 不需要 this 指定屬性 3. 直接寫在建構函式的參數中
+
 // export class DTOBase {
 //   constructor (
 //     public readonly success: boolean,

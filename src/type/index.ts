@@ -1,10 +1,9 @@
-/// <reference types="vite/client" />
-
-import * as table from '../Type/table'
+import * as table from './table'
 
 export { table }
 
 type Maybe<T> = T | null
+
 type Scalars = {
   ID: string
   String: string
@@ -23,7 +22,7 @@ export type MovieDataResType = {
   url?: Maybe<Scalars['String']>
   createAt?: Maybe<Scalars['DateTime']>
   updateAt?: Maybe<Scalars['DateTime']>
-  followedByUsers?: Maybe<Array<Maybe<UserDataResponsive>>>
+  followedByUsers?: Maybe<Array<Maybe<UserDataResType>>>
 }
 
 export type MovieDataQueryType = {

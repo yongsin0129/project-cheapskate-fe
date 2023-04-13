@@ -8,7 +8,7 @@ import {
   HomePageSetStateContext
 } from '../context'
 import * as helper from '../helper'
-import * as Type from '../Type'
+import * as Type from '../type'
 
 export const UserValidator = React.memo(() => {
   // debug 專用
