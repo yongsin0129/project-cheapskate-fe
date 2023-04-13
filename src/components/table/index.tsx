@@ -19,6 +19,7 @@ import {
 
 import { Heart_Icon as FavoriteCell } from './HeartIcon'
 import { StatusCell } from './StatusCell'
+import { DetailModal } from './DetailModal'
 import * as helper from '../../helper'
 import * as Type from '../../type'
 
@@ -73,6 +74,7 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
 
   return (
     <Paper sx={{ width: '100%' }} className={styles.table}>
+      <DetailModal></DetailModal>
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}
