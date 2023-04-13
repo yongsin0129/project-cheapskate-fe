@@ -18,16 +18,23 @@ const style = {
   p: 4
 }
 
-export function DetailModal () {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+interface DetailModalProps {
+  openModal: boolean
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+  targetMovieURL: string
+}
+
+export const DetailModal: React.FC<DetailModalProps> = props => {
+  const { openModal, setOpenModal, targetMovieURL } = props
+
+  const handleOpen = () => setOpenModal(true)
+  const handleClose = () => setOpenModal(false)
 
   const [count, setCount] = React.useState(0)
 
   React.useEffect(() => {
     // open bool is true 打 api 是 false 就不動
-    if (open === false) return
+    if (openModal === false) return
     setCount(0)
     const id = setInterval(() => {
       setCount(oldCount => oldCount + 1)
@@ -39,7 +46,7 @@ export function DetailModal () {
       clearInterval(id)
     }
     // deps 可以用 open bool
-  }, [open])
+  }, [openModal])
 
   return (
     <div>
@@ -48,12 +55,12 @@ export function DetailModal () {
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
-        open={open}
+        open={openModal}
         onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
       >
-        <Fade in={open}>
+        <Fade in={openModal}>
           <Box sx={style}>
             <Typography id='transition-modal-title' variant='h6' component='h2'>
               Text in a modal
@@ -62,6 +69,7 @@ export function DetailModal () {
             <Typography id='transition-modal-description' sx={{ mt: 2 }}>
               Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
             </Typography>
+            {targetMovieURL}
           </Box>
         </Fade>
       </Modal>

@@ -20,6 +20,7 @@ import {
 import { Heart_Icon as FavoriteCell } from './HeartIcon'
 import { StatusCell } from './StatusCell'
 import { DetailModal } from './DetailModal'
+import { useTriggerMovieDetails } from './hooks/useTriggerMovieDetails'
 import * as helper from '../../helper'
 import * as Type from '../../type'
 
@@ -72,13 +73,23 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
     { columnName: 'favorite', sortingEnabled: false }
   ])
 
+  {
+    /* ------------------------ 控制 modal of movie details  */
+  }
+  const { triggerRowDetail, openModal, setOpenModal, targetMovieURL } =
+    useTriggerMovieDetails()
+
   return (
     <Paper
       sx={{ width: '100%' }}
       className={styles.table}
       onClick={e => triggerRowDetail(e)}
     >
-      <DetailModal></DetailModal>
+      {/* ------------------------ 管理 modal of movie details */}
+      <DetailModal
+        {...{ openModal, setOpenModal, targetMovieURL }}
+      ></DetailModal>
+
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}
@@ -194,27 +205,4 @@ function dateTimeFormatter (dataTime: string) {
 
   const date = new Date(`${year}-${month}-${day}`)
   return date.getTime()
-}
-
-function triggerRowDetail (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-  console.warn('trigger triggerRowDetail !!!')
-
-  let target = e.target as HTMLDivElement
-  
-  // 使用者點擊愛心加入收藏，不需要打開 modal
-  if (target.classList.contains('favoriteIcon')) return
-
-  let tableRowDOM = null
-
-  // 不斷的向上查找至到 <tr> 為止
-  while (tableRowDOM === null && target !== document.body && target !== null) {
-    const parentNode = (target?.parentNode as HTMLDivElement) || null
-    if (parentNode?.tagName === 'TR') tableRowDOM = parentNode
-    else target = parentNode
-  }
-
-  if (tableRowDOM) {
-    const movieURL = tableRowDOM.querySelector('#movieURL')?.innerHTML
-    console.log('triggerRowDetail ~ movieURL:', movieURL)
-  }
 }
