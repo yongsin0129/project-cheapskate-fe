@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import Backdrop from '@mui/material/Backdrop'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
@@ -35,7 +35,9 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
 
   const [count, setCount] = React.useState(0)
 
-  const { data, isError, isLoading, error } = useQuery(
+  const queryClient = useQueryClient()
+
+  const { data, isError, isLoading, error } = useQuery<string, Error>(
     ['moviesDetails', targetMovieURL],
     async ({ queryKey }: any) => {
       const response = await fetch(queryKey[1])
@@ -55,6 +57,7 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
     // 取消前一次的 打 api 動作
     return () => {
       clearInterval(id)
+      queryClient.cancelQueries('moviesDetails')
     }
     // deps 可以用 open bool
   }, [openModal])
@@ -74,10 +77,11 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
         <Fade in={openModal}>
           <Box sx={style}>
             <Typography id='transition-modal-title' variant='h6' component='h2'>
-              title , url :{targetMovieURL}
+              title
             </Typography>
             <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              {!!isError && <div>{isError}</div>}
+              {targetMovieURL}
+              {!!isError && <div>{error.message}</div>}
               {!!isLoading && <Loading />}
               {!!data && <div>{data}</div>}
             </Typography>
