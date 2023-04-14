@@ -1,10 +1,13 @@
 import * as React from 'react'
+import { useQuery } from 'react-query'
 import Backdrop from '@mui/material/Backdrop'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+
+import { Loading } from '../Loading'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -31,6 +34,14 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
   const handleClose = () => setOpenModal(false)
 
   const [count, setCount] = React.useState(0)
+
+  const { data, isError, isLoading, error } = useQuery(
+    ['moviesDetails', targetMovieURL],
+    async ({ queryKey }: any) => {
+      const response = await fetch(queryKey[1])
+      return response.json()
+    }
+  )
 
   React.useEffect(() => {
     // open bool is true 打 api 是 false 就不動
@@ -63,13 +74,13 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
         <Fade in={openModal}>
           <Box sx={style}>
             <Typography id='transition-modal-title' variant='h6' component='h2'>
-              Text in a modal
+              title , url :{targetMovieURL}
             </Typography>
-            <Typography>{count}</Typography>
             <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              {!!isError && <div>{isError}</div>}
+              {!!isLoading && <Loading />}
+              {!!data && <div>{data}</div>}
             </Typography>
-            {targetMovieURL}
           </Box>
         </Fade>
       </Modal>

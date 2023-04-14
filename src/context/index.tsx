@@ -1,7 +1,9 @@
 import React from 'react'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { ColorSwitchManager } from './ColorModeContext'
 import { ApolloClientManager } from './ApolloClientContext'
+import { ReactQueryManager } from './ReactQueryContext'
 import { MeManager } from './MeContext'
 import { AppBarStateManager } from './AppBarStateContext'
 import { HomePageStateManager } from './HomePageStateContext'
@@ -18,13 +20,16 @@ export { HomePageSetStateContext } from './HomePageStateContext'
 const ContextManager: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <ApolloClientManager>
-      <MeManager>
-        <ColorSwitchManager>
-          <HomePageStateManager>
-            <AppBarStateManager>{children}</AppBarStateManager>
-          </HomePageStateManager>
-        </ColorSwitchManager>
-      </MeManager>
+      <ReactQueryManager>
+        <MeManager>
+          <ColorSwitchManager>
+            <HomePageStateManager>
+              <AppBarStateManager>{children}</AppBarStateManager>
+            </HomePageStateManager>
+          </ColorSwitchManager>
+        </MeManager>
+        <ReactQueryDevtools />
+      </ReactQueryManager>
     </ApolloClientManager>
   )
 }
