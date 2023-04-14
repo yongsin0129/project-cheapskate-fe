@@ -25,15 +25,15 @@ interface DetailModalProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
   targetMovieURL: string
+  setTargetMovieURL: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const DetailModal: React.FC<DetailModalProps> = props => {
-  const { openModal, setOpenModal, targetMovieURL } = props
+  const { openModal, setOpenModal, targetMovieURL, setTargetMovieURL } = props
+  console.log('targetMovieURL:', targetMovieURL)
 
   const handleOpen = () => setOpenModal(true)
   const handleClose = () => setOpenModal(false)
-
-  const [count, setCount] = React.useState(0)
 
   const queryClient = useQueryClient()
 
@@ -44,19 +44,15 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
       return response.json()
     }
   )
+  if (targetMovieURL === '') queryClient.cancelQueries('moviesDetails')
 
   React.useEffect(() => {
     // open bool is true 打 api 是 false 就不動
     if (openModal === false) return
-    setCount(0)
-    const id = setInterval(() => {
-      setCount(oldCount => oldCount + 1)
-      console.log(count)
-    }, 200)
 
     // 取消前一次的 打 api 動作
     return () => {
-      clearInterval(id)
+      setTargetMovieURL('')
       queryClient.cancelQueries('moviesDetails')
     }
     // deps 可以用 open bool

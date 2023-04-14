@@ -76,8 +76,13 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
   {
     /* ------------------------ 控制 modal of movie details  */
   }
-  const { triggerRowDetail, openModal, setOpenModal, targetMovieURL } =
-    useTriggerMovieDetails()
+  const {
+    triggerRowDetail,
+    openModal,
+    setOpenModal,
+    targetMovieURL,
+    setTargetMovieURL
+  } = useTriggerMovieDetails()
 
   return (
     <Paper
@@ -87,7 +92,7 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
     >
       {/* ------------------------ 管理 modal of movie details */}
       <DetailModal
-        {...{ openModal, setOpenModal, targetMovieURL }}
+        {...{ openModal, setOpenModal, targetMovieURL, setTargetMovieURL }}
       ></DetailModal>
 
       {/* ------------------------ Grid 的 Date */}

@@ -5,8 +5,6 @@ export const useTriggerMovieDetails = () => {
   const [targetMovieURL, setTargetMovieURL] = React.useState('')
 
   function triggerRowDetail (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    console.warn('trigger triggerRowDetail !!!')
-
     let target = e.target as HTMLDivElement
     // 使用者點擊愛心加入收藏，不需要打開 modal
     if (target.classList.contains('favoriteIcon')) return
@@ -25,11 +23,16 @@ export const useTriggerMovieDetails = () => {
 
     if (tableRowDOM) {
       const movieURL = tableRowDOM.querySelector('#movieURL')?.innerHTML || ''
-      console.log('triggerRowDetail ~ movieURL:', movieURL)
       setTargetMovieURL(movieURL)
       setOpenModal(true)
     }
   }
 
-  return { triggerRowDetail, openModal, setOpenModal, targetMovieURL }
+  return {
+    triggerRowDetail,
+    openModal,
+    setOpenModal,
+    targetMovieURL,
+    setTargetMovieURL
+  }
 }
