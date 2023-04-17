@@ -9,7 +9,9 @@ import Typography from '@mui/material/Typography'
 
 import { Loading } from '../Loading'
 
-const style = {
+import { useFetchMovieDetails } from './hooks/useFetchMovieDetails'
+
+const modalStyle = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -30,24 +32,13 @@ interface DetailModalProps {
 export const DetailModal: React.FC<DetailModalProps> = props => {
   const { openModal, setOpenModal, targetMovieURL } = props
 
-  console.warn('DetailModal render')
-
   const handleOpen = () => setOpenModal(true)
   const handleClose = () => setOpenModal(false)
 
   const queryClient = useQueryClient()
 
-  const { data, isError, isLoading, error } = useQuery<string, Error>(
-    ['moviesDetails', targetMovieURL.current],
-    async ({ queryKey }: any) => {
-      const response = await fetch(queryKey[1])
-
-      const text = await response.text()
-      console.log("text:", text)
-
-      return response.json()
-    }
-  )
+  const { data, isError, isLoading, error } =
+    useFetchMovieDetails(targetMovieURL)
 
   React.useEffect(() => {
     // open bool is true 打 api 是 false 就不動
@@ -73,18 +64,30 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
         slots={{ backdrop: Backdrop }}
       >
         <Fade in={openModal}>
-          <Box sx={style}>
+          <Box sx={modalStyle}>
             <Typography id='transition-modal-title' variant='h6' component='h2'>
-              title
+              {data?.movieTitle || '電影標題'}
             </Typography>
 
-            {!!isLoading && <Loading />}
+            {!!isLoading && (
+              <Box id='modalLoadingBox'>
+                <Loading />
+              </Box>
+            )}
 
-            <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              {!!isError && <span>{error.message}</span>}
-              {!!data && <span>{data}</span>}
-              {targetMovieURL.current}
-            </Typography>
+            <Box id='transition-modal-description' sx={{ mt: 2 }}>
+              {!!data && (
+                <img
+                  id='modalMoviePoster'
+                  src={data.posterURL}
+                  alt='電影海報'
+                ></img>
+              )}
+              {!!data && (
+                <span id='modalMovieDescription'>{data.movieDescription}</span>
+              )}
+              {!!isError && <span>{error?.message}</span>}
+            </Box>
           </Box>
         </Fade>
       </Modal>

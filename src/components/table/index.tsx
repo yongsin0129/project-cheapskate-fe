@@ -82,7 +82,6 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
     setOpenModal,
     targetMovieURL    
   } = useTriggerMovieDetails()
-    console.log("openModal:", openModal)
 
   return (
     <Paper
