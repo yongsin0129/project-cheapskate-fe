@@ -24,13 +24,13 @@ const style = {
 interface DetailModalProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
-  targetMovieURL: string
-  setTargetMovieURL: React.Dispatch<React.SetStateAction<string>>
+  targetMovieURL: React.MutableRefObject<string>
 }
 
 export const DetailModal: React.FC<DetailModalProps> = props => {
-  const { openModal, setOpenModal, targetMovieURL, setTargetMovieURL } = props
-  console.log('targetMovieURL:', targetMovieURL)
+  const { openModal, setOpenModal, targetMovieURL } = props
+
+  console.warn('DetailModal render')
 
   const handleOpen = () => setOpenModal(true)
   const handleClose = () => setOpenModal(false)
@@ -38,13 +38,16 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
   const queryClient = useQueryClient()
 
   const { data, isError, isLoading, error } = useQuery<string, Error>(
-    ['moviesDetails', targetMovieURL],
+    ['moviesDetails', targetMovieURL.current],
     async ({ queryKey }: any) => {
       const response = await fetch(queryKey[1])
+
+      const text = await response.text()
+      console.log("text:", text)
+
       return response.json()
     }
   )
-  if (targetMovieURL === '') queryClient.cancelQueries('moviesDetails')
 
   React.useEffect(() => {
     // open bool is true 打 api 是 false 就不動
@@ -52,14 +55,13 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
 
     // 取消前一次的 打 api 動作
     return () => {
-      setTargetMovieURL('')
       queryClient.cancelQueries('moviesDetails')
     }
     // deps 可以用 open bool
   }, [openModal])
 
   return (
-    <div>
+    <>
       <Button onClick={handleOpen}>Open modal</Button>
 
       <Modal
@@ -75,15 +77,17 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
             <Typography id='transition-modal-title' variant='h6' component='h2'>
               title
             </Typography>
+
+            {!!isLoading && <Loading />}
+
             <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              {targetMovieURL}
-              {!!isError && <div>{error.message}</div>}
-              {!!isLoading && <Loading />}
-              {!!data && <div>{data}</div>}
+              {!!isError && <span>{error.message}</span>}
+              {!!data && <span>{data}</span>}
+              {targetMovieURL.current}
             </Typography>
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </>
   )
 }

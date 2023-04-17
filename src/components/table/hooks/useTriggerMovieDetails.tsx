@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export const useTriggerMovieDetails = () => {
   const [openModal, setOpenModal] = React.useState(false)
-  const [targetMovieURL, setTargetMovieURL] = React.useState('')
+  const targetMovieURL = React.useRef('')
 
   function triggerRowDetail (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     let target = e.target as HTMLDivElement
@@ -23,7 +23,9 @@ export const useTriggerMovieDetails = () => {
 
     if (tableRowDOM) {
       const movieURL = tableRowDOM.querySelector('#movieURL')?.innerHTML || ''
-      setTargetMovieURL(movieURL)
+      const movieId = movieURL.split('movie/')[1].split('/')[0];
+      const fetchURL = `http://cheapskate-nginx.fly.dev/?target_movieID=${movieId}`
+      targetMovieURL.current = fetchURL
       setOpenModal(true)
     }
   }
@@ -32,7 +34,6 @@ export const useTriggerMovieDetails = () => {
     triggerRowDetail,
     openModal,
     setOpenModal,
-    targetMovieURL,
-    setTargetMovieURL
+    targetMovieURL
   }
 }
