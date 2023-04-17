@@ -11,12 +11,16 @@ import { Loading } from '../Loading'
 
 import { useFetchMovieDetails } from './hooks/useFetchMovieDetails'
 
+import styles from './styles/detailModal.module.scss'
+
 const modalStyle = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  height: '100vh',
+  width: '50vw',
+  overflowY: 'scroll',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -27,10 +31,11 @@ interface DetailModalProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
   targetMovieURL: React.MutableRefObject<string>
+  targetMovieID: React.MutableRefObject<string>
 }
 
 export const DetailModal: React.FC<DetailModalProps> = props => {
-  const { openModal, setOpenModal, targetMovieURL } = props
+  const { openModal, setOpenModal, targetMovieURL, targetMovieID } = props
 
   const handleOpen = () => setOpenModal(true)
   const handleClose = () => setOpenModal(false)
@@ -62,6 +67,7 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
         onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
+        className={styles.detailModal}
       >
         <Fade in={openModal}>
           <Box sx={modalStyle}>
@@ -86,6 +92,16 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
               {!!data && (
                 <span id='modalMovieDescription'>{data.movieDescription}</span>
               )}
+
+              {!!data && (
+                <a
+                  id='targetMovieURL'
+                  href={`http://www.atmovies.com.tw/movie/${targetMovieID?.current}`}
+                >
+                  <span>更多電影資訊請轉移至開眼電影網查詢</span>
+                </a>
+              )}
+
               {!!isError && <span>{error?.message}</span>}
             </Box>
           </Box>

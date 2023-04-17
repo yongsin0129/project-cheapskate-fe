@@ -1,0 +1,35 @@
+.detailModal {
+
+  :global {
+    border: 1px solid gray;
+
+    #transition-modal-title {
+      text-align: center;
+
+      margin-top: 0.5rem;
+    }
+
+    #modalLoadingBox {}
+
+    #transition-modal-description {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      #modalMoviePoster {
+        margin-top: 0.5rem;
+
+        width: 60%;
+      }
+
+      #modalMovieDescription {
+        margin-top: 1rem;
+      }
+
+      #targetMovieURL {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
