@@ -81,15 +81,15 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
               <>
                 <img
                   id='modalMoviePoster'
-                  src={data.posterURL}
+                  src={`https://cheapskate-nginx.fly.dev/proxy?url=${data.posterURL}`}
                   alt='電影海報無法顯示'
                 ></img>
                 <span id='modalMovieDescription'>{data.movieDescription}</span>
                 <a
-                id='targetMovieURL'
-                href={`http://www.atmovies.com.tw/movie/${targetMovieID?.current}`}
-              >
-                <span>更多電影資訊請轉移至開眼電影網查詢</span>
+                  id='targetMovieURL'
+                  href={`http://www.atmovies.com.tw/movie/${targetMovieID?.current}`}
+                >
+                  <span>更多電影資訊請轉移至開眼電影網查詢</span>
                 </a>
               </>
             )}
