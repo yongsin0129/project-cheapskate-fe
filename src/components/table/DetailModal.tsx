@@ -46,67 +46,58 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
     useFetchMovieDetails(targetMovieURL)
 
   React.useEffect(() => {
-    // open bool is true 打 api 是 false 就不動
     if (openModal === false) return
 
-    // 取消前一次的 打 api 動作
+    // 取消前一次的 打 api 動作,queryKey 需要與 hooks useFetchMovieDetails 內的名字相同
     return () => {
       queryClient.cancelQueries('moviesDetails')
     }
-    // deps 可以用 open bool
   }, [openModal])
 
   return (
-    <>
-      <Button onClick={handleOpen}>Open modal</Button>
+    <Modal
+      aria-labelledby='transition-modal-title'
+      aria-describedby='transition-modal-description'
+      open={openModal}
+      onClose={handleClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      className={styles.detailModal}
+    >
+      <Fade in={openModal}>
+        <Box sx={modalStyle}>
+          <Typography id='transition-modal-title' variant='h6' component='h2'>
+            {data?.movieTitle || '電影資料取得中...'}
+          </Typography>
 
-      <Modal
-        aria-labelledby='transition-modal-title'
-        aria-describedby='transition-modal-description'
-        open={openModal}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        className={styles.detailModal}
-      >
-        <Fade in={openModal}>
-          <Box sx={modalStyle}>
-            <Typography id='transition-modal-title' variant='h6' component='h2'>
-              {data?.movieTitle || '電影標題'}
-            </Typography>
-
+          <Box id='transition-modal-description' sx={{ mt: 2 }}>
             {!!isLoading && (
               <Box id='modalLoadingBox'>
                 <Loading />
               </Box>
             )}
 
-            <Box id='transition-modal-description' sx={{ mt: 2 }}>
-              {!!data && (
+            {!!data && (
+              <>
                 <img
                   id='modalMoviePoster'
                   src={data.posterURL}
-                  alt='電影海報'
+                  alt='電影海報無法顯示'
                 ></img>
-              )}
-              {!!data && (
                 <span id='modalMovieDescription'>{data.movieDescription}</span>
-              )}
-
-              {!!data && (
                 <a
-                  id='targetMovieURL'
-                  href={`http://www.atmovies.com.tw/movie/${targetMovieID?.current}`}
-                >
-                  <span>更多電影資訊請轉移至開眼電影網查詢</span>
+                id='targetMovieURL'
+                href={`http://www.atmovies.com.tw/movie/${targetMovieID?.current}`}
+              >
+                <span>更多電影資訊請轉移至開眼電影網查詢</span>
                 </a>
-              )}
+              </>
+            )}
 
-              {!!isError && <span>{error?.message}</span>}
-            </Box>
+            {!!isError && <span>{error?.message}</span>}
           </Box>
-        </Fade>
-      </Modal>
-    </>
+        </Box>
+      </Fade>
+    </Modal>
   )
 }

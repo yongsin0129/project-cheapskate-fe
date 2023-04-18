@@ -9,8 +9,6 @@
       margin-top: 0.5rem;
     }
 
-    #modalLoadingBox {}
-
     #transition-modal-description {
       display: flex;
       flex-direction: column;
@@ -21,6 +19,7 @@
         margin-top: 0.5rem;
 
         width: 60%;
+        text-align: center;
       }
 
       #modalMovieDescription {

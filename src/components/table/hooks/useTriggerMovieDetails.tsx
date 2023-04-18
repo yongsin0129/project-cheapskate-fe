@@ -7,6 +7,7 @@ export const useTriggerMovieDetails = () => {
 
   function triggerRowDetail (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     let target = e.target as HTMLDivElement
+    
     // 使用者點擊愛心加入收藏，不需要打開 modal
     if (target.classList.contains('favoriteIcon')) return
 
@@ -25,7 +26,7 @@ export const useTriggerMovieDetails = () => {
     if (tableRowDOM) {
       const movieURL = tableRowDOM.querySelector('#movieURL')?.innerHTML || ''
       const movieId = movieURL.split('movie/')[1].split('/')[0]
-      const fetchURL = `http://cheapskate-nginx.fly.dev/?target_movieID=${movieId}`
+      const fetchURL = `http://cheapskate-nginx.fly.dev/movie/?target_movieID=${movieId}`
       targetMovieURL.current = fetchURL
       targetMovieID.current = movieId
       setOpenModal(true)

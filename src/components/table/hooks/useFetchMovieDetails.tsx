@@ -14,7 +14,6 @@ export const useFetchMovieDetails = (targetMovieURL: RefType) => {
     ['moviesDetails', targetMovieURL.current],
     async ({ queryKey }: any) => {
       const response = await fetch(queryKey[1])
-
       const text = await response.text()
 
       // Initialize the DOM parser
@@ -33,8 +32,8 @@ export const useFetchMovieDetails = (targetMovieURL: RefType) => {
       ).src
 
       const movieDescription = doc.querySelector(
-        '.content.content-left #filmTagBlock span:nth-child(3)'
-      )?.textContent
+        '.content.content-left #filmTagBlock span > ul.runtime'
+      )?.parentElement?.textContent
 
       const data = { movieTitle, posterURL, movieDescription }
 
