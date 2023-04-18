@@ -13,20 +13,6 @@ import { useFetchMovieDetails } from './hooks/useFetchMovieDetails'
 
 import styles from './styles/detailModal.module.scss'
 
-const modalStyle = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  height: '100vh',
-  width: '50vw',
-  overflowY: 'scroll',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4
-}
-
 interface DetailModalProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -65,7 +51,7 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
       className={styles.detailModal}
     >
       <Fade in={openModal}>
-        <Box sx={modalStyle}>
+        <Box id='modal-box'>
           <Typography id='transition-modal-title' variant='h6' component='h2'>
             {data?.movieTitle || '電影資料取得中...'}
           </Typography>
