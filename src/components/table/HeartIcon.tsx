@@ -26,11 +26,11 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
   const Me = React.useContext(MeContext)
   const setMe = React.useContext(SetMeContext)
   const MeToken = React.useContext(MeTokenContext)
-  
+
   // ---------------------------------------------  從父層取得 Props ，判斷愛心實心 or 空心
   const rowMovieId = Props?.row?.id
   let defaultActive
-  
+
   const UserFollowedMovieArray = (Me as Type.UserDataResType)?.followedMovies
   if (UserFollowedMovieArray && UserFollowedMovieArray.length !== 0) {
     // 此電影有在 user 的收藏中 ， return 實心愛心
@@ -41,29 +41,28 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
     }
   }
 
+  // // 將 movie url 藏在愛心的 html 之中
+  const rowMovieURL = Props?.row?.url
+
   // ---------------------------------------------  useState
   const [deleteConfirm_open, setDeleteConfirm_open] = React.useState(false)
 
   //   useMutation for Add
-  const [Add_Followed_Movies_Function, addFollowResponse] = useMutation<Type.MovieDataResType>(
-    gql.AddFollowedMovies,
-    {
+  const [Add_Followed_Movies_Function, addFollowResponse] =
+    useMutation<Type.MovieDataResType>(gql.AddFollowedMovies, {
       context: { headers: { ...MeToken } }
-    }
-  )
+    })
 
-  const addFollowResponseError = (addFollowResponse).error
+  const addFollowResponseError = addFollowResponse.error
   if (!!addFollowResponseError)
     return <p>{JSON.stringify(addFollowResponseError.message)}</p>
 
   //   useMutation for Remove
-  const [Remove_Followed_Movies_Function, removeFollowResponse] = useMutation<Type.MovieDataResType>(
-    gql.RemoveFollowedMovies,
-    {
+  const [Remove_Followed_Movies_Function, removeFollowResponse] =
+    useMutation<Type.MovieDataResType>(gql.RemoveFollowedMovies, {
       context: { headers: { ...MeToken } }
-    }
-  )
-  const removeFollowResponseError = (removeFollowResponse).error
+    })
+  const removeFollowResponseError = removeFollowResponse.error
   if (!!removeFollowResponseError)
     return <p>{JSON.stringify(removeFollowResponseError.message)}`</p>
 
@@ -130,6 +129,7 @@ export const Heart_Icon: React.FC<Heart_IconProps> = React.memo(Props => {
           handleHeartClick(e, Props.row)
         }}
       ></i>
+      <div id={'movieURL'} style={{ display: 'none' }}>{rowMovieURL}</div>
 
       {/* 刪除的確認 Dialog */}
       <Dialog

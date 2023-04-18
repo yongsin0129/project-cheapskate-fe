@@ -19,6 +19,8 @@ import {
 
 import { Heart_Icon as FavoriteCell } from './HeartIcon'
 import { StatusCell } from './StatusCell'
+import { DetailModal } from './DetailModal'
+import { useTriggerMovieDetails } from './hooks/useTriggerMovieDetails'
 import * as helper from '../../helper'
 import * as Type from '../../type'
 
@@ -71,8 +73,30 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
     { columnName: 'favorite', sortingEnabled: false }
   ])
 
+  {
+    /* ------------------------ 控制 modal of movie details  */
+  }
+  const {
+    triggerRowDetail,
+    openModal,
+    setOpenModal,
+    targetMovieURL,
+    targetMovieID
+  } = useTriggerMovieDetails()
+
   return (
-    <Paper sx={{ width: '100%' }} className={styles.table}>
+    <Paper
+      sx={{ width: '100%' }}
+      className={styles.table}
+      onClick={e => triggerRowDetail(e)}
+    >
+      {/* ------------------------ 管理 modal of movie details */}
+      {!!openModal && (
+        <DetailModal
+          {...{ openModal, setOpenModal, targetMovieURL, targetMovieID }}
+        ></DetailModal>
+      )}
+
       {/* ------------------------ Grid 的 Date */}
       <Grid rows={tableData} columns={columns}>
         {/* ------------------------ grid 搜尋器的 state manager */}

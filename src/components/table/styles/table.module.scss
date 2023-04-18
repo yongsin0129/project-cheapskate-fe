@@ -64,6 +64,13 @@
       }
     }
 
+    // table row 新增 hover , pointer
+    tbody tr:hover {
+      cursor: pointer;
+      transform: scale(0.99);
+      box-shadow: 1px 1px 2rem 1px black;      
+    }
+
 
     // ------------------------------------------針對手機做的畫面優化---------------------------------------
     // 將第二排的 releaseDate 隱藏，滿足手機大小
