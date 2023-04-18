@@ -26,7 +26,7 @@ export const useTriggerMovieDetails = () => {
     if (tableRowDOM) {
       const movieURL = tableRowDOM.querySelector('#movieURL')?.innerHTML || ''
       const movieId = movieURL.split('movie/')[1].split('/')[0]
-      const fetchURL = `http://cheapskate-nginx.fly.dev/movie/?target_movieID=${movieId}`
+      const fetchURL = `https://cheapskate-nginx.fly.dev/movie/?target_movieID=${movieId}`
       targetMovieURL.current = fetchURL
       targetMovieID.current = movieId
       setOpenModal(true)
