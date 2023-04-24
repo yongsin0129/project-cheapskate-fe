@@ -99,7 +99,7 @@ const HomePage = () => {
               伺服器及資料庫都用免費的 <br />
               所以暫不開放註冊帳號 <br />
               資料庫預設有 100 組帳號可使用 <br />
-              email : use[1-100]@example.com <br />
+              email : user[1-100]@example.com <br />
               password : 123456<br />
               也可聯絡作者(永C)創建專屬帳號
             </Typography>
@@ -151,11 +151,11 @@ const HomePage = () => {
       </Typography>
       <Typography>
         <Link href='https://github.com/yongsin0129/project-cheapskate'>
-          後端 <br /> yongsin0129/project-cheapskate
+          後端 : yongsin0129/project-cheapskate
         </Link>
         <br />
         <Link href='https://github.com/yongsin0129/project-cheapskate-fe'>
-          前端 <br /> yongsin0129/project-cheapskate-fe
+          前端 : yongsin0129/project-cheapskate-fe
         </Link>
       </Typography>
     </Paper>

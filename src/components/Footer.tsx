@@ -18,7 +18,7 @@ export const Footer: React.FC = React.memo(() => {
       variant='h6'
       color={theme.palette.text.primary}
     >
-      {'Copyright © '} Cheapskate 2022
+      {'Copyright © '} Cheapskate 2023
     </Typography>
   )
 })

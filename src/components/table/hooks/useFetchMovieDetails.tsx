@@ -38,7 +38,8 @@ export const useFetchMovieDetails = (targetMovieURL: RefType) => {
       const data = { movieTitle, posterURL, movieDescription }
 
       return data
-    }
+    },
+    { refetchOnWindowFocus: false, retry: 2 }
   )
 
   return {
