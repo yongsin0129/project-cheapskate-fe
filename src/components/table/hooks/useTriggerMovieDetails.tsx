@@ -4,6 +4,7 @@ export const useTriggerMovieDetails = () => {
   const [openModal, setOpenModal] = React.useState(false)
   const targetMovieURL = React.useRef('')
   const targetMovieID = React.useRef('')
+  const targetMovieTitle = React.useRef('')
 
   function triggerRowDetail (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     let target = e.target as HTMLDivElement
@@ -27,8 +28,10 @@ export const useTriggerMovieDetails = () => {
       const movieURL = tableRowDOM.querySelector('#movieURL')?.innerHTML || ''
       const movieId = movieURL.split('movie/')[1].split('/')[0]
       const fetchURL = `https://cheapskate-nginx.fly.dev/movie/?target_movieID=${movieId}`
+      const movieTitle = tableRowDOM.querySelector('td')?.innerHTML || '暫時找不到電影名稱'
       targetMovieURL.current = fetchURL
       targetMovieID.current = movieId
+      targetMovieTitle.current = movieTitle
       setOpenModal(true)
     }
   }
@@ -38,6 +41,7 @@ export const useTriggerMovieDetails = () => {
     openModal,
     setOpenModal,
     targetMovieURL,
-    targetMovieID
+    targetMovieID,
+    targetMovieTitle
   }
 }
