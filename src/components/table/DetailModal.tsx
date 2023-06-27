@@ -91,7 +91,7 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
                 <span id='modalMovieDescription'>需看電影完整資訊請點擊下方連結</span>
                 <img
                   id='modalMoviePoster'
-                  src='/public/moviePoster.png'
+                  src='/moviePoster.png'
                   alt='電影海報無法顯示'
                 ></img>
                 <span id='modalMovieDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis iure in facilis illo molestiae eius quia a itaque. Ullam sunt sint ab molestias modi explicabo est quis deserunt accusantium? Nulla reprehenderit odio obcaecati, cumque magnam eius voluptas, ab quod dignissimos excepturi maxime natus eum ratione unde ea provident veritatis assumenda!</span>
