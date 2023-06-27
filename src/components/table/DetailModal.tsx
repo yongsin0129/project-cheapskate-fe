@@ -18,27 +18,35 @@ interface DetailModalProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
   targetMovieURL: React.MutableRefObject<string>
   targetMovieID: React.MutableRefObject<string>
+  targetMovieTitle: React.MutableRefObject<string>
 }
 
 export const DetailModal: React.FC<DetailModalProps> = props => {
-  const { openModal, setOpenModal, targetMovieURL, targetMovieID } = props
+  const {
+    openModal,
+    setOpenModal,
+    targetMovieURL,
+    targetMovieID,
+    targetMovieTitle
+  } = props
 
   const handleOpen = () => setOpenModal(true)
   const handleClose = () => setOpenModal(false)
 
-  const queryClient = useQueryClient()
+  // 暫時先不做 前端 fetch function
+  // const queryClient = useQueryClient()
 
-  const { data, isError, isLoading, error } =
-    useFetchMovieDetails(targetMovieURL)
+  // const { data, isError, isLoading, error } =
+  //   useFetchMovieDetails(targetMovieURL)
 
-  React.useEffect(() => {
-    if (openModal === false) return
+  // React.useEffect(() => {
+  //   if (openModal === false) return
 
-    // 取消前一次的 打 api 動作,queryKey 需要與 hooks useFetchMovieDetails 內的名字相同
-    return () => {
-      queryClient.cancelQueries('moviesDetails')
-    }
-  }, [openModal])
+  //   // 取消前一次的 打 api 動作,queryKey 需要與 hooks useFetchMovieDetails 內的名字相同
+  //   return () => {
+  //     queryClient.cancelQueries('moviesDetails')
+  //   }
+  // }, [openModal])
 
   return (
     <Modal
@@ -53,16 +61,17 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
       <Fade in={openModal}>
         <Box id='modal-box'>
           <Typography id='transition-modal-title' variant='h6' component='h2'>
-            {data?.movieTitle || '電影資料取得中...'}
+            {/* {data?.movieTitle || '電影資料取得中...'} */}
+            {targetMovieTitle.current}
           </Typography>
 
           <Box id='transition-modal-description' sx={{ mt: 2 }}>
-            {!!isLoading && (
+            {/* {!!isLoading && (
               <Box id='modalLoadingBox'>
                 <Loading />
               </Box>
-            )}
-            {!!data && (
+            )} */}
+            {/* {!!data && (
               <>
                 <img
                   id='modalMoviePoster'
@@ -71,9 +80,23 @@ export const DetailModal: React.FC<DetailModalProps> = props => {
                 ></img>
                 <span id='modalMovieDescription'>{data.movieDescription}</span>
               </>
-            )}
-            {!!isError && <span>{error?.message}</span>}
+            )} */}
+            {/* {!!isError && <span>{error?.message}</span>} */}
 
+            {/* no fetch function workaround */}
+            {(
+              <>
+                <span id='modalMovieDescription'>因版權顧慮，只放電影海報布局示意圖</span>
+                <br/>
+                <span id='modalMovieDescription'>需看電影完整資訊請點擊下方連結</span>
+                <img
+                  id='modalMoviePoster'
+                  src='/moviePoster.png'
+                  alt='電影海報無法顯示'
+                ></img>
+                <span id='modalMovieDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis iure in facilis illo molestiae eius quia a itaque. Ullam sunt sint ab molestias modi explicabo est quis deserunt accusantium? Nulla reprehenderit odio obcaecati, cumque magnam eius voluptas, ab quod dignissimos excepturi maxime natus eum ratione unde ea provident veritatis assumenda!</span>
+              </>
+            )}
             <a
               id='targetMovieURL'
               href={`http://www.atmovies.com.tw/movie/${targetMovieID?.current}`}

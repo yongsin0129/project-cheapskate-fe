@@ -81,7 +81,8 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
     openModal,
     setOpenModal,
     targetMovieURL,
-    targetMovieID
+    targetMovieID,
+    targetMovieTitle
   } = useTriggerMovieDetails()
 
   return (
@@ -93,7 +94,13 @@ export const TableFC: React.FC<Type.table.TableProps> = props => {
       {/* ------------------------ 管理 modal of movie details */}
       {!!openModal && (
         <DetailModal
-          {...{ openModal, setOpenModal, targetMovieURL, targetMovieID }}
+          {...{
+            openModal,
+            setOpenModal,
+            targetMovieURL,
+            targetMovieID,
+            targetMovieTitle
+          }}
         ></DetailModal>
       )}
 
